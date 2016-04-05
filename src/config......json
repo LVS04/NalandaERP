@@ -1,0 +1,5 @@
+{
+  "DataAccessPostgreSqlProvider": {
+    "ConnectionString": "User ID=ERPWeb;Password=1234!!!;Host=localhost;Port=5432;Database=NalandaERP;Pooling=true;"
+  }
+}

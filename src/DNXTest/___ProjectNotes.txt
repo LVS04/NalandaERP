@@ -1,0 +1,48 @@
+﻿To install from scratch:
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Database: "NalandaERP"
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- DROP DATABASE "NalandaERP";
+
+CREATE DATABASE "NalandaERP"
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Portuguese_Portugal.1252'
+       LC_CTYPE = 'Portuguese_Portugal.1252'
+       CONNECTION LIMIT = -1;
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Role: ERPWeb
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- DROP ROLE "ERPWeb";
+
+
+CREATE ROLE "ERPWeb" LOGIN
+  ENCRYPTED PASSWORD 'md5d671ac436dfccbf45645406ab68e570e'
+  NOSUPERUSER INHERIT CREATEDB NOCREATEROLE NOREPLICATION;
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- ASP.NET identity tables 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+http://kerryritter.com/getting-started-with-postgresql/
+
+dnx ef migrations add init
+dnx ef database update
+
+
+dnx ef migrations add NewApplicationDatabase -c DomainModelPostgreSqlContext
+
+-- to undo previous step do 
+dnx ef migrations remove
+
+-- update database
+dnx ef database update -c DomainModelPostgreSqlContext
