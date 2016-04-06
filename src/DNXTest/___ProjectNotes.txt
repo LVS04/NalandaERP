@@ -40,6 +40,13 @@ dnvm upgrade -r clr
 ?dnvm upgrade -r coreclr
 dnvm list
 
+Active Version              Runtime Architecture OperatingSystem Alias
+------ -------              ------- ------------ --------------- -----
+       1.0.0-rc1-update1    coreclr x64          linux           
+       1.0.0-rc1-update2    coreclr x64          linux           
+  *    1.0.0-rc2-20221      coreclr x64          linux           default
+
+
 -- upgrading the packages 
 dnu restore 
 
