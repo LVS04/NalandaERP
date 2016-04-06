@@ -35,8 +35,22 @@ CREATE ROLE "ERPWeb" LOGIN
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 http://kerryritter.com/getting-started-with-postgresql/
 
+-- upgrading the vm
+dnvm upgrade -r clr  
+?dnvm upgrade -r coreclr
+dnvm list
+
+-- upgrading the packages 
+dnu restore 
+
+-- running the site
+dnx web
+
 dnx ef migrations add init
 dnx ef database update
+
+
+
 
 
 dnx ef migrations add NewApplicationDatabase -c DomainModelPostgreSqlContext
