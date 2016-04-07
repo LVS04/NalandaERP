@@ -55,7 +55,6 @@ namespace DNXTest.Dal
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);
-            
         }
 
         public void Save()
