@@ -1,10 +1,10 @@
 ﻿using DNXTest.Models;
 using DNXTest.Services;
-using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Mvc.Formatters;
 using Microsoft.AspNet.Mvc.Formatters.Json;
+using Microsoft.AspNet.Builder;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,6 +66,8 @@ namespace DNXTest
                     options.OutputFormatters.Insert(0, jsonOutputFormatter);
                 }
             );
+
+            //services.AddMvcDnx();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
