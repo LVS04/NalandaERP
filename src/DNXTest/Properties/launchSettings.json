@@ -13,13 +13,19 @@
       "launchBrowser": true,
       "environmentVariables": {
         "Hosting:Environment": "Development"
-      }
+      },
+      "sdkVersion": "dnx-coreclr-win-x64.1.0.0-rc1-update2"
     },
     "web": {
       "commandName": "web",
       "environmentVariables": {
         "Hosting:Environment": "Development"
       }
+    },
+    "x64": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "sdkVersion": "dnx-clr-win-x86.1.0.0-rc1-update2"
     }
   }
 }

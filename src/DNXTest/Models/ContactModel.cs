@@ -6,10 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DNXTest.Models
 {
-    //[Table("Contact")]
     public partial class Contact
     {
-        [Key]
+        //[Key]
         public Guid         Id                          { get; set; }
 
         [StringLength(100)]
@@ -46,14 +45,14 @@ namespace DNXTest.Models
         public Nullable<DateTime>     Birthdate         { get; set; }
 
         
-        public virtual ICollection<ContactDate>                 Dates           { get; set; }
-        public virtual ICollection<ContactEmail>                Emails          { get; set; }
-        public virtual ICollection<ContactPhone>                Phones          { get; set; }
-        public virtual ICollection<ContactAddress>              Addresses       { get; set; }
-        public virtual ICollection<ContactRelated>              RelatedContacts { get; set; }
-        public virtual ICollection<ContactWebsite>              WebSites        { get; set; }
-        public virtual ICollection<ContactInstantMessaging>     IMs             { get; set; }
-        public virtual ICollection<ContactInternetCall>         InternetCallIds { get; set; }
+        public ICollection<ContactAddress>              Addresses               { get; set; }
+        public ICollection<ContactDate>                 Dates                   { get; set; }
+        public ICollection<ContactPhone>                Phones                  { get; set; }
+        public ICollection<ContactRelated>              RelatedContacts         { get; set; }
+        public ICollection<ContactEmail>                Emails                  { get; set; }
+        public ICollection<ContactWebsite>              WebSites                { get; set; }
+        public ICollection<ContactInstantMessaging>     IMs                     { get; set; }
+        public ICollection<ContactInternetCall>         InternetCallIds         { get; set; }
 
         public ContactIdentification            ContactIdentification           { get; set; }
         public ContactDharmaExperience          ContactDharmaExperience         { get; set; }
@@ -67,20 +66,20 @@ namespace DNXTest.Models
 
     public partial class ContactDate
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        public int      Id                  { get; set; }
 
         public DateTime Date                { get; set; }
         public string   Description         { get; set; }
 
-        public virtual Contact  Contact     { get; set; }
+        public Contact  Contact             { get; set; }
 
     }
     
         public partial class ContactEmail
         {
-            [Key]
-            public int Id { get; set; }
+            //[Key]
+            public int      Id          { get; set; }
 
             [StringLength(100)]
             public string   Email       { get; set; }
@@ -88,12 +87,12 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description { get; set; }
 
-            public virtual Contact  Contact     { get; set; }
+            public Contact  Contact     { get; set; }
         }
     
         public partial class ContactPhone
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(10)]
@@ -105,12 +104,12 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description { get; set; }
 
-            public virtual Contact  Contact     { get; set; }
+            public Contact  Contact     { get; set; }
         }
 
         public partial class ContactAddress
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
@@ -133,12 +132,12 @@ namespace DNXTest.Models
 
             public Country  Country         { get; set; }
 
-            public virtual Contact  Contact     { get; set; }
+            public Contact  Contact     { get; set; }
         }
 
         public partial class Country
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
@@ -147,7 +146,7 @@ namespace DNXTest.Models
 
         public partial class ContactRelationship
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
@@ -156,18 +155,18 @@ namespace DNXTest.Models
 
         public partial class ContactRelated
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             public Contact              RelatedContact      { get; set; }
             public ContactRelationship  Relationship        { get; set; }
 
-            public virtual Contact      Contact             { get; set; }
+            public Contact              Contact             { get; set; }
         }   
     
         public partial class ContactWebsite
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
@@ -176,13 +175,13 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description     { get; set; }
 
-            public virtual Contact  Contact     { get; set; }
+            public Contact  Contact     { get; set; }
         }
 
 
         public partial class ContactInstantMessaging
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
@@ -191,12 +190,12 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   IMContact           { get; set; }
 
-            public virtual Contact  Contact     { get; set; }
+            public Contact  Contact     { get; set; }
         }
 
         public partial class ContactInternetCall
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
@@ -205,7 +204,7 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description       { get; set; }
 
-            public virtual Contact  Contact     { get; set; }
+            public Contact  Contact     { get; set; }
         }
 
     
@@ -215,9 +214,6 @@ namespace DNXTest.Models
         //  ----------------------------------------------------------------------------------------------------------------------------
         public partial class ContactIdentification
         {
-            
-            [Key]
-            public Guid      ContactId                                     { get; set; }
 
             [StringLength(100)]
             public          string   IdOrPassport                           { get; set; } 
@@ -230,27 +226,28 @@ namespace DNXTest.Models
             public virtual  ICollection<SpokenLanguage> SpokenLanguages     { get; set; }
             public          SpokenLanguage PreferredLanguage                { get; set; }
            
+            public Guid      Id                                             { get; set; }
             public virtual  Contact  Contact                                { get; set; }
-        }
 
+        }
+    
         public partial class SpokenLanguage
         {
-            [Key]
+            //[Key]
             public int Id { get; set; }
 
             [StringLength(100)]
             public string Description { get; set; }
         }
-
+    
         public partial class ContactDharmaExperience
         {
-            [Key]
-            public Guid      ContactId                                     { get; set; }
-
+            
             public string   FollowerOfReligionWhich                         { get; set; }
             public string   InterestInFollowingTeachings                    { get; set; }
             public string   DescriptionOfBuddhistBackgroundOfAnyTradition   { get; set; }
 
+            public Guid              Id                                     { get; set; }
             public virtual  Contact  Contact                                { get; set; }
         }
 
@@ -261,20 +258,17 @@ namespace DNXTest.Models
         //  ----------------------------------------------------------------------------------------------------------------------------
         public partial class ContactEducation
         {
-            [Key]
-            public Guid      ContactId                                     { get; set; }
 
             public string DetailsOfUniversityPostGraduateOrTechnicalStudies { get; set; }
             public string OtherEducationalExperience                        { get; set; }
 
+            public Guid              Id                                     { get; set; }
             public virtual  Contact  Contact                                { get; set; }
             
         }
 
         public partial class ContactWorkPreference
         {
-            [Key]
-            public Guid      ContactId                                     { get; set; }
 
             public int  Cooking         { get; set; }
             public int  Maintenance     { get; set; }
@@ -295,18 +289,18 @@ namespace DNXTest.Models
             public string SkillsAndKnowledgesToDevelopDuringStay    { get; set; }
             public string HowDidContactFoundTheCenter               { get; set; }
 
+            public Guid              Id                                     { get; set; }
             public virtual  Contact  Contact                                { get; set; }
         }
 
         public partial class ContactVolunteeringExperience
         {
-            [Key]
-            public Guid ContactId { get; set; }
 
             public string   DetailsOfMainWorkAndVolunteerinExperience   { get; set; }
             public Contact  ContactToAskAboutExperience                 { get; set; }
 
-            public virtual  Contact  Contact                            { get; set; }
+            public Guid              Id                                     { get; set; }
+            public virtual  Contact  Contact                                { get; set; }
         }
 
 
@@ -316,18 +310,17 @@ namespace DNXTest.Models
         //  ----------------------------------------------------------------------------------------------------------------------------
         public partial class ContactDonorInfo
         {
-            [Key]
-            public Guid ContactId { get; set; }
 
             public DonorReligiousSituation                      DonorReligiousSituation { get; set; }
             public DonorType                                    DonorType               { get; set; }
-            public virtual  ICollection<DonorCenterContext>     DonorContexts           { get; set; }
+            public virtual  ICollection<DonorContext>     DonorContexts           { get; set; }
             public virtual  ICollection<DonorInterest>          DonorInterests          { get; set; }
 
-            public virtual  Contact                             Contact                 { get; set; }
+            public Guid              Id                                                 { get; set; }
+            public virtual  Contact  Contact                                            { get; set; }
         }
 
-        public partial class DonorCenterContext //is a bp student, was a bp student, is a volunteer, was a volunteer, 
+        public partial class DonorContext //is a bp student, was a bp student, is a volunteer, was a volunteer, 
         {
             public int Id { get; set; }
 
@@ -375,11 +368,8 @@ namespace DNXTest.Models
         public partial class ContactHealthInfo
         {
             
-            [Key]
-            public Guid ContactId { get; set; }
-
-            public ContactRelated          EmergencyContact1   { get; set; }
-            public ContactRelated          EmergencyContact2   { get; set; }
+            public Contact  EmergencyContact1                                                       { get; set; }
+            public Contact  EmergencyContact2                                                       { get; set; }
 
             [StringLength(100)]
             public string   AllergiesToMedications                                                  { get; set; }
@@ -396,6 +386,7 @@ namespace DNXTest.Models
             public string   RestrictivePhysicalProblems                                             { get; set; }
             public ContactBloodType ContactBloodType                                                { get; set; } 
 
-            public virtual  Contact  Contact                                                        { get; set; }
+            public Guid              Id                                                             { get; set; }
+            public Contact           Contact                                                        { get; set; }
         }
 }

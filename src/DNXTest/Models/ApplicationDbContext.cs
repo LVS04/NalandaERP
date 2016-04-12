@@ -11,9 +11,10 @@ namespace DNXTest.Models
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //builder.Entity<Contact>().Property<DateTime>("UpdatedTimestamp");
-
+            
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Contact>().Property<DateTime>("UpdatedTimestamp");
 
             modelBuilder.Entity<Contact>()
                 .HasKey(k => k.Id);
@@ -80,7 +81,8 @@ namespace DNXTest.Models
                 .HasMany(e => e.Addresses);
 
             modelBuilder.Entity<Contact>()
-                .HasMany(e => e.RelatedContacts);
+                .HasMany(e => e.RelatedContacts)
+                .WithOne(k => k.Contact);
 
             modelBuilder.Entity<Contact>()
                 .HasMany(e => e.WebSites);
@@ -93,33 +95,41 @@ namespace DNXTest.Models
 
 
 
-            modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactIdentification);
-                //.HasOptional(e => e.ContactIdentification);
 
             modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactDharmaExperience);
-            //.HasOptional(e => e.ContactDharmaExperience);
+                .HasOne(e => e.ContactIdentification)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactIdentification>(k => k.Id);
 
             modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactEducation);
-            //.HasOptional(e => e.ContactEducation);
+                .HasOne(e => e.ContactDharmaExperience)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactDharmaExperience>(k => k.Id);
 
             modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactWorkPreference);
-            //.HasOptional(e => e.ContactWorkPreference);
+                .HasOne(e => e.ContactEducation)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactEducation>(k => k.Id);
 
             modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactVolunteeringExperience);
-            //.HasOptional(e => e.ContactVolunteeringExperience);
+                .HasOne(e => e.ContactWorkPreference)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactWorkPreference>(k => k.Id);
 
             modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactDonorInfo);
-            //.HasOptional(e => e.ContactDonorInfo);
+                .HasOne(e => e.ContactVolunteeringExperience)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactVolunteeringExperience>(k => k.Id);
 
             modelBuilder.Entity<Contact>()
-                .HasOne(e => e.ContactHealthInfo);
-            //.HasOptional(e => e.ContactHealthInfo);
+                .HasOne(e => e.ContactDonorInfo)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactDonorInfo>(k => k.Id);
+
+            modelBuilder.Entity<Contact>()
+                .HasOne(e => e.ContactHealthInfo)
+                .WithOne(k => k.Contact)
+                .HasForeignKey<ContactHealthInfo>(k => k.Id);
 
 
 
@@ -131,11 +141,6 @@ namespace DNXTest.Models
 
             modelBuilder.Entity<ContactDate>()
                 .Property(e => e.Description);
-               /* .HasAnnotation("d;
-                ;//.IsUnicode(false);*/
-
-            modelBuilder.Entity<ContactDate>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
 
 
 
@@ -149,9 +154,6 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactEmail>()
                 .Property(e => e.Description)
                 ;//.IsUnicode(true);
-
-            modelBuilder.Entity<ContactEmail>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
 
 
 
@@ -169,9 +171,6 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactPhone>()
                 .Property(e => e.Description)
                 ;//.IsUnicode(true);
-
-            modelBuilder.Entity<ContactPhone>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
 
 
 
@@ -205,9 +204,6 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactAddress>()
                 .HasOne(e => e.Country);//.HasRequired(e => e.Country);
 
-            modelBuilder.Entity<ContactAddress>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
-
 
 
             //  ------------------------------------
@@ -232,13 +228,10 @@ namespace DNXTest.Models
             //  ContactRelated
             //  ------------------------------------
             modelBuilder.Entity<ContactRelated>()
-                 .HasOne(e => e.RelatedContact);//.HasRequired(e => e.RelatedContact);
+                 .HasOne(e => e.RelatedContact);
 
             modelBuilder.Entity<ContactRelated>()
-                .HasOne(e => e.Relationship);//.HasRequired(e => e.Relationship);
-
-            modelBuilder.Entity<ContactRelated>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
+                .HasOne(e => e.Relationship);
 
 
 
@@ -253,9 +246,6 @@ namespace DNXTest.Models
                 .Property(e => e.Description)
                 ;//.IsUnicode(true);
 
-            modelBuilder.Entity<ContactWebsite>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
-
 
 
             //  ------------------------------------
@@ -269,9 +259,6 @@ namespace DNXTest.Models
                 .Property(e => e.IMContact)
                 ;//.IsUnicode(true);
 
-            modelBuilder.Entity<ContactInstantMessaging>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
-
 
 
             //  ------------------------------------
@@ -284,9 +271,6 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactInternetCall>()
                 .Property(e => e.Description)
                 ;//.IsUnicode(true);
-
-            modelBuilder.Entity<ContactInternetCall>()
-                .HasOne(k => k.Contact);// .HasOne(k => k.Contact);//.HasRequired(k => k.Contact);
 
 
 
@@ -323,11 +307,7 @@ namespace DNXTest.Models
                 .HasMany(e => e.SpokenLanguages);
 
             modelBuilder.Entity<ContactIdentification>()
-                .HasOne(e => e.PreferredLanguage);//.HasRequired(e => e.PreferredLanguage);
-
-            modelBuilder.Entity<ContactIdentification>()
-                .HasOne(k => k.Contact);/*.HasOne(k => k.Contact);//.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactIdentification)*/
+                .HasOne(e => e.PreferredLanguage);
 
 
 
@@ -346,10 +326,6 @@ namespace DNXTest.Models
                 .Property(e => e.DescriptionOfBuddhistBackgroundOfAnyTradition)
                 ;//.IsUnicode(true);
 
-            modelBuilder.Entity<ContactDharmaExperience>()
-                .HasOne(k => k.Contact);/*.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactDharmaExperience)*/;
-
 
 
             //  ------------------------------------
@@ -362,10 +338,6 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactEducation>()
                 .Property(e => e.OtherEducationalExperience)
                 ;//.IsUnicode(true);
-
-            modelBuilder.Entity<ContactEducation>()
-                .HasOne(k => k.Contact);/*.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactEducation)*/
 
 
 
@@ -423,10 +395,6 @@ namespace DNXTest.Models
                 .Property(e => e.HowDidContactFoundTheCenter)
                 ;//.IsUnicode(true);
 
-            modelBuilder.Entity<ContactWorkPreference>()
-                .HasOne(k => k.Contact);/*.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactWorkPreference)*/;
-
 
 
             //  ------------------------------------
@@ -439,16 +407,12 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactVolunteeringExperience>()
                 .HasOne(e => e.ContactToAskAboutExperience);//.HasRequired(e => e.ContactToAskAboutExperience);
 
-            modelBuilder.Entity<ContactVolunteeringExperience>()
-                .HasOne(k => k.Contact);/*.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactVolunteeringExperience)*/;
-
 
 
             //  ------------------------------------
-            //  DonorCenterContext for ContactDonorInfo
+            //  DonorContext for ContactDonorInfo
             //  ------------------------------------
-            modelBuilder.Entity<DonorCenterContext>()
+            modelBuilder.Entity<DonorContext>()
                 .Property(e => e.Description)
                 ;//.IsUnicode(true);
 
@@ -495,10 +459,6 @@ namespace DNXTest.Models
 
             modelBuilder.Entity<ContactDonorInfo>()
                 .HasMany(e => e.DonorInterests);
-
-            modelBuilder.Entity<ContactDonorInfo>()
-                .HasOne(k => k.Contact);/*.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactDonorInfo)*/;
 
 
 
@@ -555,16 +515,11 @@ namespace DNXTest.Models
 
             modelBuilder.Entity<ContactHealthInfo>()
                 .HasOne(e => e.ContactBloodType);//.HasOptional(e => e.ContactBloodType);
-
-            modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(k => k.Contact);/*.HasRequired(k => k.Contact)
-                .WithRequiredPrincipal(k => k.ContactHealthInfo)*/;
-
-
-            
+           
         }
 
-        public DbSet<Contact> Contact { get; set; }
+        public DbSet<Contact>                   Contact                 { get; set; }
+        public DbSet<ContactIdentification>     ContactIdentification   { get; set; }
 
         public override int SaveChanges()
         {
