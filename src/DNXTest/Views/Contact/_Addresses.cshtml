@@ -1,0 +1,152 @@
+﻿@model IEnumerable<DNXTest.Models.ContactAddress>
+@{ 
+    
+}
+@if (Model.Count() == 0)
+{
+    string inputFieldHTML = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Addresses[][{0}]' type='text' value='' />";
+    <div class="col-sm-6 paddingTop10" id="divAddresses">
+        <div class="form-group">
+            <label class="" for="Street">Street</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "Street"))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="" for="POBOX">POBOX</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "POBOX"))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="" for="Neighborhood">Neighborhood</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "Neighborhood"))
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 paddingTop10">
+        <div class="form-group">
+            <label class="" for="City">City</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "City"))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="" for="Province">Province</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "Province"))
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="" for="PostalCode">Postal Code</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "PostalCode"))
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <label class="" for="Contry">Country</label>
+        <div class="">
+            @Html.Raw(string.Format(inputFieldHTML, "Country"))
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="">
+            <label class="" for="Contry">&nbsp;</label>
+            <div class="form-group">
+                <input type="button" value="Add address" class="btn btn-default" id="btnAddAddress" />
+            </div>
+        </div>
+    </div>
+    <div id="divNewAddress"></div>
+}
+else
+{
+    bool first = true;
+    bool oddBackground = false;
+    string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Addresses[][{0}]' type='text' value='{1}' />";
+
+    string oddBackgroudClass = string.Format("{0}", (oddBackground) ? " oddBackground" : "");
+    int countTotal = Model.Count(), count=1;
+
+    foreach (var item in Model)
+    {
+        <div class=@Html.Raw(string.Format("'{0}'", (oddBackground) ? "col-sm-6 paddingTop10 oddBackground" : "col-sm-6 paddingTop10"))
+            @if (first)
+            {
+                @Html.Raw(" id='divAddresses'")
+                first = false;
+            }
+            else
+            {
+            }>
+            
+            <div class="form-group">
+                <label class="" for="Street">Street</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "Street", item.Street))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="POBOX">POBOX</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "POBOX", item.POBOX))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="Neighborhood">Neighborhood</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "Neighborhood", item.Neighborhood))
+                </div>
+            </div>
+        </div>
+        <div class=@Html.Raw(string.Format("{0}", (oddBackground) ? "'col-sm-6 paddingTop10 oddBackground'" : "'col-sm-6 paddingTop10'"))>
+            <div class="form-group">
+                <label class="" for="City">City</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "City", item.City))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="Province">Province</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "Province", item.Province))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="PostalCode">Postal Code</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "PostalCode", item.PostalCode))
+                </div>
+            </div>
+        </div>
+        <div class=@Html.Raw(string.Format("'{0}{1}'", (oddBackground) ? "paddingBottom15 oddBackground" : "paddingBottom15", (count == countTotal) ? " col-sm-6" : " col-sm-12 "))>
+            <div class="form-group">
+                <label class="" for="Contry">Country</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "Country", ""))
+                </div>
+            </div>
+        </div>
+        oddBackground = !oddBackground;
+        count += 1;
+    }
+    <div class="col-sm-6 paddingBottom15">
+        <div class="form-group">
+            <label class="" for="Contry">&nbsp;</label>
+            <div class="">
+                <input type="button" value="Add address" class="btn btn-default" id="btnAddAddress" />
+            </div>
+        </div>
+    </div>
+    <div id="divNewAddress"></div>
+}

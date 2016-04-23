@@ -1,0 +1,792 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NalandaERP - Contact</title>
+    <link rel="stylesheet" type="text/css" href="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="wwwroot/css/site.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div>
+                        <a class="navbar-brand" href="#"><img alt="Brand" style="float:left;margin-right:4px;" src="wwwroot/images/Nalanda.png" height="20" width="20">Nalanda Monastery</a>
+                    </div>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Contact List </a></li>
+                                <li><a href="#">Contact Detail </a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Donations <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Generate Contact List </a></li>
+                                <li><a href="#">List active donors </a></li>
+                                <li><a href="#">List inactive donors </a></li>
+                                <li><a href="#">Estimate year donations </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Insert Money donation</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Generate donations receipt</a></li>
+                                <li><a href="#"></a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">View Error Log </a></li>
+                                <li><a href="#">View Event Log </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Create user </a></li>
+                                <li><a href="#">Manage Roles / Permissions</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="nav navbar-nav navbar-right">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Contact info to search ...">&nbsp;<span class="badge">150</span>
+                            </div>
+                            <!--<button type="submit" class="btn btn-default">Search Contact</button>-->
+                        </form>
+                    </div>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+
+
+
+    <div class="container">
+        <div class="form-group disabled invisible" id="divName">
+            
+                <label class="" for="ContactName">Contact Name</label>
+                <div class="">
+                    <input class="form-control single-line Width85" style="font-weight: 700;display:inline;" data-val="true" data-val-length="The field ContactName must be a string with a maximum length of 100." data-val-length-max="100" id="ContactName" name="ContactName" type="text" value="" disabled />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="ContactName" data-valmsg-replace="true"></span>
+                    <input type="submit" value="Save" class="btn btn-default" style="vertical-align:top;" />
+                    <input type="submit" value="Discard" class="btn btn-default" style="vertical-align:top;"/>
+
+                </div>
+            
+        </div>
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            <li role="presentation" class="active"><a href="#Main" aria-controls="Main" role="tab" data-toggle="tab">Main</a></li>
+            <li role="presentation"><a href="#Identification" aria-controls="Identification" role="tab" data-toggle="tab">Identification</a></li>
+            <li role="presentation"><a href="#DharmaExperience" aria-controls="DharmaExperience" role="tab" data-toggle="tab">Dharma</a></li>
+            <li role="presentation"><a href="#Education" aria-controls="Education" role="tab" data-toggle="tab">Education</a></li>
+            <li role="presentation"><a href="#Volunteering" aria-controls="Volunteering" role="tab" data-toggle="tab">Volunteering</a></li>
+            <li role="presentation"><a href="#HealthInfo" aria-controls="HealthInfo" role="tab" data-toggle="tab">Health</a></li>
+            <li role="presentation"><a href="#DonorInfo" aria-controls="DonorInfo" role="tab" data-toggle="tab">Donor</a></li>
+        </ul>
+        <br />
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="Main">
+                <div class="container">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default" id="btnGeneral">General</button>
+                        <button type="button" class="btn btn-default" id="btnNotes">Notes</button>
+                        <button type="button" class="btn btn-default" id="btnAddresses">Addresses</button>
+                        <button type="button" class="btn btn-default" id="btnEcontact">E-Contact</button>
+                    </div>
+                </div>
+                <br />
+                <!--<div class="container-fluid">-->
+
+                <div style="overflow-y:auto;height:446px;" id="divMain">
+                    <div class="col-sm-6">
+
+                        <div class="form-group" id="divGeneral">
+                            <label class="" for="Prefix">Prefix</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field Prefix must be a string with a maximum length of 50." data-val-length-max="50" id="Prefix" name="Prefix" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Prefix" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="FirstName">First Name</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field FirstName must be a string with a maximum length of 50." data-val-length-max="50" id="FirstName" name="FirstName" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="LastName">Last Name</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field LastName must be a string with a maximum length of 50." data-val-length-max="50" id="LastName" name="LastName" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Suffix">Suffix</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field Suffix must be a string with a maximum length of 50." data-val-length-max="50" id="Suffix" name="Suffix" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Suffix" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="Gender">Gender</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field Gender must be a string with a maximum length of 10." data-val-length-max="10" id="Gender" name="Gender" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="Birthdate">Birthdate</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" id="Birthdate" name="Birthdate" type="date" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Birthdate" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="PositionAndCompany">Position and Company</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field PositionAndCompany must be a string with a maximum length of 50." data-val-length-max="50" id="PositionAndCompany" name="PositionAndCompany" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PositionAndCompany" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="NickName">Nickname</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field NickName must be a string with a maximum length of 50." data-val-length-max="50" id="NickName" name="NickName" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="NickName" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 oddBackground paddingTop10"  id="divNotes">
+                        <div class="form-group">
+                            <label class="" for="Notes">Notes</label>
+                            <div class="">
+                                <textarea class="form-control text-box" id="Notes" name="Notes" type="text" value="" rows="5"></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Notes" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="HistoryWithTheCenter">History with the center</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="HistoryWithTheCenter" name="HistoryWithTheCenter" type="text" value="" rows="5"></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="HistoryWithTheCenter" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="FoodAllergies">Food allergies</label>
+                            <div class="">
+                                <input class="form-control text-box single-line fullWidth" data-val="true" data-val-length="The field FoodAllergies must be a string with a maximum length of 100." data-val-length-max="100" id="FoodAllergies" name="FoodAllergies" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="FoodAllergies" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 paddingTop10" id="divAddresses">
+                        <div class="form-group">
+                            <label class="" for="Street">Street</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 100." data-val-length-max="100" id="Street" name="Street" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Street" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="POBOX">POBOX</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 100." data-val-length-max="100" id="POBOX" name="POBOX" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="POBOX" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Neighborhood">Neighborhood</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 100." data-val-length-max="100" id="Neighborhood" name="Neighborhood" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Neighborhood" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="City">City</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 100." data-val-length-max="100" id="City" name="City" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="City" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Province">Province</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 100." data-val-length-max="100" id="Province" name="Province" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Province" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="PostalCode">PostalCode</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 100." data-val-length-max="100" id="PostalCode" name="PostalCode" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PostalCode" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="">
+                                <input type="submit" value="Add address" class="btn btn-default" id="btnAddAddress" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divNewAddress"></div>
+                    
+                        <div class="col-sm-4 oddBackground paddingTop10" id="divEcontact">
+                            <div class="form-group" >
+                                <label class="" for="Number">Phone Nr</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field Number must be a string with a maximum length of 30." data-val-length-max="30" id="Number" name="Number" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Number" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground paddingTop10">
+                            <div class="form-group">
+                                <label class="" for="Description">Description</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 100." data-val-length-max="100" id="Description" name="Description" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground paddingTop10">
+                            <div class="form-group">
+                                <label class="" for="Description">&nbsp;&nbsp;&nbsp;</label>
+                                <div class="">
+                                    <input type="submit" value="Add phone" class="btn btn-default" id="btnAddPhone" />
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divNewPhone"></div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="Email">Email</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" id="Email" name="Email" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="Description">Description</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 100." data-val-length-max="100" id="Description" name="Description" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="Description">&nbsp; </label>
+                                <div class="">
+                                    <input type="submit" value="Add e-mail" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="InstantMessaging">InstantMessaging</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field InstantMessaging must be a string with a maximum length of 100." data-val-length-max="100" id="InstantMessaging" name="InstantMessaging" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="InstantMessaging" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="IMContact">IMContact</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field IMContact must be a string with a maximum length of 100." data-val-length-max="100" id="IMContact" name="IMContact" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="IMContact" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="Description">&nbsp;</label>
+                                <div class="">
+                                    <input type="submit" value="Add IM" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="InternetCallId">InternetCallId</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field InternetCallId must be a string with a maximum length of 100." data-val-length-max="100" id="InternetCallId" name="InternetCallId" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="InternetCallId" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="Description">Description</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 100." data-val-length-max="100" id="Description" name="Description" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground">
+                            <div class="form-group">
+                                <label class="" for="Description">&nbsp;</label>
+                                <div class="">
+                                    <input type="submit" value="Add Internet Calls" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground" style="padding-bottom:70px;">
+
+                            <div class="form-group">
+                                <label class="" for="WebSite">WebSite</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field WebSite must be a string with a maximum length of 100." data-val-length-max="100" id="WebSite" name="WebSite" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="WebSite" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground" style="padding-bottom:70px;">
+                            <div class="form-group">
+                                <label class="" for="Description">Description</label>
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 100." data-val-length-max="100" id="Description" name="Description" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 oddBackground" style="padding-bottom:70px;">
+                            <div class="form-group">
+                                <label class="" for="Description">&nbsp;</label>
+                                <div class="">
+                                    <input type="submit" value="Add website" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="Identification">
+                <div style="overflow-y:auto;height:500px;">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="IdOrPassport">Id or Passport</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field IdOrPassport must be a string with a maximum length of 100." data-val-length-max="100" id="IdOrPassport" name="IdOrPassport" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="IdOrPassport" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="IdOrPassportIssueDate">Id or Passport issue date</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-date="The field IdOrPassportIssueDate must be a date." data-val-required="The IdOrPassportIssueDate field is required." id="IdOrPassportIssueDate" name="IdOrPassportIssueDate" type="date" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="IdOrPassportIssueDate" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="IdOrPassportExpiryDate">Id or Passport expiry date</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-date="The field IdOrPassportExpiryDate must be a date." data-val-required="The IdOrPassportExpiryDate field is required." id="IdOrPassportExpiryDate" name="IdOrPassportExpiryDate" type="date" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="IdOrPassportExpiryDate" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="FiscalId">Fiscal Id ( donation tax reduction receipts )</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field FiscalId must be a string with a maximum length of 100." data-val-length-max="100" id="FiscalId" name="FiscalId" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="FiscalId" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="DonorInfo">
+                <div style="overflow-y:auto;height:500px;">
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="DharmaExperience">
+                <div style="overflow-y:auto;height:500px;">
+                    <div class="form-group">
+                        <label class="" for="FollowerOfReligionWhich">Follower of any religion? Which?</label>
+                        <div class="">
+                            <textarea class="form-control text-box single-line" id="FollowerOfReligionWhich" name="FollowerOfReligionWhich" type="text" value=""></textarea>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="FollowerOfReligionWhich" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="" for="DescriptionOfBuddhistBackgroundOfAnyTradition">Description of Buddhist background of any tradition</label>
+                        <div class="">
+                            <textarea class="form-control text-box single-line" id="DescriptionOfBuddhistBackgroundOfAnyTradition" name="DescriptionOfBuddhistBackgroundOfAnyTradition" type="text" value=""></textarea>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DescriptionOfBuddhistBackgroundOfAnyTradition" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="" for="InterestInFollowingTeachings">Are you interested in following the teachings?</label>
+                        <div class="">
+                            <input class="form-control text-box single-line" id="InterestInFollowingTeachings" name="InterestInFollowingTeachings" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="InterestInFollowingTeachings" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="Education">
+                <div style="overflow-y:auto;height:500px;">
+                    <div class="form-group">
+                        <label class="" for="DetailsOfUniversityPostGraduateOrTechnicalStudies">Details of university, post graduate or technical studies</label>
+                        <div class="">
+                            <textarea class="form-control text-box single-line" id="DetailsOfUniversityPostGraduateOrTechnicalStudies" name="DetailsOfUniversityPostGraduateOrTechnicalStudies" type="text" value=""></textarea>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DetailsOfUniversityPostGraduateOrTechnicalStudies" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="" for="OtherEducationalExperience">Other educational experience</label>
+                        <div class="">
+                            <textarea class="form-control text-box single-line" id="OtherEducationalExperience" name="OtherEducationalExperience" type="text" value=""></textarea>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="OtherEducationalExperience" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="Volunteering">
+                <div style="overflow-y:auto;height:500px;">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="DetailsOfMainWorkAndVolunteerinExperience">Details of main work and volunteering experience</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="DetailsOfMainWorkAndVolunteerinExperience" name="DetailsOfMainWorkAndVolunteerinExperience" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="DetailsOfMainWorkAndVolunteerinExperience" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="Cooking">Work preference cooking</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field Cooking must be a number." data-val-required="The Cooking field is required." id="Cooking" name="Cooking" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Cooking" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Maintenance">Work preference maintenance</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field Maintenance must be a number." data-val-required="The Maintenance field is required." id="Maintenance" name="Maintenance" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Maintenance" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Gardening">Work preference gardening</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field Gardening must be a number." data-val-required="The Gardening field is required." id="Gardening" name="Gardening" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Gardening" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Cleaning">Work preference cleaning</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field Cleaning must be a number." data-val-required="The Cleaning field is required." id="Cleaning" name="Cleaning" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Cleaning" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="IT">Work preference IT</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field IT must be a number." data-val-required="The IT field is required." id="IT" name="IT" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="IT" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Office">Work preference office</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field Office must be a number." data-val-required="The Office field is required." id="Office" name="Office" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Office" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="ArtWorkshop">Work preference art workshop</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-number="The field ArtWorkshop must be a number." data-val-required="The ArtWorkshop field is required." id="ArtWorkshop" name="ArtWorkshop" type="number" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="ArtWorkshop" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="WhenToComeStartDate">When to come - start date</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-date="The field WhenToComeStartDate must be a date." data-val-required="The WhenToComeStartDate field is required." id="WhenToComeStartDate" name="WhenToComeStartDate" type="date" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="WhenToComeStartDate" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="WhenToComeEndDate">When to come - end date</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-date="The field WhenToComeEndDate must be a date." data-val-required="The WhenToComeEndDate field is required." id="WhenToComeEndDate" name="WhenToComeEndDate" type="date" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="WhenToComeEndDate" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="ExperienceOnWorkAreas">Please detail experience on work areas</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="ExperienceOnWorkAreas" name="ExperienceOnWorkAreas" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="ExperienceOnWorkAreas" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="WorkAreasExclusionAndReasons">Work area to exclude and reasons why</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="WorkAreasExclusionAndReasons" name="WorkAreasExclusionAndReasons" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="WorkAreasExclusionAndReasons" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="ReasonsToOfferVoluntaryWorkToCenter">Reasons to offer voluntary work to center</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="ReasonsToOfferVoluntaryWorkToCenter" name="ReasonsToOfferVoluntaryWorkToCenter" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="ReasonsToOfferVoluntaryWorkToCenter" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="HopesExpectationsForStay">What are your hopes and expectations during stay?</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="HopesExpectationsForStay" name="HopesExpectationsForStay" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="HopesExpectationsForStay" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="SkillsAndKnowledgesToDevelopDuringStay">What skills and knowledges do you expect to develop during stay?</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="SkillsAndKnowledgesToDevelopDuringStay" name="SkillsAndKnowledgesToDevelopDuringStay" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="SkillsAndKnowledgesToDevelopDuringStay" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="HowDidContactFoundTheCenter">How did you found about the center?</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="HowDidContactFoundTheCenter" name="HowDidContactFoundTheCenter" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="HowDidContactFoundTheCenter" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="HealthInfo">
+                <div style="overflow-y:scroll;height:500px;">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="">First emergency contact</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="">First emergency contact relationship</label>
+                            <div class="">
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="">Second emergency contact</label>
+                            <div class="">
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="">Second emergency contact relationship</label>
+                            <div class="">
+                                <div class="">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
+                                    <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="HealthInsuranceProvider">Health insurance provider</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field HealthInsuranceProvider must be a string with a maximum length of 100." data-val-length-max="100" id="HealthInsuranceProvider" name="HealthInsuranceProvider" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="HealthInsuranceProvider" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="HealthInsurancePolicyNr">Health insurance policy Nr</label>
+                            <div class="">
+                                <input class="form-control text-box single-line" data-val="true" data-val-length="The field HealthInsurancePolicyNr must be a string with a maximum length of 100." data-val-length-max="100" id="HealthInsurancePolicyNr" name="HealthInsurancePolicyNr" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="HealthInsurancePolicyNr" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="AllergiesToMedications">Allergies to medications</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line fullWidth" data-val="true" data-val-length="The field AllergiesToMedications must be a string with a maximum length of 100." data-val-length-max="100" id="AllergiesToMedications" name="AllergiesToMedications" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="DetailsToInformEmergencyServices">Details to inform emergency services</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="DetailsToInformEmergencyServices" name="DetailsToInformEmergencyServices" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="DetailsToInformEmergencyServices" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="PrescribedMedicationInLast4MonthsAndReasons">Prescribed medication in the last 4 months and reasonss</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="PrescribedMedicationInLast4MonthsAndReasons" name="PrescribedMedicationInLast4MonthsAndReasons" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PrescribedMedicationInLast4MonthsAndReasons" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years">Please inform about psychological or serious physical conditions treatment in the last 2 years</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years" name="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="MedicalConditionsToConsiderInEventOfEmergency">Medical conditions to consider in event of emergency</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="MedicalConditionsToConsiderInEventOfEmergency" name="MedicalConditionsToConsiderInEventOfEmergency" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="MedicalConditionsToConsiderInEventOfEmergency" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="RestrictivePhysicalProblems">Restrictive physical problems</label>
+                            <div class="">
+                                <textarea class="form-control text-box single-line" id="RestrictivePhysicalProblems" name="RestrictivePhysicalProblems" type="text" value=""></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="RestrictivePhysicalProblems" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <!--<div class="form-group">
+                <div class="col-md-offset-10 col-md-2">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Discard" class="btn btn-default" />
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+    <script src="wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    <script src="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+
+        $.fn.scrollTo = function (elem, speed) {
+            $(this).animate({
+                scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
+            }, speed == undefined ? 1000 : speed);
+            return this;
+        };
+
+        function SetFullName() {
+            var fullName = $("#Prefix").val().trim() + ' ' + $("#FirstName").val().trim() + ' ' + $("#LastName").val().trim() + ' ' + $("#Suffix").val().trim();
+            if (fullName.trim().length == 0) {
+                $("#divName").addClass('invisible');
+            }
+            else {
+                $("#divName").removeClass('invisible');
+            }
+            $("#ContactName").val(fullName.trim().toUpperCase());
+        }
+
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+        $("#Prefix").keyup(function () {
+            SetFullName();
+        });
+        $("#FirstName").keyup(function () {
+            SetFullName();
+        });
+        $("#LastName").keyup(function () {
+            SetFullName();
+        });
+        $("#Suffix").keyup(function () {
+            SetFullName();
+        });
+
+        $("#btnAddPhone").click(function () {
+            $("#divNewPhone").append('<div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Phone Nr</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Number must be a string with a maximum length of 30." data-val-length-max="30" id="Number" name="Number" type="text" value="" /><span class="field-validation-valid text-danger" data-valmsg-for="Number" data-valmsg-replace="true"></span></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 100." data-val-length-max="100" id="Description" name="Description" type="text" value="" /><span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">&nbsp;&nbsp;&nbsp;</label><div class="invisible"><input type="submit" value="test" class="btn btn-default" id="btnAddPhone"/></div></div></div>').hide().fadeIn(1000);
+        });
+
+        $("#btnGeneral").click(function () {
+            $("#divMain").scrollTo("#divGeneral");
+        });
+        $("#btnNotes").click(function () {
+            $("#divMain").scrollTo("#divNotes");
+        });
+        $("#btnAddresses").click(function () {
+            $("#divMain").scrollTo("#divAddresses");
+        });
+        $("#btnEcontact").click(function () {
+            $("#divMain").scrollTo("#divEcontact");
+        });
+    </script>
+
+
+</body>
+</html>

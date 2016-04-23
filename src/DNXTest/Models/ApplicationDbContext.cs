@@ -14,7 +14,7 @@ namespace DNXTest.Models
             
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Contact>().Property<DateTime>("UpdatedTimestamp");
+//            modelBuilder.Entity<Contact>().Property<DateTime>("UpdatedTimestamp");
 
             modelBuilder.Entity<Contact>()
                 .HasKey(k => k.Id);
@@ -518,27 +518,28 @@ namespace DNXTest.Models
            
         }
 
+        public DbSet<ExceptionLogger>           ExceptionLogger         { get; set; }
         public DbSet<Contact>                   Contact                 { get; set; }
-        public DbSet<ContactIdentification>     ContactIdentification   { get; set; }
+        //public DbSet<ContactIdentification>     ContactIdentification   { get; set; }
 
-        public override int SaveChanges()
-        {
-            ChangeTracker.DetectChanges();
-            updateUpdatedProperty<Contact>();
+        //public override int SaveChanges()
+        //{
+        //    ChangeTracker.DetectChanges();
+        //    updateUpdatedProperty<Contact>();
 
-            return base.SaveChanges();
-        }
+        //    return base.SaveChanges();
+        //}
 
-        private void updateUpdatedProperty<T>() where T : class
-        {
-            var modifiedSourceInfo =
-                ChangeTracker.Entries<T>()
-                    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+        //private void updateUpdatedProperty<T>() where T : class
+        //{
+        //    var modifiedSourceInfo =
+        //        ChangeTracker.Entries<T>()
+        //            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
 
-            foreach (var entry in modifiedSourceInfo)
-            {
-                entry.Property("UpdatedTimestamp").CurrentValue = DateTime.UtcNow;
-            }
-        }
+        //    foreach (var entry in modifiedSourceInfo)
+        //    {
+        //        entry.Property("UpdatedTimestamp").CurrentValue = DateTime.UtcNow;
+        //    }
+        //}
     }
 }

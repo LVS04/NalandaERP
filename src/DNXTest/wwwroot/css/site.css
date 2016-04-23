@@ -12,9 +12,26 @@
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
-select,
-textarea {
+select
+{
     max-width: 280px;
+}
+
+input.fullWidth
+{
+    max-width: 100%;
+    min-width: 100%;
+}
+
+input.Width85
+{
+    max-width: 85%;
+    min-width: 85%;
+}
+
+textarea {
+    max-width: 100%;
+    min-width: 100%;
 }
 
 /* Carousel */
@@ -22,13 +39,42 @@ textarea {
     z-index: 10 !important;
 }
 
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
 
 @media (min-width: 768px) {
     .carousel-caption {
         z-index: 10 !important;
     }
+}
+
+.box-frame {
+	background-color: #fff;
+	border-color: #ddd;
+	border-width: 1px;
+	border-radius: 4px 4px 4px 4px;
+	-webkit-box-shadow: initial;
+	box-shadow: initial;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight:300;
+}
+.oddBackground{
+    background-color:aliceblue;
+}
+
+.paddingTop10{
+    padding-top:10px;
+}
+.paddingBottom15{
+    padding-bottom:15px;
+}
+.paddingBottom25{
+    padding-bottom:25px;
 }

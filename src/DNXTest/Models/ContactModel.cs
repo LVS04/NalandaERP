@@ -8,6 +8,40 @@ namespace DNXTest.Models
 {
     public partial class Contact
     {
+
+        public Contact()
+        {
+            this.Addresses       = new HashSet<ContactAddress>();
+            this.Dates           = new HashSet<ContactDate>();
+            this.Phones          = new HashSet<ContactPhone>();
+            this.RelatedContacts = new HashSet<ContactRelated>();
+            this.Emails          = new HashSet<ContactEmail>();
+            this.WebSites        = new HashSet<ContactWebsite>();
+            this.IMs             = new HashSet<ContactInstantMessaging>();
+            this.InternetCallIds = new HashSet<ContactInternetCall>();
+
+            ContactIdentification           = new ContactIdentification();
+            ContactDharmaExperience         = new ContactDharmaExperience();
+            ContactEducation                = new ContactEducation();
+            ContactWorkPreference           = new ContactWorkPreference();
+            ContactVolunteeringExperience   = new ContactVolunteeringExperience();
+            ContactDonorInfo                = new ContactDonorInfo();
+            ContactHealthInfo               = new ContactHealthInfo();
+        }
+
+        public void InitIds()
+        {
+            this.Id = Guid.NewGuid();              
+
+            this.ContactIdentification.Id           = this.Id;
+            this.ContactDharmaExperience.Id         = this.Id;
+            this.ContactEducation.Id                = this.Id;
+            this.ContactWorkPreference.Id           = this.Id;
+            this.ContactVolunteeringExperience.Id   = this.Id;
+            this.ContactDonorInfo.Id                = this.Id;
+            this.ContactHealthInfo.Id               = this.Id;
+        } 
+
         //[Key]
         public Guid         Id                          { get; set; }
 
@@ -42,9 +76,14 @@ namespace DNXTest.Models
         [StringLength(100)]
         public string       FoodAllergies               { get; set; }
 
-        public Nullable<DateTime>     Birthdate         { get; set; }
 
-        
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        //[DataType(DataType.DateTime)]
+        public Nullable<DateTime>     Birthdate                   { get; set; }
+
+        public Nullable<DateTime>     LastChangeTimestamp         { get; set; } // TODO: UPDATE at each write
+
+
         public ICollection<ContactAddress>              Addresses               { get; set; }
         public ICollection<ContactDate>                 Dates                   { get; set; }
         public ICollection<ContactPhone>                Phones                  { get; set; }
@@ -313,7 +352,7 @@ namespace DNXTest.Models
 
             public DonorReligiousSituation                      DonorReligiousSituation { get; set; }
             public DonorType                                    DonorType               { get; set; }
-            public virtual  ICollection<DonorContext>     DonorContexts           { get; set; }
+            public virtual  ICollection<DonorContext>           DonorContexts           { get; set; }
             public virtual  ICollection<DonorInterest>          DonorInterests          { get; set; }
 
             public Guid              Id                                                 { get; set; }

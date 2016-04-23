@@ -1,0 +1,58 @@
+﻿@model DNXTest.Models.ContactIdentification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ContactIdentification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdOrPassport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdOrPassport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdOrPassportIssueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdOrPassportIssueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdOrPassportExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdOrPassportExpiryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FiscalId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FiscalId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ContactId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,56 @@
+﻿@model DNXTest.Models.ContactDharmaExperience
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ContactDharmaExperience</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowerOfReligionWhich)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FollowerOfReligionWhich)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterestInFollowingTeachings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterestInFollowingTeachings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescriptionOfBuddhistBackgroundOfAnyTradition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionOfBuddhistBackgroundOfAnyTradition)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

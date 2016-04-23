@@ -1,4 +1,42 @@
-﻿To install from scratch:
+﻿TODOs: 
+	this week;
+	- check site user table and database
+	- check different events forms to make the question pool 
+
+
+
+
+Interface prototype demo:
+- show menus with functionality goals
+
+- talk about events 
+
+- show name, save, delete etc...
+- show scroll
+- show add phone
+- show other tabs
+
+ideas for the interface:
+- search ( will search all fields from contacts available with contains( string len greater than 3 ) and tags, build list and show immediate results upon inserting. Allways updating the nr of records found and alfa sorting the list ) 
+  - the number of records will be shown at the right of search like 
+
+- add contact custom tags, also searchable
+	- show example
+
+- search with onmouseover with a timer of one second on item shows it with fade, when click holds the selection and possibly dismisses the list of found elements
+- respect the save button on bottom
+
+
+
+
+
+
+
+
+
+
+
+To install from scratch:
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Database: "NalandaERP"
@@ -69,3 +107,15 @@ dnx ef migrations remove
 
 -- update database
 dnx ef database update -c DomainModelPostgreSqlContext
+
+
+Running the console application on git shell:
+- dnvm use 1.0.0-rc1-update2 -r coreclr -arch x64
+- in the project folder
+	- dnu restore 
+	- dnu build
+	- dnx run .\JSON-ObjectDeserializatioPOC.xproj
+
+
+
+

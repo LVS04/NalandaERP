@@ -3,13 +3,16 @@ using Microsoft.Data.Entity.Infrastructure;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Microsoft.Data.Entity.Extensions
 {
-    public static class Extensions
+    public static partial class Extensions
     {
         public static TEntity Find<TEntity>(this DbSet<TEntity> set, params object[] keyValues) where TEntity : class
         {
+
+            //  TODO: Log this with attributes!!!
             var context = ((IInfrastructure<IServiceProvider>)set).GetService<DbContext>();
 
             var entityType = context.Model.FindEntityType(typeof(TEntity));

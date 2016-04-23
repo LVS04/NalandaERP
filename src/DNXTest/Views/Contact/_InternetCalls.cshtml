@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DNXTest.Models.ContactInternetCall>
+@{
+}
+
+@if (Model.Count() == 0)
+{
+    string inputFieldHTML = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='InternetCallIds[][{0}]' type='text' value='' />";
+    <div class="col-sm-4 oddBackground paddingTop10 paddingBottom25" id="divEcontact">
+        <div class="form-group">
+            <div class="form-group">
+                <label class="" for="Number">Internet Call Id</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML, "InternetCallId"))
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 oddBackground paddingTop10 paddingBottom25">
+        <div class="form-group">
+            <label class="" for="Description">Description</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML, "Description"))
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 oddBackground paddingTop10 paddingBottom25">
+        <div class="form-group">
+            <label class="" for="Description">&nbsp;</label>
+            <div class="">
+                <input type="button" value="Add Internet call id" class="btn btn-default" id="btnAddInternetCallId" />
+            </div>
+        </div>
+    </div>
+
+        <div id="divNewInternetCallId"></div>
+}
+else
+{
+
+    string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='InternetCallIds[][{0}]' type='text' value='{1}' />";
+
+    int countTotal = Model.Count(), count = 1;
+
+    foreach (var item in Model)
+    {
+        <div class="col-sm-4 oddBackground paddingTop10">
+            <div class="form-group">
+                <div class="form-group">
+                    <label class="" for="Number">Internet Call Id</label>
+                    <div class="">
+                        @Html.Raw(string.Format(inputFieldHTML__WithValue, "InternetCallId", item.InternetCallId))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=@Html.Raw(string.Format("'paddingTop10 oddBackground{0}'", (count == countTotal) ? " col-sm-4 paddingBottom25" : " col-sm-8 "))>
+            <div class="form-group">
+                <label class="" for="Description">Description</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "Description", item.Description))
+                </div>
+            </div>
+        </div>
+        count += 1;
+    }
+    <div class="col-sm-4 oddBackground paddingTop10 paddingBottom25">
+        <div class="form-group">
+            <label class="" for="Contry">&nbsp;</label>
+            <div class="">
+                <input type="button" value="Add Internet call id" class="btn btn-default" id="btnAddInternetCallId" />
+            </div>
+        </div>
+    </div>
+    <div id="divNewInternetCallId"></div>
+}

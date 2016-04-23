@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DNXTest.Models.ContactIdentification>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact.ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdOrPassport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdOrPassportIssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdOrPassportExpiryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FiscalId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact.ContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdOrPassport)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdOrPassportIssueDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdOrPassportExpiryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FiscalId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ContactId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+        </td>
+    </tr>
+}
+
+</table>

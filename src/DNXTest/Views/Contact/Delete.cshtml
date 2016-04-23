@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model Contact
+﻿@model DNXTest.Models.Contact
 
 @{
     ViewBag.Title = "Delete";
@@ -15,6 +12,54 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.ContactDharmaExperience.FollowerOfReligionWhich)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactDharmaExperience.FollowerOfReligionWhich)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactDonorInfo.ContactId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactDonorInfo.ContactId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactEducation.DetailsOfUniversityPostGraduateOrTechnicalStudies)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactEducation.DetailsOfUniversityPostGraduateOrTechnicalStudies)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactHealthInfo.AllergiesToMedications)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactHealthInfo.AllergiesToMedications)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactIdentification.IdOrPassport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactIdentification.IdOrPassport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactWorkPreference.ExperienceOnWorkAreas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactWorkPreference.ExperienceOnWorkAreas)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.ContactName)
         </dt>
 
@@ -23,33 +68,96 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Prefix)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.Prefix)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNr)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PhoneNr)
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Address)
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Suffix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Suffix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PositionAndCompany)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PositionAndCompany)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NickName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HistoryWithTheCenter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HistoryWithTheCenter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodAllergies)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodAllergies)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birthdate)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
@@ -58,6 +166,3 @@
         </div>
     }
 </div>
-
-@{
-}

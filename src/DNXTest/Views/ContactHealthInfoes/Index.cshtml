@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DNXTest.Models.ContactHealthInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact.ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllergiesToMedications)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HealthInsuranceProvider)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HealthInsurancePolicyNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DetailsToInformEmergencyServices)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrescribedMedicationInLast4MonthsAndReasons)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicalConditionsToConsiderInEventOfEmergency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestrictivePhysicalProblems)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact.ContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AllergiesToMedications)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HealthInsuranceProvider)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HealthInsurancePolicyNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DetailsToInformEmergencyServices)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrescribedMedicationInLast4MonthsAndReasons)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicalConditionsToConsiderInEventOfEmergency)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestrictivePhysicalProblems)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ContactId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+        </td>
+    </tr>
+}
+
+</table>
