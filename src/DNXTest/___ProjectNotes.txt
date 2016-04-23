@@ -89,7 +89,9 @@ Active Version              Runtime Architecture OperatingSystem Alias
 dnu restore 
 
 -- running the site
-dnx web
+dnx web ASPNET_ENV=Development
+
+dnx web 
 
 dnx ef migrations add init
 dnx ef database update
