@@ -1,15 +1,16 @@
 ﻿@model DNXTest.Models.ContactEducation
 @{
+    string textAreaHTML__WithValue = "<textarea class='form-control text-box' name='ContactEducation[{0}]' rows='5' value='{1}' /></textarea>";
 }
 <div class="form-group">
     <label class="" for="DetailsOfUniversityPostGraduateOrTechnicalStudies">Details of university, post graduate or technical studies</label>
     <div class="">
-        <textarea class="form-control text-box single-line" id="DetailsOfUniversityPostGraduateOrTechnicalStudies" name="ContactEducation[DetailsOfUniversityPostGraduateOrTechnicalStudies]" type="text" value=""></textarea>
+        @Html.Raw(string.Format(textAreaHTML__WithValue, "DetailsOfUniversityPostGraduateOrTechnicalStudies",Model.DetailsOfUniversityPostGraduateOrTechnicalStudies))
     </div>
 </div>
 <div class="form-group">
     <label class="" for="OtherEducationalExperience">Other educational experience</label>
     <div class="">
-        <textarea class="form-control text-box single-line" id="OtherEducationalExperience" name="ContactEducation[OtherEducationalExperience]" type="text" value=""></textarea>
+        @Html.Raw(string.Format(textAreaHTML__WithValue, "OtherEducationalExperience", Model.OtherEducationalExperience))
     </div>
 </div>

@@ -1,24 +1,23 @@
 ﻿@model DNXTest.Models.ContactDharmaExperience
 @{
+    string textAreaHTML__WithValue = "<textarea class='form-control text-box' name='ContactDharmaExperience[{0}]' rows='5' value='{1}' /></textarea>";
+    string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='ContactDharmaExperience[{0}]' type='text' value='{1}' />";
 }
 <div class="form-group">
     <label class="" for="FollowerOfReligionWhich">Follower of any religion? Which?</label>
     <div class="">
-        <textarea class="form-control text-box single-line" id="FollowerOfReligionWhich" name="ContactDharmaExperience[FollowerOfReligionWhich]" type="text" value=""></textarea>
-        <span class="field-validation-valid text-danger" data-valmsg-for="FollowerOfReligionWhich" data-valmsg-replace="true"></span>
+        @Html.Raw(string.Format(textAreaHTML__WithValue, "FollowerOfReligionWhich", Model.FollowerOfReligionWhich))
     </div>
 </div>
 <div class="form-group">
     <label class="" for="DescriptionOfBuddhistBackgroundOfAnyTradition">Description of Buddhist background of any tradition</label>
     <div class="">
-        <textarea class="form-control text-box single-line" id="DescriptionOfBuddhistBackgroundOfAnyTradition" name="ContactDharmaExperience[DescriptionOfBuddhistBackgroundOfAnyTradition]" type="text" value=""></textarea>
-        <span class="field-validation-valid text-danger" data-valmsg-for="DescriptionOfBuddhistBackgroundOfAnyTradition" data-valmsg-replace="true"></span>
+        @Html.Raw(string.Format(textAreaHTML__WithValue, "DescriptionOfBuddhistBackgroundOfAnyTradition", Model.DescriptionOfBuddhistBackgroundOfAnyTradition))
     </div>
 </div>
 <div class="form-group">
     <label class="" for="InterestInFollowingTeachings">Are you interested in following the teachings?</label>
     <div class="">
-        <input class="form-control text-box single-line" id="InterestInFollowingTeachings" name="ContactDharmaExperience[InterestInFollowingTeachings]" type="text" value="" />
-        <span class="field-validation-valid text-danger" data-valmsg-for="InterestInFollowingTeachings" data-valmsg-replace="true"></span>
+        @Html.Raw(string.Format(inputFieldHTML__WithValue, "InterestInFollowingTeachings", Model.InterestInFollowingTeachings))
     </div>
 </div>

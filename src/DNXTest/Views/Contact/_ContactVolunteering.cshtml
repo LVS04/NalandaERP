@@ -1,11 +1,18 @@
 ﻿@model DNXTest.ViewModels.Contact.VolunteeringViewModel
 @{
+    string textAreaHTML__WithValue_VolunteeringExperience = "<textarea class='form-control text-box' name='ContactVolunteeringExperience[{0}]' rows='5' value='{1}' /></textarea>";
+
+    string textAreaHTML__WithValue_ContactWorkPreference = "<textarea class='form-control text-box' name='ContactVolunteeringExperience[{0}]' rows='5' value='{1}' /></textarea>";
+
+    string inputNumericFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-number='The field {0} must be a number.' data-val-required='The {0} field is required.' id='{0}' name='ContactWorkPreference[{0}]' type='number' max='6' min='0' value='{1}' />";
+
+    string inputDateFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-date='The field {0} must be a date.' data-val-required='The {0} field is required.' id='{0}' name='ContactWorkPreference[{0}]' type='date' value='{1}' />";
 }
 <div class="col-sm-12">
     <div class="form-group">
         <label class="" for="DetailsOfMainWorkAndVolunteerinExperience">Details of main work and volunteering experience</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="DetailsOfMainWorkAndVolunteerinExperience" name="ContactVolunteeringExperience[DetailsOfMainWorkAndVolunteerinExperience]" type="text" value=""></textarea>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_VolunteeringExperience, "DetailsOfMainWorkAndVolunteerinExperience", Model.contactVolunteeringExperience.DetailsOfMainWorkAndVolunteerinExperience))
         </div>
     </div>
 </div>
@@ -13,32 +20,28 @@
     <div class="form-group">
         <label class="" for="Cooking">Work preference cooking</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Cooking must be a number." data-val-required="The Cooking field is required." id="Cooking" name="ContactWorkPreference[Cooking]" type="number" value="1" max="6" min="1" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="Cooking" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Maintenance", Model.contactWorkPreference.Maintenance))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="Maintenance">Work preference maintenance</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Maintenance must be a number." data-val-required="The Maintenance field is required." id="Maintenance" name="ContactWorkPreference[Maintenance]" type="number" value="1" max="6" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="Maintenance" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Cooking", Model.contactWorkPreference.Cooking))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="Gardening">Work preference gardening</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Gardening must be a number." data-val-required="The Gardening field is required." id="Gardening" name="ContactWorkPreference[Gardening]" type="number" value="1" max="6" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="Gardening" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Gardening", Model.contactWorkPreference.Gardening))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="Cleaning">Work preference cleaning</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Cleaning must be a number." data-val-required="The Cleaning field is required." id="Cleaning" name="ContactWorkPreference[Cleaning]" type="number" value="1" max="6" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="Cleaning" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Cleaning", Model.contactWorkPreference.Cleaning))
         </div>
     </div>
 </div>
@@ -46,39 +49,34 @@
     <div class="form-group">
         <label class="" for="IT">Work preference IT</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field IT must be a number." data-val-required="The IT field is required." id="IT" name="ContactWorkPreference[IT]" type="number" value="1" max="6" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="IT" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "IT", Model.contactWorkPreference.IT))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="Office">Work preference office</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field Office must be a number." data-val-required="The Office field is required." id="Office" name="ContactWorkPreference[Office]" type="number" value="1" max="6" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="Office" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Office", Model.contactWorkPreference.Office))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="ArtWorkshop">Work preference art workshop</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-number="The field ArtWorkshop must be a number." data-val-required="The ArtWorkshop field is required." id="ArtWorkshop" name="ContactWorkPreference[ArtWorkshop]" type="number" value="1" max="6" min="1" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="ArtWorkshop" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "ArtWorkshop", Model.contactWorkPreference.ArtWorkshop))
         </div>
     </div>
     <div class="form-group">
         <label class="" for="WhenToComeStartDate">When to come - start date</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-date="The field WhenToComeStartDate must be a date." data-val-required="The WhenToComeStartDate field is required." id="WhenToComeStartDate" name="ContactWorkPreference[WhenToComeStartDate]" type="date" value="" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="WhenToComeStartDate" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="WhenToComeEndDate">When to come - end date</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-date="The field WhenToComeEndDate must be a date." data-val-required="The WhenToComeEndDate field is required." id="WhenToComeEndDate" name="ContactWorkPreference[WhenToComeEndDate]" type="date" value="" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="WhenToComeEndDate" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate))
         </div>
     </div>
 </div>
@@ -86,47 +84,41 @@
     <div class="form-group">
         <label class="" for="ExperienceOnWorkAreas">Please detail experience on work areas</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="ExperienceOnWorkAreas" name="ContactWorkPreference[ExperienceOnWorkAreas]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="ExperienceOnWorkAreas" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "ExperienceOnWorkAreas",Model.contactWorkPreference.ExperienceOnWorkAreas))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="WorkAreasExclusionAndReasons">Work area to exclude and reasons why</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="WorkAreasExclusionAndReasons" name="ContactWorkPreference[WorkAreasExclusionAndReasons]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="WorkAreasExclusionAndReasons" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "WorkAreasExclusionAndReasons", Model.contactWorkPreference.WorkAreasExclusionAndReasons))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="ReasonsToOfferVoluntaryWorkToCenter">Reasons to offer voluntary work to center</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="ReasonsToOfferVoluntaryWorkToCenter" name="ContactWorkPreference[ReasonsToOfferVoluntaryWorkToCenter]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="ReasonsToOfferVoluntaryWorkToCenter" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "ReasonsToOfferVoluntaryWorkToCenter", Model.contactWorkPreference.ReasonsToOfferVoluntaryWorkToCenter))
         </div>
     </div>
     <div class="form-group">
         <label class="" for="HopesExpectationsForStay">What are your hopes and expectations during stay?</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="HopesExpectationsForStay" name="ContactWorkPreference[HopesExpectationsForStay]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="HopesExpectationsForStay" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "HopesExpectationsForStay", Model.contactWorkPreference.HopesExpectationsForStay))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="SkillsAndKnowledgesToDevelopDuringStay">What skills and knowledges do you expect to develop during stay?</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="SkillsAndKnowledgesToDevelopDuringStay" name="ContactWorkPreference[SkillsAndKnowledgesToDevelopDuringStay]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="SkillsAndKnowledgesToDevelopDuringStay" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "SkillsAndKnowledgesToDevelopDuringStay", Model.contactWorkPreference.SkillsAndKnowledgesToDevelopDuringStay))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="HowDidContactFoundTheCenter">How did you found about the center?</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="HowDidContactFoundTheCenter" name="ContactWorkPreference[HowDidContactFoundTheCenter]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="HowDidContactFoundTheCenter" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "HowDidContactFoundTheCenter", Model.contactWorkPreference.HowDidContactFoundTheCenter))
         </div>
     </div>
 </div>

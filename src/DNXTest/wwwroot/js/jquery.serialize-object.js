@@ -148,12 +148,13 @@
 
 
 
+
 $('#formContact').submit(function () {
     //$('#result').text(JSON.stringify($('#formContact').serializeObject()));
     //;
     var JSONForm = JSON.stringify($('#formContact').serializeObject());//.replace('"',"'");
 
-    alert(JSONForm);
+    //alert(JSONForm);
 
     $.ajax({
         url: varDestiny,
@@ -162,10 +163,12 @@ $('#formContact').submit(function () {
         data: { contactJSON: JSONForm },
         //contentType: "application/json; charset=utf-8",
         error: function (response) {
-            alert(response.responseText);
+            clearForm();
+            //alert("Error creating contact, please try again later...");
         },
         success: function (response) {
-            alert(response);
+            //alert("Contact created...");
+            clearForm();
         }
     });
 

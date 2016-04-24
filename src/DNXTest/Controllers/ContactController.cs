@@ -26,28 +26,38 @@ namespace DNXTest.Controllers
 
 
         // GET: /<controller>/
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult>  Index(Guid? id)
         {
             try
             {
-                Contact contact = new Contact();
-                contact.Prefix = "";
-                contact.InitIds();
+                Contact _contact;
 
-                //_contactUnitOfWork.RepositoryContact.Insert(contact);
+                if (id == null)
+                    _contact = new Contact();
+                else
+                    _contact = await _contactUnitOfWork.RepositoryContact.GetByIDAsync(id);
 
-                //await _contactUnitOfWork.SaveAsync();
-
-                return View(contact);
-                //return View(await _contactUnitOfWork.RepositoryContact.GetAsync());
+                return View(_contact);
             }
             catch (Exception ex)
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name" , ex.Message), ex);
-                return null;
+                throw ex;
             }
         }
 
+        public async Task<IActionResult> List()
+        {
+            try
+            {
+                return View(await _contactUnitOfWork.RepositoryContact.GetAsync());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
 
         // GET: Contact/Create
         public ActionResult Create()
@@ -66,18 +76,14 @@ namespace DNXTest.Controllers
             {
                 Contact contact = JsonConvert.DeserializeObject<Contact>(contactJSON);
                 contact.InitIds();
+
+                //contact.ContactName = string.Format("{0} {1} {2} {3}" contact.Prefix
                 contact.LastChangeTimestamp = DateTime.Now;
                 _contactUnitOfWork.RepositoryContact.Insert(contact);
 
                 await _contactUnitOfWork.SaveAsync();
-                    
-                //ViewBag.Id = new SelectList(db.ContactDharmaExperiences, "ContactId", "FollowerOfReligionWhich", contact.Id);
-                //ViewBag.Id = new SelectList(db.ContactDonorInfoes, "ContactId", "ContactId", contact.Id);
-                //ViewBag.Id = new SelectList(db.ContactEducations, "ContactId", "DetailsOfUniversityPostGraduateOrTechnicalStudies", contact.Id);
-                //ViewBag.Id = new SelectList(db.ContactHealthInfoes, "ContactId", "AllergiesToMedications", contact.Id);
-                //ViewBag.Id = new SelectList(db.ContactIdentifications, "ContactId", "IdOrPassport", contact.Id);
-                //ViewBag.Id = new SelectList(db.ContactWorkPreferences, "ContactId", "ExperienceOnWorkAreas", contact.Id);
-                return View(contact);
+
+                return View("List");
             }
             catch (Exception ex)
             {
@@ -86,19 +92,29 @@ namespace DNXTest.Controllers
             }
         }
 
-        //public ActionResult Edit(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return RedirectToAction("Index"); 
-        //    }
 
-        //    Contact contact = RepoContact.GetByID(id);
-        //    if (contact == null)
+        //public async Task<ActionResult> Edit(Guid? id)
+        //{
+        //    try
         //    {
-        //        return HttpNotFound();
+        //        if (id == null)
+        //        {
+        //            return RedirectToAction("Index");
+        //        }
+
+        //        Contact contact = await _contactUnitOfWork.RepositoryContact.GetByIDAsync(id);
+        //        if (contact == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
+
+        //        return RedirectToAction("Index",  contact); 
         //    }
-        //    return View(contact);
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+        //        throw ex;
+        //    }
         //}
 
         //// POST: Contacts/Edit/5
@@ -135,21 +151,78 @@ namespace DNXTest.Controllers
         //}
 
 
-        //// GET: Contacts/Delete/5
-        //public ActionResult Delete(Guid? Id)
-        //{
-        //    if (Id == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
+        // GET: Contacts/Delete/5
+        public ActionResult Delete(Guid? Id)
+        {
+            try
+            {
+                if (Id == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
-        //    Contact contact = RepoContact.GetByID(Id);
-        //    if (contact == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contact);
-        //}
+
+                //  Cascade delete still not available in EF7!!!
+                try
+                {
+                    var phones = _contactUnitOfWork.RepositoryContactPhone.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var phone in phones) _contactUnitOfWork.RepositoryContactPhone.Delete(phone);
+                }
+                catch { }
+                try
+                {
+                    var emails = _contactUnitOfWork.RepositoryContactEmail.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var email in emails) _contactUnitOfWork.RepositoryContactEmail.Delete(email);
+                }
+                catch { }
+                try
+                {
+                    var websites = _contactUnitOfWork.RepositoryContactWebsite.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var website in websites) _contactUnitOfWork.RepositoryContactEmail.Delete(website);
+                }
+                catch { }
+                try
+                {
+                    var addresses = _contactUnitOfWork.RepositoryContactAddress.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var address in addresses) _contactUnitOfWork.RepositoryContactEmail.Delete(address);
+                }
+                catch { }
+                try
+                {
+                    var dates = _contactUnitOfWork.RepositoryContactDate.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var date in dates) _contactUnitOfWork.RepositoryContactEmail.Delete(date);
+                }
+                catch { }
+                try
+                {
+                    var relateds = _contactUnitOfWork.RepositoryContactRelated.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var related in relateds) _contactUnitOfWork.RepositoryContactEmail.Delete(related);
+                }
+                catch { }
+                try
+                {
+                    var ims = _contactUnitOfWork.RepositoryContactIM.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var im in ims) _contactUnitOfWork.RepositoryContactEmail.Delete(im);
+                }
+                catch { }
+                try
+                {
+                    var intcalls = _contactUnitOfWork.RepositoryContactInternetCall.Get().Where(x => x.Contact.Id == Id).ToList();
+                    foreach (var intcall in intcalls) _contactUnitOfWork.RepositoryContactEmail.Delete(intcall);
+                }
+                catch { }
+
+                _contactUnitOfWork.RepositoryContact.Delete(Id);
+
+                _contactUnitOfWork.Save();
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
 
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]

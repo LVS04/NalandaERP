@@ -12,7 +12,7 @@ function SetFullName() {
     }
     $("#ContactName").val(fullName.trim().toUpperCase());
 }
-$("#Prefix").keyup(function () {
+$("#Prefix").change(function () {
     SetFullName();
 });
 $("#FirstName").keyup(function () {
@@ -25,7 +25,7 @@ $("#Suffix").keyup(function () {
     SetFullName();
 });
 
-
+SetFullName();
 
 
 
@@ -60,8 +60,22 @@ $("#btnEcontact").click(function () {
     $("#divMain").scrollTo("#divEcontact");
 });
 
+function clearForm() {
+    $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+    $(':checkbox, :radio').prop('checked', false);
+}
 
-//  Add elements
+$("#btnNew").click(function () {
+    //$('#formContact').trigger("reset");
+    clearForm();
+    $('#Main').tab('show');
+    $("#divMain").scrollTo("#divGeneral");
+});
+
+
+
+//  Dynamic one-to-many elements
+//  ----------------------------
 $("#btnAddPhone").click(function () {
     $("#divNewPhone").append('<div class="col-sm-4 oddBackground" id="divEcontact"><div class="form-group"><div class="form-group"><label class="" for="Number">Phone Nr</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Number must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Phones[][Number]" type="text" value=""></div></div></div></div><div class="oddBackground col-sm-8 "><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Phones[][Description]" type="text" value=""></div></div></div>').hide().fadeIn(1000);
 });

@@ -1,5 +1,7 @@
 ﻿@model DNXTest.Models.ContactHealthInfo
 @{
+    string textAreaHTML__WithValue= "<textarea class='form-control text-box' name='ContactHealthInfo[{0}]' rows='5' value='{1}' /></textarea>";
+    string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 100.' data-val-length-max='100' id='' name='ContactHealthInfo[{0}]' type='text' value='{1}' />";
 }
 <div class="col-sm-6">
     <div class="form-group">
@@ -41,22 +43,19 @@
     <div class="form-group">
         <label class="" for="HealthInsuranceProvider">Health insurance provider</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-length="The field HealthInsuranceProvider must be a string with a maximum length of 100." data-val-length-max="100" id="HealthInsuranceProvider" name="ContactHealthInfo[HealthInsuranceProvider]" type="text" value="" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="HealthInsuranceProvider" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputFieldHTML__WithValue, "HealthInsuranceProvider", Model.HealthInsuranceProvider))
         </div>
     </div>
     <div class="form-group">
         <label class="" for="HealthInsurancePolicyNr">Health insurance policy Nr</label>
         <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-length="The field HealthInsurancePolicyNr must be a string with a maximum length of 100." data-val-length-max="100" id="HealthInsurancePolicyNr" name="ContactHealthInfo[HealthInsurancePolicyNr]" type="text" value="" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="HealthInsurancePolicyNr" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(inputFieldHTML__WithValue, "HealthInsurancePolicyNr", Model.HealthInsurancePolicyNr))
         </div>
     </div>
     <div class="form-group">
         <label class="" for="AllergiesToMedications">Allergies to medications</label>
         <div class="">
-            <textarea class="form-control text-box single-line fullWidth" data-val="true" data-val-length="The field AllergiesToMedications must be a string with a maximum length of 100." data-val-length-max="100" id="AllergiesToMedications" name="ContactHealthInfo[AllergiesToMedications]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue, "AllergiesToMedications", Model.AllergiesToMedications))
         </div>
     </div>
 </div>
@@ -64,40 +63,35 @@
     <div class="form-group">
         <label class="" for="DetailsToInformEmergencyServices">Details to inform emergency services</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="DetailsToInformEmergencyServices" name="ContactHealthInfo[DetailsToInformEmergencyServices]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="DetailsToInformEmergencyServices" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue, "DetailsToInformEmergencyServices", Model.DetailsToInformEmergencyServices))
         </div>
     </div>
 
     <div class="form-group">
-        <label class="" for="PrescribedMedicationInLast4MonthsAndReasons">Prescribed medication in the last 4 months and reasonss</label>
+        <label class="" for="PrescribedMedicationInLast4MonthsAndReasons">Prescribed medication in the last 4 months and reasons</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="PrescribedMedicationInLast4MonthsAndReasons" name="ContactHealthInfo[PrescribedMedicationInLast4MonthsAndReasons]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="PrescribedMedicationInLast4MonthsAndReasons" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue, "PrescribedMedicationInLast4MonthsAndReasons", Model.PrescribedMedicationInLast4MonthsAndReasons))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years">Please inform about psychological or serious physical conditions treatment in the last 2 years</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years" name="ContactHealthInfo[PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue, "PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years", Model.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="MedicalConditionsToConsiderInEventOfEmergency">Medical conditions to consider in event of emergency</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="MedicalConditionsToConsiderInEventOfEmergency" name="ContactHealthInfo[MedicalConditionsToConsiderInEventOfEmergency]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="MedicalConditionsToConsiderInEventOfEmergency" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue, "MedicalConditionsToConsiderInEventOfEmergency", Model.MedicalConditionsToConsiderInEventOfEmergency))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="RestrictivePhysicalProblems">Restrictive physical problems</label>
         <div class="">
-            <textarea class="form-control text-box single-line" id="RestrictivePhysicalProblems" name="ContactHealthInfo[RestrictivePhysicalProblems]" type="text" value=""></textarea>
-            <span class="field-validation-valid text-danger" data-valmsg-for="RestrictivePhysicalProblems" data-valmsg-replace="true"></span>
+            @Html.Raw(string.Format(textAreaHTML__WithValue, "RestrictivePhysicalProblems", Model.RestrictivePhysicalProblems))
         </div>
     </div>
 </div>
