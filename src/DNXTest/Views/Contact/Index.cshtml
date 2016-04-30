@@ -16,7 +16,7 @@
         <div class="">
             <input class="form-control single-line Width85" style="font-weight: 700;display:inline;" data-val="true" data-val-length="The field ContactName must be a string with a maximum length of 100." data-val-length-max="100" id="ContactName" name="ContactName" type="text" value="" disabled />
             <span class="field-validation-valid text-danger" data-valmsg-for="ContactName" data-valmsg-replace="true"></span>
-            <input type="submit" value="Save" class="btn btn-default" style="vertical-align:top;" />
+            <input type="submit" value="@Html.Raw(ViewData["SaveOperation"])" class="btn btn-default" id="btnSave" style="vertical-align:top;" />
             <input type="button" value="New" class="btn btn-default" id="btnNew" style="vertical-align:top;" />
 
         </div>
@@ -46,91 +46,102 @@
             <br />
             <!--<div class="container-fluid">-->
 
-            <div style="overflow-y:auto;height:446px;" id="divMain">
-                <div class="col-sm-6">
+            <div style="overflow-y:auto;overflow-x:hidden;height:446px;" id="divMain">
+                <div class="row container">
+                    <div class="col-sm-6">
+                        <div class="form-group" id="divGeneral">
+                            <label class="" for="Prefix">Prefix</label>
+                            <div class="">
+                                @Html.DropDownListFor(model => model.Prefix, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Venerable", Value = "Venerable" }, new SelectListItem() { Text = "Honorable", Value = "Honorable" }, new SelectListItem() { Text = "Sir", Value = "Sir" }, new SelectListItem() { Text = "Lady", Value = "Lady" }, new SelectListItem() { Text = "Mr", Value = "Mr" }, new SelectListItem() { Text = "Mrs", Value = "Mrs" }, new SelectListItem() { Text = "Miss", Value = "Miss" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.Prefix, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-                    <div class="form-group" id="divGeneral">
-                        <label class="" for="Prefix">Prefix</label>
-                        <div class="">
-                            @Html.DropDownListFor(model => model.Prefix, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Venerable", Value = "Venerable" }, new SelectListItem() { Text = "Honorable", Value = "Honorable" }, new SelectListItem() { Text = "Sir", Value = "Sir" }, new SelectListItem() { Text = "Lady", Value = "Lady" }, new SelectListItem() { Text = "Mr", Value = "Mr" }, new SelectListItem() { Text = "Mrs", Value = "Mrs" }, new SelectListItem() { Text = "Miss", Value = "Miss" }  }, "Value", "Text"), null, new { @class = "form-control text-box single-line" })
+                        <div class="form-group">
+                            <label class="" for="FirstName">First Name</label>
+                            <div class="">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="LastName">Last Name</label>
+                            <div class="">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="" for="Suffix">Suffix</label>
+                            <div class="">
+                                @Html.TextBoxFor(model => model.Suffix, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.Suffix, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="" for="FirstName">First Name</label>
-                        <div class="">
-                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control text-box single-line" })
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="" for="Gender">Gender</label>
+                            <div class="">
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="" for="LastName">Last Name</label>
-                        <div class="">
-                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control text-box single-line" })
+                        <div class="form-group">
+                            <label class="" for="Birthdate">Birthdate</label>
+                            <div class="">
+                                @Html.Raw(string.Format("<input class='form-control text-box single-line' id='Birthdate' name='Birthdate' type='date' value='{0}' />", (Model.Birthdate.HasValue) ? Model.Birthdate.Value.ToString("yyyy-MM-dd") : null))
+                                @Html.ValidationMessageFor(model => model.Birthdate, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="" for="Suffix">Suffix</label>
-                        <div class="">
-                            @Html.TextBoxFor(model => model.Suffix, new { @class = "form-control text-box single-line" })
+                        <div class="form-group">
+                            <label class="" for="PositionAndCompany">Position and Company</label>
+                            <div class="">
+                                @Html.TextBoxFor(model => model.PositionAndCompany, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.PositionAndCompany, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="NickName">Nickname</label>
+                            <div class="">
+                                @Html.TextBoxFor(model => model.NickName, new { @class = "form-control text-box single-line" })
+                                @Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="" for="Gender">Gender</label>
-                        <div class="">
-                            @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "Please Select...", Value = "error" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line" })
+                <div class="row container">
+                    <div class="col-sm-12 oddBackground paddingTop10" id="divNotes">
+                        <div class="form-group">
+                            <label class="" for="Notes">Notes</label>
+                            <div class="">
+                                @Html.TextAreaFor(model => model.Notes, 5, 0, new { @class = "form-control text-box" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" for="Birthdate">Birthdate</label>
-                        <div class="">
-                            @Html.Raw(string.Format("<input class='form-control text-box single-line' id='Birthdate' name='Birthdate' type='date' value='{0}' />", Model.Birthdate))
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" for="PositionAndCompany">Position and Company</label>
-                        <div class="">
-                            @Html.TextBoxFor(model => model.PositionAndCompany, new { @class = "form-control text-box single-line" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" for="NickName">Nickname</label>
-                        <div class="">
-                            @Html.TextBoxFor(model => model.NickName, new { @class = "form-control text-box single-line" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 oddBackground paddingTop10" id="divNotes">
-                    <div class="form-group">
-                        <label class="" for="Notes">Notes</label>
-                        <div class="">
-                            @Html.TextAreaFor(model => model.Notes, 5, 0, new { @class = "form-control text-box" })
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="" for="HistoryWithTheCenter">History with the center</label>
-                        <div class="">
-                            @Html.TextAreaFor(model => model.HistoryWithTheCenter, 5, 0, new { @class = "form-control text-box" })
+                        <div class="form-group">
+                            <label class="" for="HistoryWithTheCenter">History with the center</label>
+                            <div class="">
+                                @Html.TextAreaFor(model => model.HistoryWithTheCenter, 5, 0, new { @class = "form-control text-box" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" for="FoodAllergies">Food allergies</label>
-                        <div class="">
-                            @Html.TextBoxFor(model => model.FoodAllergies, new { @class = "form-control text-box single-line fullWidth" })
+                        <div class="form-group">
+                            <label class="" for="FoodAllergies">Food allergies</label>
+                            <div class="">
+                                @Html.TextBoxFor(model => model.FoodAllergies, new { @class = "form-control text-box single-line fullWidth" })
+                            </div>
                         </div>
                     </div>
                 </div>
-                @Html.Partial("_Addresses", Model.Addresses)
-                @Html.Partial("_Phones", Model.Phones)
-                @Html.Partial("_Emails", Model.Emails)
-                @Html.Partial("_Websites", Model.WebSites)
-                @Html.Partial("_IMs", Model.IMs)
-                @Html.Partial("_InternetCalls", Model.InternetCallIds)
-            </div>
+                    @Html.Partial("_Addresses", Model.Addresses)
+                    @Html.Partial("_Phones", Model.Phones)
+                    @Html.Partial("_Emails", Model.Emails)
+                    @Html.Partial("_Websites", Model.WebSites)
+                    @Html.Partial("_IMs", Model.IMs)
+                    @Html.Partial("_InternetCalls", Model.InternetCallIds)
+                </div>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="Identification">
             <div style="overflow-y:auto;height:500px;">
@@ -173,6 +184,10 @@
 }
 </div>
 <script>
-    var varDestiny = '@Url.Action("Create")';
+    var varDestinyC = '@Url.Action("Create")';
+    var varDestinyU = '@Url.Action("Update")';
+    var varGUID = '@Model.Id';
+
+    
 </script>
 

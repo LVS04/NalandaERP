@@ -1,9 +1,16 @@
-﻿TODOs: 
+﻿
+
+TODO: check first name visible if filled!!!
+-- donorinfo totally wrong
+-- lookup country table and include in addresses
+-- correct the error while zooming of the buttons
+-- related contact 
+-- after saving successfully - event - return message good or bad in a modal and after 
+-- if field set do not save
+-- verify if there is a contact with the same name characteristikzz
 	this week;
-	- check site user table and database
+	 check site user table and database
 	- check different events forms to make the question pool 
-
-
 
 
 Interface prototype demo:

@@ -1,8 +1,8 @@
 ﻿@model DNXTest.ViewModels.Contact.VolunteeringViewModel
 @{
-    string textAreaHTML__WithValue_VolunteeringExperience = "<textarea class='form-control text-box' name='ContactVolunteeringExperience[{0}]' rows='5' value='{1}' /></textarea>";
+    string textAreaHTML__WithValue_VolunteeringExperience = "<textarea class='form-control text-box' name='ContactVolunteeringExperience[{0}]' rows='5' />{1}</textarea>";
 
-    string textAreaHTML__WithValue_ContactWorkPreference = "<textarea class='form-control text-box' name='ContactVolunteeringExperience[{0}]' rows='5' value='{1}' /></textarea>";
+    string textAreaHTML__WithValue_ContactWorkPreference = "<textarea class='form-control text-box' name='ContactWorkPreference[{0}]' rows='5' />{1}</textarea>";
 
     string inputNumericFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-number='The field {0} must be a number.' data-val-required='The {0} field is required.' id='{0}' name='ContactWorkPreference[{0}]' type='number' max='6' min='0' value='{1}' />";
 
@@ -69,14 +69,14 @@
     <div class="form-group">
         <label class="" for="WhenToComeStartDate">When to come - start date</label>
         <div class="">
-            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate))
+            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate.ToString("yyyy-MM-dd")))
         </div>
     </div>
 
     <div class="form-group">
         <label class="" for="WhenToComeEndDate">When to come - end date</label>
         <div class="">
-            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate))
+            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate.ToString("yyyy-MM-dd")))
         </div>
     </div>
 </div>

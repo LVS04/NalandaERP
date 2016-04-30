@@ -5,8 +5,8 @@
 @if (Model.Count() == 0)
 {
     string inputFieldHTML = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Emails[][{0}]' type='text' value='' />";
-    <div class="col-sm-4 oddBackground paddingTop10" id="divEcontact">
-        <div class="form-group">
+    <div class="row container oddBackground paddingTop10">
+        <div class="col-sm-4 oddBackground" id="divEcontact">
             <div class="form-group">
                 <label class="" for="Number">E-Mail</label>
                 <div class="">
@@ -14,16 +14,15 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-4 oddBackground paddingTop10">
-        <div class="form-group">
-            <label class="" for="Description">Description</label>
-            <div class="">
-                @Html.Raw(string.Format(inputFieldHTML, "Description"))
+        <div class="col-sm-4 oddBackground">
+            <div class="form-group">
+                <label class="" for="Description">Description</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML, "Description"))
+                </div>
             </div>
         </div>
-    </div>
-        <div class="col-sm-4 oddBackground paddingTop10">
+        <div class="col-sm-4 oddBackground">
             <div class="form-group">
                 <label class="" for="Description">&nbsp;</label>
                 <div class="">
@@ -31,45 +30,81 @@
                 </div>
             </div>
         </div>
-
-        <div id="divNewEmail"></div>
+    </div>
+    <div id="divNewEmail"></div>
 }
 else
 {
-    
+
     string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Emails[][{0}]' type='text' value='{1}' />";
 
     int countTotal = Model.Count(), count = 1;
 
     foreach (var item in Model)
     {
-        <div class="col-sm-4 oddBackground paddingTop10">
-            <div class="form-group">
-                <div class="form-group">
-                    <label class="" for="Number">E-Mail</label>
-                    <div class="">
-                        @Html.Raw(string.Format(inputFieldHTML__WithValue, "Email", item.Email))
+        if (count == 1)
+        {
+            <div class="row container oddBackground paddingTop10">
+                <div class="col-sm-4 oddBackground">
+                    <div class="form-group">
+                        <label class="" for="Number">E-Mail</label>
+                        <div class="">
+                            @Html.Raw(string.Format(inputFieldHTML__WithValue, "Email", item.Email))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 oddBackground">
+                    <div class="form-group">
+                        <label class="" for="Description">Description</label>
+                        <div class="">
+                            @Html.Raw(string.Format(inputFieldHTML__WithValue, "Description", item.Description))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 oddBackground">
+                    <div class="form-group">
+                        <label class="" for="Contry">&nbsp;</label>
+                        <div class="">
+                            <input type="button" value="Add e-mail" class="btn btn-default" id="btnAddEmail" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class=@Html.Raw(string.Format("'paddingTop10 oddBackground{0}'", (count == countTotal) ? " col-sm-4" : " col-sm-8 "))>
-            <div class="form-group">
-                <label class="" for="Description">Description</label>
-                <div class="">
-                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "Description", item.Description))
+            @Html.Raw("<div id='divNewEmail'>")
+        }
+        else
+        {
+            <div class='divEmail'>
+                <div class="row container oddBackground paddingTop10">
+                    <div class="col-sm-4 oddBackground">
+                        <div class="form-group">
+                            <label class="" for="Number">E-Mail</label>
+                            <div class="">
+                                @Html.Raw(string.Format(inputFieldHTML__WithValue, "Email", item.Email))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 oddBackground">
+                        <div class="form-group">
+                            <label class="" for="Description">Description</label>
+                            <div class="">
+                                @Html.Raw(string.Format(inputFieldHTML__WithValue, "Description", item.Description))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 oddBackground">
+                        <div class="form-group">
+                            <label class="" for="Contry">&nbsp;</label>
+                            <div class="">
+                                <input type="button" value="Remove e-mail" class="btn btn-default removeDiv" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    count += 1;
-}
-        <div class="col-sm-4 oddBackground paddingTop10">
-            <div class="form-group">
-                <label class="" for="Contry">&nbsp;</label>
-                <div class="">
-                    <input type="button" value="Add e-mail" class="btn btn-default" id="btnAddEmail" />
-                </div>
-            </div>
-        </div>
-        <div id="divNewEmail"></div>
+        }
+        count += 1;
     }
+
+    @Html.Raw("</div>")
+}

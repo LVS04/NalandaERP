@@ -5,8 +5,8 @@
 @if (Model.Count() == 0)
 {
     string inputFieldHTML = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='IMs[][{0}]' type='text' value='' />";
-    <div class="col-sm-4 oddBackground paddingTop10" id="divEcontact">
-        <div class="form-group">
+    <div class="row container oddBackground paddingTop10">
+        <div class="col-sm-4 oddBackground" id="divEcontact">
             <div class="form-group">
                 <label class="" for="Number">Instant Messaging System</label>
                 <div class="">
@@ -14,24 +14,23 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-4 oddBackground paddingTop10">
-        <div class="form-group">
-            <label class="" for="Description">Instant Messaging Contact</label>
-            <div class="">
-                @Html.Raw(string.Format(inputFieldHTML, "IMContact"))
+        <div class="col-sm-4 oddBackground">
+            <div class="form-group">
+                <label class="" for="Description">Instant Messaging Contact</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputFieldHTML, "IMContact"))
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 oddBackground">
+            <div class="form-group">
+                <label class="" for="Description">&nbsp;</label>
+                <div class="">
+                    <input type="button" value="Add IM" class="btn btn-default" id="btnAddIM" />
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-4 oddBackground paddingTop10">
-        <div class="form-group">
-            <label class="" for="Description">&nbsp;</label>
-            <div class="">
-                <input type="button" value="Add Instant Messaging" class="btn btn-default" id="btnAddIM" />
-            </div>
-        </div>
-    </div>
-
     <div id="divNewIM"></div>
 }
 else
@@ -43,33 +42,69 @@ else
 
     foreach (var item in Model)
     {
-        <div class="col-sm-4 oddBackground paddingTop10">
-            <div class="form-group">
-                <div class="form-group">
-                    <label class="" for="Number">Instant Messaging</label>
-                    <div class="">
-                        @Html.Raw(string.Format(inputFieldHTML__WithValue, "InstantMessaging", item.InstantMessaging))
+        if (count == 1)
+        {
+            <div class="row container oddBackground paddingTop10">
+                <div class="col-sm-4 oddBackground">
+                    <div class="form-group">
+                        <label class="" for="Number">Instant Messaging</label>
+                        <div class="">
+                            @Html.Raw(string.Format(inputFieldHTML__WithValue, "InstantMessaging", item.InstantMessaging))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 oddBackground">
+                    <div class="form-group">
+                        <label class="" for="Description">Instant Messaging Contact</label>
+                        <div class="">
+                            @Html.Raw(string.Format(inputFieldHTML__WithValue, "IMContact", item.IMContact))
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 oddBackground">
+                    <div class="form-group">
+                        <label class="" for="Contry">&nbsp;</label>
+                        <div class="">
+                            <input type="button" value="Add IM" class="btn btn-default" id="btnAddIM" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class=@Html.Raw(string.Format("'paddingTop10 oddBackground{0}'", (count == countTotal) ? " col-sm-4" : " col-sm-8 "))>
-            <div class="form-group">
-                <label class="" for="Description">Instant Messaging Contact</label>
-                <div class="">
-                    @Html.Raw(string.Format(inputFieldHTML__WithValue, "IMContact", item.IMContact))
+            @Html.Raw("<div id='divNewIM'>")
+        }
+        else
+        {
+            <div class='divIM'>
+                <div class="row container oddBackground paddingTop10">
+                    <div class="col-sm-4 oddBackground">
+                        <div class="form-group">
+                            <label class="" for="Number">Instant Messaging</label>
+                            <div class="">
+                                @Html.Raw(string.Format(inputFieldHTML__WithValue, "InstantMessaging", item.InstantMessaging))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 oddBackground">
+                        <div class="form-group">
+                            <label class="" for="Description">Instant Messaging Contact</label>
+                            <div class="">
+                                @Html.Raw(string.Format(inputFieldHTML__WithValue, "IMContact", item.IMContact))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 oddBackground">
+                        <div class="form-group">
+                            <label class="" for="Contry">&nbsp;</label>
+                            <div class="">
+                                <input type="button" value="Remove IM" class="btn btn-default removeDiv" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        }
         count += 1;
     }
-    <div class="col-sm-4 oddBackground paddingTop10">
-        <div class="form-group">
-            <label class="" for="Contry">&nbsp;</label>
-            <div class="">
-                <input type="button" value="Add Instant Messaging" class="btn btn-default" id="btnAddIM" />
-            </div>
-        </div>
-    </div>
-    <div id="divNewIM"></div>
+    @Html.Raw("</div>")
 }

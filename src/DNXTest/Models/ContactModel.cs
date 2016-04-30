@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace DNXTest.Models
 {
     public partial class Contact
@@ -29,9 +30,10 @@ namespace DNXTest.Models
             ContactHealthInfo               = new ContactHealthInfo();
         }
 
-        public void InitIds()
+        public void InitIds(Guid? id = null)
         {
-            this.Id = Guid.NewGuid();              
+            
+            this.Id = id  ?? Guid.NewGuid();              
 
             this.ContactIdentification.Id           = this.Id;
             this.ContactDharmaExperience.Id         = this.Id;
@@ -40,7 +42,8 @@ namespace DNXTest.Models
             this.ContactVolunteeringExperience.Id   = this.Id;
             this.ContactDonorInfo.Id                = this.Id;
             this.ContactHealthInfo.Id               = this.Id;
-        } 
+        }
+
 
         //[Key]
         public Guid         Id                          { get; set; }

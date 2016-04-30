@@ -26,6 +26,7 @@ namespace DNXTest.Controllers
 
 
         // GET: /<controller>/
+        [HttpGet]
         public async Task<IActionResult>  Index(Guid? id)
         {
             try
@@ -33,10 +34,15 @@ namespace DNXTest.Controllers
                 Contact _contact;
 
                 if (id == null)
+                {
                     _contact = new Contact();
+                    ViewData["SaveOperation"] = "Create";
+                }
                 else
-                    _contact = await _contactUnitOfWork.RepositoryContact.GetByIDAsync(id);
-
+                {
+                    _contact = _contactUnitOfWork.GetContactById(id.Value);
+                    ViewData["SaveOperation"] = "Save";
+                }
                 return View(_contact);
             }
             catch (Exception ex)
@@ -70,7 +76,7 @@ namespace DNXTest.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(/*[Bind("ContactName,Prefix,FirstName,LastName,Suffix,Gender,PositionAndCompany,NickName,Notes,HistoryWithTheCenter,FoodAllergies,Birthdate")]*/ string contactJSON)
+        public async Task<ActionResult> Create( string contactJSON)
         {
             try
             {
@@ -82,15 +88,55 @@ namespace DNXTest.Controllers
                 _contactUnitOfWork.RepositoryContact.Insert(contact);
 
                 await _contactUnitOfWork.SaveAsync();
-
-                return View("List");
+                 
+                //  Success
+                return Json( new { success = true, responseText = "Contact has been saved succesfully!" });
             }
             catch (Exception ex)
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-                throw ex;
+                return Json( new { success = false, responseText = "There was an error processing the request!" });
             }
         }
+
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Update(string contactJSON, Guid id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                Contact contactToUpdate =  _contactUnitOfWork.GetContactById(id);
+                if (contactToUpdate == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    Contact contactNewData = JsonConvert.DeserializeObject<Contact>(contactJSON);
+                    contactNewData.InitIds(id);
+                    contactNewData.LastChangeTimestamp = DateTime.Now;
+
+                    contactToUpdate.CopyPropertiesFrom(contactNewData);
+                    _contactUnitOfWork.RepositoryContact.Update(contactToUpdate);
+                    await _contactUnitOfWork.SaveAsync();
+                }
+
+                //  Success
+                return Json(new { success = true, responseText = "Contact has been Updated succesfully!" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                return Json(new { success = false, responseText = "There was an error Updating the contact!" });
+            }
+        }
+
 
 
         //public async Task<ActionResult> Edit(Guid? id)
@@ -160,68 +206,17 @@ namespace DNXTest.Controllers
                 {
                     return RedirectToAction("Index");
                 }
+                _contactUnitOfWork.DeleteContactById(Id.Value);
 
-
-                //  Cascade delete still not available in EF7!!!
-                try
-                {
-                    var phones = _contactUnitOfWork.RepositoryContactPhone.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var phone in phones) _contactUnitOfWork.RepositoryContactPhone.Delete(phone);
-                }
-                catch { }
-                try
-                {
-                    var emails = _contactUnitOfWork.RepositoryContactEmail.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var email in emails) _contactUnitOfWork.RepositoryContactEmail.Delete(email);
-                }
-                catch { }
-                try
-                {
-                    var websites = _contactUnitOfWork.RepositoryContactWebsite.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var website in websites) _contactUnitOfWork.RepositoryContactEmail.Delete(website);
-                }
-                catch { }
-                try
-                {
-                    var addresses = _contactUnitOfWork.RepositoryContactAddress.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var address in addresses) _contactUnitOfWork.RepositoryContactEmail.Delete(address);
-                }
-                catch { }
-                try
-                {
-                    var dates = _contactUnitOfWork.RepositoryContactDate.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var date in dates) _contactUnitOfWork.RepositoryContactEmail.Delete(date);
-                }
-                catch { }
-                try
-                {
-                    var relateds = _contactUnitOfWork.RepositoryContactRelated.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var related in relateds) _contactUnitOfWork.RepositoryContactEmail.Delete(related);
-                }
-                catch { }
-                try
-                {
-                    var ims = _contactUnitOfWork.RepositoryContactIM.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var im in ims) _contactUnitOfWork.RepositoryContactEmail.Delete(im);
-                }
-                catch { }
-                try
-                {
-                    var intcalls = _contactUnitOfWork.RepositoryContactInternetCall.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var intcall in intcalls) _contactUnitOfWork.RepositoryContactEmail.Delete(intcall);
-                }
-                catch { }
-
-                _contactUnitOfWork.RepositoryContact.Delete(Id);
-
-                _contactUnitOfWork.Save();
                 return RedirectToAction("List");
             }
+            
             catch (Exception ex)
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                 throw ex;
             }
+
         }
 
         //[HttpPost, ActionName("Delete")]

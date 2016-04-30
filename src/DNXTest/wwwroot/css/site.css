@@ -19,8 +19,8 @@ select
 
 input.fullWidth
 {
-    max-width: 100%;
-    min-width: 100%;
+    max-width: 95%;
+    min-width: 95%;
 }
 
 input.Width85
@@ -30,8 +30,8 @@ input.Width85
 }
 
 textarea {
-    max-width: 100%;
-    min-width: 100%;
+    max-width: 95%;
+    min-width: 95%;
 }
 
 /* Carousel */

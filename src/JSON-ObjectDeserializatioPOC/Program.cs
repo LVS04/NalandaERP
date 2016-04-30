@@ -12,118 +12,118 @@ namespace JSON_ObjectDeserializatioPOC
         public static void Main(string[] args)
         {
 
-            string fullobject = @"{
-    'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-    'ContactName': null,
-    'Prefix': null,
-    'FirstName': null,
-    'LastName': null,
-    'Suffix': null,
-    'Gender': null,
-    'PositionAndCompany': null,
-    'NickName': null,
-    'Notes': null,
-    'HistoryWithTheCenter': null,
-    'FoodAllergies': null,
-    'Birthdate': null,
-    'LastChangeTimestamp': null,
-    'Addresses': [
+ //           string fullobject = @"{
+ //   'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //   'ContactName': null,
+ //   'Prefix': null,
+ //   'FirstName': null,
+ //   'LastName': null,
+ //   'Suffix': null,
+ //   'Gender': null,
+ //   'PositionAndCompany': null,
+ //   'NickName': null,
+ //   'Notes': null,
+ //   'HistoryWithTheCenter': null,
+ //   'FoodAllergies': null,
+ //   'Birthdate': null,
+ //   'LastChangeTimestamp': null,
+ //   'Addresses': [
       
-    ],
-    'Dates': [
+ //   ],
+ //   'Dates': [
       
-    ],
-    'Phones': [
+ //   ],
+ //   'Phones': [
       
-    ],
-    'RelatedContacts': [
+ //   ],
+ //   'RelatedContacts': [
       
-    ],
-    'Emails': [
+ //   ],
+ //   'Emails': [
       
-    ],
-    'WebSites': [
+ //   ],
+ //   'WebSites': [
       
-    ],
-    'IMs': [
+ //   ],
+ //   'IMs': [
       
-    ],
-    'InternetCallIds': [
+ //   ],
+ //   'InternetCallIds': [
       
-    ],
-    'ContactIdentification': {
-      'IdOrPassport': null,
-      'IdOrPassportIssueDate': '0001-01-01T00:00:00',
-      'IdOrPassportExpiryDate': '0001-01-01T00:00:00',
-      'FiscalId': null,
-      'BornInCountry': null,
-      'SpokenLanguages': null,
-      'PreferredLanguage': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    },
-    'ContactDharmaExperience': {
-      'FollowerOfReligionWhich': null,
-      'InterestInFollowingTeachings': null,
-      'DescriptionOfBuddhistBackgroundOfAnyTradition': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    },
-    'ContactEducation': {
-      'DetailsOfUniversityPostGraduateOrTechnicalStudies': null,
-      'OtherEducationalExperience': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    },
-    'ContactWorkPreference': {
-      'Cooking': 0,
-      'Maintenance': 0,
-      'Gardening': 0,
-      'Cleaning': 0,
-      'IT': 0,
-      'Office': 0,
-      'ArtWorkshop': 0,
-      'ExperienceOnWorkAreas': null,
-      'WorkAreasExclusionAndReasons': null,
-      'ReasonsToOfferVoluntaryWorkToCenter': null,
-      'WhenToComeStartDate': '0001-01-01T00:00:00',
-      'WhenToComeEndDate': '0001-01-01T00:00:00',
-      'HopesExpectationsForStay': null,
-      'SkillsAndKnowledgesToDevelopDuringStay': null,
-      'HowDidContactFoundTheCenter': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    },
-    'ContactVolunteeringExperience': {
-      'DetailsOfMainWorkAndVolunteerinExperience': null,
-      'ContactToAskAboutExperience': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    },
-    'ContactDonorInfo': {
-      'DonorReligiousSituation': null,
-      'DonorType': null,
-      'DonorContexts': null,
-      'DonorInterests': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    },
-    'ContactHealthInfo': {
-      'EmergencyContact1': null,
-      'EmergencyContact2': null,
-      'AllergiesToMedications': null,
-      'HealthInsuranceProvider': null,
-      'HealthInsurancePolicyNr': null,
-      'DetailsToInformEmergencyServices': null,
-      'PrescribedMedicationInLast4MonthsAndReasons': null,
-      'PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years': null,
-      'MedicalConditionsToConsiderInEventOfEmergency': null,
-      'RestrictivePhysicalProblems': null,
-      'ContactBloodType': null,
-      'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
-      'Contact': null
-    }
- }";
+ //   ],
+ //   'ContactIdentification': {
+ //     'IdOrPassport': null,
+ //     'IdOrPassportIssueDate': '0001-01-01T00:00:00',
+ //     'IdOrPassportExpiryDate': '0001-01-01T00:00:00',
+ //     'FiscalId': null,
+ //     'BornInCountry': null,
+ //     'SpokenLanguages': null,
+ //     'PreferredLanguage': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   },
+ //   'ContactDharmaExperience': {
+ //     'FollowerOfReligionWhich': null,
+ //     'InterestInFollowingTeachings': null,
+ //     'DescriptionOfBuddhistBackgroundOfAnyTradition': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   },
+ //   'ContactEducation': {
+ //     'DetailsOfUniversityPostGraduateOrTechnicalStudies': null,
+ //     'OtherEducationalExperience': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   },
+ //   'ContactWorkPreference': {
+ //     'Cooking': 0,
+ //     'Maintenance': 0,
+ //     'Gardening': 0,
+ //     'Cleaning': 0,
+ //     'IT': 0,
+ //     'Office': 0,
+ //     'ArtWorkshop': 0,
+ //     'ExperienceOnWorkAreas': null,
+ //     'WorkAreasExclusionAndReasons': null,
+ //     'ReasonsToOfferVoluntaryWorkToCenter': null,
+ //     'WhenToComeStartDate': '0001-01-01T00:00:00',
+ //     'WhenToComeEndDate': '0001-01-01T00:00:00',
+ //     'HopesExpectationsForStay': null,
+ //     'SkillsAndKnowledgesToDevelopDuringStay': null,
+ //     'HowDidContactFoundTheCenter': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   },
+ //   'ContactVolunteeringExperience': {
+ //     'DetailsOfMainWorkAndVolunteerinExperience': null,
+ //     'ContactToAskAboutExperience': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   },
+ //   'ContactDonorInfo': {
+ //     'DonorReligiousSituation': null,
+ //     'DonorType': null,
+ //     'DonorContexts': null,
+ //     'DonorInterests': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   },
+ //   'ContactHealthInfo': {
+ //     'EmergencyContact1': null,
+ //     'EmergencyContact2': null,
+ //     'AllergiesToMedications': null,
+ //     'HealthInsuranceProvider': null,
+ //     'HealthInsurancePolicyNr': null,
+ //     'DetailsToInformEmergencyServices': null,
+ //     'PrescribedMedicationInLast4MonthsAndReasons': null,
+ //     'PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years': null,
+ //     'MedicalConditionsToConsiderInEventOfEmergency': null,
+ //     'RestrictivePhysicalProblems': null,
+ //     'ContactBloodType': null,
+ //     'Id': '156fd848-7682-49d7-a6f9-9c63511bb1d6',
+ //     'Contact': null
+ //   }
+ //}";
 
 
 

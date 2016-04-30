@@ -87,6 +87,7 @@ namespace DNXTest.Dal
                     query = query.Where(filter);
                 }
 
+                
                 /*                foreach (string includeProperty in includeProperties.Split
                                 (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                             {
@@ -113,7 +114,13 @@ namespace DNXTest.Dal
         {
             try
             {
-                return _dbSet.Find(id);
+                //Type type = typeof(TEntity);
+                //if (type == typeof(Contact))
+                //{
+                //    throw new Exception("Not implemented for contacts. Please use unit of work method GetContactById");
+                //}
+                //else
+                    return _dbSet.Find(id);
             }
             catch (Exception ex)
             {
@@ -126,7 +133,13 @@ namespace DNXTest.Dal
         {
             try
             {
-                return await _dbSet.FindAsync(id);
+                //Type type = typeof(TEntity);
+                //if (type == typeof(Contact))
+                //{
+                //    throw new Exception("Not implemented for contacts. Please use unit of work method GetContactById");
+                //}
+                //else
+                    return await _dbSet.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -153,6 +166,7 @@ namespace DNXTest.Dal
             {
                 TEntity entityToDelete = _dbSet.Find(id);
                 Delete(entityToDelete);
+
             }
             catch (Exception ex)
             {
@@ -180,7 +194,7 @@ namespace DNXTest.Dal
         {
             try
             {
-                _dbSet.Attach(entityToUpdate);
+                _dbSet. Attach(entityToUpdate);
                 _context.Entry(entityToUpdate).State = EntityState.Modified;
             }
             catch (Exception ex)
