@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace DNXTest.Dal
 {
@@ -110,17 +111,24 @@ namespace DNXTest.Dal
             }
         }
 
-        public virtual TEntity GetByID(object id)
+        //public virtual async Task<TEntity> GetByID(object id)
+        //{
+        //    try
+        //    {
+        //        return await _dbSet.FindAsync(id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+        //        return null;
+        //    }
+        //}
+
+        public virtual async Task<TEntity> GetByIDAsync(object id)
         {
             try
             {
-                //Type type = typeof(TEntity);
-                //if (type == typeof(Contact))
-                //{
-                //    throw new Exception("Not implemented for contacts. Please use unit of work method GetContactById");
-                //}
-                //else
-                    return _dbSet.Find(id);
+                return await _dbSet.FindAsync(id);
             }
             catch (Exception ex)
             {
@@ -129,22 +137,28 @@ namespace DNXTest.Dal
             }
         }
 
-        public virtual async Task<TEntity> GetByIDAsync(object id)
+        /// <summary>
+        /// Using reflection to allow ordered Contact dependant collections
+        /// </summary>
+        /// <param name="entities"></param>
+        public virtual void SetSortOrder(TEntity[] entities)
         {
             try
             {
-                //Type type = typeof(TEntity);
-                //if (type == typeof(Contact))
-                //{
-                //    throw new Exception("Not implemented for contacts. Please use unit of work method GetContactById");
-                //}
-                //else
-                    return await _dbSet.FindAsync(id);
+                object typeProbe = entities[0];
+                if (typeProbe.GetType().GetProperty("SortOrder") != null)
+                {
+                    int orderId = 0;
+                    foreach (object e in entities)
+                    {
+                        PropertyInfo sortOrder = e.GetType().GetProperty("SortOrder");
+                        sortOrder.SetValue(e, ++orderId);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-                return null;
             }
         }
 
@@ -152,7 +166,7 @@ namespace DNXTest.Dal
         {
             try
             {
-                _dbSet.Add(entity);
+                _dbSet.Add( entity);
             }
             catch (Exception ex)
             {
@@ -160,13 +174,32 @@ namespace DNXTest.Dal
             }
         }
 
-        public virtual void Delete(object id)
+        public virtual void DeleteRange(TEntity[] entities)
         {
             try
             {
-                TEntity entityToDelete = _dbSet.Find(id);
-                Delete(entityToDelete);
+                foreach (var e in entities)
+                {
+                    if (_context.Entry(e).State == EntityState.Detached)
+                    {
+                        _dbSet.Attach(e);
+                    }
+                }
+                _dbSet.RemoveRange(entities);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+            }
 
+        }
+
+        public virtual async Task Delete(object id)
+        {
+            try
+            {
+                TEntity entityToDelete = await _dbSet.FindAsync(id);
+                Delete(entityToDelete);
             }
             catch (Exception ex)
             {
@@ -194,7 +227,7 @@ namespace DNXTest.Dal
         {
             try
             {
-                _dbSet. Attach(entityToUpdate);
+                _dbSet.Attach(entityToUpdate);
                 _context.Entry(entityToUpdate).State = EntityState.Modified;
             }
             catch (Exception ex)

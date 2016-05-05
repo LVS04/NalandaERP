@@ -24,24 +24,24 @@ namespace DNXTest.Controllers
             _logger = loggerFactory.CreateLogger("ContactController");
         }
 
-
         // GET: /<controller>/
         [HttpGet]
         public async Task<IActionResult>  Index(Guid? id)
         {
             try
             {
-                Contact _contact;
-
-                if (id == null)
+                Contact _contact = null;
+                
+                if (!(id == null))
+                {
+                    _contact = await _contactUnitOfWork.GetContactByIdAsync(id.Value);
+                    ViewData["SaveOperation"] = "Save";
+                }
+                
+                if (_contact == null)
                 {
                     _contact = new Contact();
                     ViewData["SaveOperation"] = "Create";
-                }
-                else
-                {
-                    _contact = _contactUnitOfWork.GetContactById(id.Value);
-                    ViewData["SaveOperation"] = "Save";
                 }
                 return View(_contact);
             }
@@ -75,7 +75,7 @@ namespace DNXTest.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken] TODO
         public async Task<ActionResult> Create( string contactJSON)
         {
             try
@@ -85,7 +85,7 @@ namespace DNXTest.Controllers
 
                 //contact.ContactName = string.Format("{0} {1} {2} {3}" contact.Prefix
                 contact.LastChangeTimestamp = DateTime.Now;
-                _contactUnitOfWork.RepositoryContact.Insert(contact);
+                _contactUnitOfWork.InsertContact(contact);
 
                 await _contactUnitOfWork.SaveAsync();
                  
@@ -101,7 +101,7 @@ namespace DNXTest.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken] TODO
         public async Task<ActionResult> Update(string contactJSON, Guid id)
         {
             try
@@ -111,7 +111,8 @@ namespace DNXTest.Controllers
                     return RedirectToAction("Index");
                 }
 
-                Contact contactToUpdate =  _contactUnitOfWork.GetContactById(id);
+                Contact contactToUpdate = await _contactUnitOfWork.GetContactByIdAsync(id);
+
                 if (contactToUpdate == null)
                 {
                     return HttpNotFound();
@@ -120,10 +121,11 @@ namespace DNXTest.Controllers
                 {
                     Contact contactNewData = JsonConvert.DeserializeObject<Contact>(contactJSON);
                     contactNewData.InitIds(id);
-                    contactNewData.LastChangeTimestamp = DateTime.Now;
 
+                    _contactUnitOfWork.ResetContactDependants(contactToUpdate);
                     contactToUpdate.CopyPropertiesFrom(contactNewData);
-                    _contactUnitOfWork.RepositoryContact.Update(contactToUpdate);
+                    contactToUpdate.LastChangeTimestamp = DateTime.Now;
+                    _contactUnitOfWork.UpdateContact(contactToUpdate);
                     await _contactUnitOfWork.SaveAsync();
                 }
 
@@ -136,8 +138,6 @@ namespace DNXTest.Controllers
                 return Json(new { success = false, responseText = "There was an error Updating the contact!" });
             }
         }
-
-
 
         //public async Task<ActionResult> Edit(Guid? id)
         //{
@@ -198,7 +198,7 @@ namespace DNXTest.Controllers
 
 
         // GET: Contacts/Delete/5
-        public ActionResult Delete(Guid? Id)
+        public async Task<ActionResult> Delete(Guid? Id)
         {
             try
             {
@@ -206,7 +206,9 @@ namespace DNXTest.Controllers
                 {
                     return RedirectToAction("Index");
                 }
+
                 _contactUnitOfWork.DeleteContactById(Id.Value);
+                await _contactUnitOfWork.SaveAsync();
 
                 return RedirectToAction("List");
             }

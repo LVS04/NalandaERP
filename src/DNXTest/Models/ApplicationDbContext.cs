@@ -520,6 +520,8 @@ namespace DNXTest.Models
 
         public DbSet<ExceptionLogger>           ExceptionLogger         { get; set; }
         public DbSet<Contact>                   Contact                 { get; set; }
+
+        
         //public DbSet<ContactIdentification>     ContactIdentification   { get; set; }
 
         //public override int SaveChanges()

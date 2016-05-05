@@ -1,6 +1,8 @@
 ﻿
 
 TODO: check first name visible if filled!!!
+-- complete asyncs for non-availables!!!
+-- update log reflection getcurrentmethod().name when available
 -- donorinfo totally wrong
 -- lookup country table and include in addresses
 -- correct the error while zooming of the buttons

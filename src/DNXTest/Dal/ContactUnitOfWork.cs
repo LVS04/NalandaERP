@@ -11,25 +11,28 @@ namespace DNXTest.Dal
     public class ContactUnitOfWork : IDisposable
     {
         private ApplicationDbContext _context;
+
         private readonly ILogger _logger;
 
-        private GenericRepository<Contact> _repoContact;
-        private GenericRepository<ContactEmail> _repoContactEmail;
-        private GenericRepository<ContactPhone> _repoContactPhone;
-        private GenericRepository<ContactRelated> _repoContactRelated;
-        private GenericRepository<ContactAddress> _repoContactAddress;
-        private GenericRepository<ContactDate> _repoContactDate;
-        private GenericRepository<ContactWebsite> _repoContactWebsite;
-        private GenericRepository<ContactInstantMessaging> _repoContactIM;
-        private GenericRepository<ContactInternetCall> _repoContactInternetCall;
 
-        private GenericRepository<ContactIdentification> _repoContactIdentification;
-        private GenericRepository<ContactDharmaExperience> _repoContactDharmaExperience;
-        private GenericRepository<ContactEducation> _repoContactEducation;
-        private GenericRepository<ContactWorkPreference> _repoContactWorkPreference;
-        private GenericRepository<ContactVolunteeringExperience> _repoContactVolunteeringExperience;
-        private GenericRepository<ContactDonorInfo> _repoContactDonorInfo;
-        private GenericRepository<ContactHealthInfo> _repoContactHealthInfo;
+        private GenericRepository<Contact>                          _repoContact;
+
+        private GenericRepository<ContactEmail>                     _repoContactEmail;
+        private GenericRepository<ContactPhone>                     _repoContactPhone;
+        private GenericRepository<ContactRelated>                   _repoContactRelated;
+        private GenericRepository<ContactAddress>                   _repoContactAddress;
+        private GenericRepository<ContactDate>                      _repoContactDate;
+        private GenericRepository<ContactWebsite>                   _repoContactWebsite;
+        private GenericRepository<ContactInstantMessaging>          _repoContactIM;
+        private GenericRepository<ContactInternetCall>              _repoContactInternetCall;
+
+        private GenericRepository<ContactIdentification>            _repoContactIdentification;
+        private GenericRepository<ContactDharmaExperience>          _repoContactDharmaExperience;
+        private GenericRepository<ContactEducation>                 _repoContactEducation;
+        private GenericRepository<ContactWorkPreference>            _repoContactWorkPreference;
+        private GenericRepository<ContactVolunteeringExperience>    _repoContactVolunteeringExperience;
+        private GenericRepository<ContactDonorInfo>                 _repoContactDonorInfo;
+        private GenericRepository<ContactHealthInfo>                _repoContactHealthInfo;
 
 
         public ContactUnitOfWork(ApplicationDbContext context, ILoggerFactory loggerFactory)
@@ -38,32 +41,33 @@ namespace DNXTest.Dal
             _logger = loggerFactory.CreateLogger("LoggerUnitOfWork");
         }
 
-        public Contact GetContactById(Guid id)
+        public async Task<Contact> GetContactByIdAsync(Guid id)
         {
             try
             {
 
                 Contact _contact;
 
-                _contact = RepositoryContact.GetByID(id);
+                _contact = await RepositoryContact.GetByIDAsync(id);
+
                 if (_contact != null)
                 {
-                    _contact.Addresses = (ICollection<ContactAddress>)RepositoryContactAddress.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
-                    _contact.Dates = (ICollection<ContactDate>)RepositoryContactDate.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
-                    _contact.Phones = (ICollection<ContactPhone>)RepositoryContactPhone.Get(a => a.Contact.Id == id).OrderBy(o => o.Id).ToList();
-                    _contact.RelatedContacts = (ICollection<ContactRelated>)RepositoryContactRelated.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
-                    _contact.Emails = (ICollection<ContactEmail>)RepositoryContactEmail.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
-                    _contact.WebSites = (ICollection<ContactWebsite>)RepositoryContactWebsite.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
-                    _contact.IMs = (ICollection<ContactInstantMessaging>)RepositoryContactIM.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
-                    _contact.InternetCallIds = (ICollection<ContactInternetCall>)RepositoryContactInternetCall.Get(a => a.Contact.Id == id).OrderByDescending(o => o.Id).ToList();
+                    _contact.Addresses          = (ICollection<ContactAddress>)RepositoryContactAddress.GetAsync(a => a.Contact.Id == id, x=> x.OrderBy(k=>k.SortOrder)).Result;
+                    _contact.Dates              = (ICollection<ContactDate>)RepositoryContactDate.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
+                    _contact.Phones             = (ICollection<ContactPhone>)RepositoryContactPhone.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
+                    _contact.RelatedContacts    = (ICollection<ContactRelated>)RepositoryContactRelated.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
+                    _contact.Emails             = (ICollection<ContactEmail>)RepositoryContactEmail.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
+                    _contact.WebSites           = (ICollection<ContactWebsite>)RepositoryContactWebsite.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
+                    _contact.IMs                = (ICollection<ContactInstantMessaging>)RepositoryContactIM.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
+                    _contact.InternetCallIds    = (ICollection<ContactInternetCall>)RepositoryContactInternetCall.GetAsync(a => a.Contact.Id == id, x => x.OrderBy(k => k.SortOrder)).Result;
 
-                    _contact.ContactIdentification = (ContactIdentification)RepositoryContactIdentification.Get(a => a.Contact.Id == id).FirstOrDefault();
-                    _contact.ContactDharmaExperience = (ContactDharmaExperience)RepositoryContactDharmaExperience.Get(a => a.Contact.Id == id).FirstOrDefault();
-                    _contact.ContactEducation = (ContactEducation)RepositoryContactEducation.Get(a => a.Contact.Id == id).FirstOrDefault();
-                    _contact.ContactWorkPreference = (ContactWorkPreference)RepositoryContactWorkPreference.Get(a => a.Contact.Id == id).FirstOrDefault();
-                    _contact.ContactVolunteeringExperience = (ContactVolunteeringExperience)RepositoryContactVolunteeringExperience.Get(a => a.Contact.Id == id).FirstOrDefault();
-                    _contact.ContactDonorInfo = (ContactDonorInfo)RepositoryContactDonorInfo.Get(a => a.Contact.Id == id).FirstOrDefault();
-                    _contact.ContactHealthInfo = (ContactHealthInfo)RepositoryContactHealthInfo.Get(a => a.Contact.Id == id).FirstOrDefault();
+                    _contact.ContactIdentification          = (ContactIdentification)RepositoryContactIdentification.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
+                    _contact.ContactDharmaExperience        = (ContactDharmaExperience)RepositoryContactDharmaExperience.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
+                    _contact.ContactEducation               = (ContactEducation)RepositoryContactEducation.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
+                    _contact.ContactWorkPreference          = (ContactWorkPreference)RepositoryContactWorkPreference.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
+                    _contact.ContactVolunteeringExperience  = (ContactVolunteeringExperience)RepositoryContactVolunteeringExperience.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
+                    _contact.ContactDonorInfo               = (ContactDonorInfo)RepositoryContactDonorInfo.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
+                    _contact.ContactHealthInfo              = (ContactHealthInfo)RepositoryContactHealthInfo.GetAsync(a => a.Contact.Id == id).Result.FirstOrDefault();
                 }
 
                 return _contact;
@@ -72,67 +76,104 @@ namespace DNXTest.Dal
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                 throw ex;
-
             }
+
         }
 
-        public void DeleteContactById(Guid Id)
+        public void ResetContactDependants(Contact contact)
+        {
+
+            RepositoryContactEmail.DeleteRange(contact.Emails.ToArray());
+            RepositoryContactPhone.DeleteRange(contact.Phones.ToArray()); 
+            RepositoryContactRelated.DeleteRange(contact.RelatedContacts.ToArray()); 
+            RepositoryContactAddress.DeleteRange(contact.Addresses.ToArray()); 
+            RepositoryContactDate.DeleteRange(contact.Dates.ToArray()); 
+            RepositoryContactWebsite.DeleteRange(contact.WebSites.ToArray()); 
+            RepositoryContactIM.DeleteRange(contact.IMs.ToArray()); 
+            RepositoryContactInternetCall.DeleteRange(contact.InternetCallIds.ToArray());
+
+        }
+
+        private void InsertContactDependants(Contact contact)
+        {
+
+            if(contact.Emails.Count>0)
+                RepositoryContactEmail.SetSortOrder(contact.Emails.ToArray());
+
+            if(contact.Phones.Count > 0)
+                RepositoryContactPhone.SetSortOrder(contact.Phones.ToArray());
+
+            if(contact.RelatedContacts.Count > 0)
+                RepositoryContactRelated.SetSortOrder(contact.RelatedContacts.ToArray());
+
+            if(contact.Addresses.Count > 0)
+                RepositoryContactAddress.SetSortOrder(contact.Addresses.ToArray()); 
+
+            if(contact.Dates.Count > 0)
+                RepositoryContactDate.SetSortOrder(contact.Dates.ToArray());
+
+            if(contact.WebSites.Count > 0)
+                RepositoryContactWebsite.SetSortOrder(contact.WebSites.ToArray()); 
+
+            if(contact.IMs.Count > 0)
+                RepositoryContactIM.SetSortOrder(contact.IMs.ToArray()); 
+
+            if(contact.InternetCallIds.Count > 0)
+                RepositoryContactInternetCall.SetSortOrder(contact.InternetCallIds.ToArray());
+
+        }
+
+        public void UpdateContact(Contact contact)
+        {
+            InsertContactDependants(contact);
+            _repoContact.Update(contact);
+        }
+        
+        public void InsertContact(Contact contact)
+        {
+            InsertContactDependants(contact);
+            RepositoryContact.Insert(contact);
+        }
+
+        public async void DeleteContactById(Guid Id)
         {
             try
             {
+
                 //  Cascade delete still not available in EF7!!! TODO: Change this as soon as cascade delete is available
-                try
-                {
-                    var phones = RepositoryContactPhone.Get().Where(x => x.Contact.Id == Id).ToList();
+                var phones = RepositoryContactPhone.GetAsync(orderBy: x=>x.OrderBy(k => k.Contact.Id== Id)).Result;
+                if(phones.Count()>0)
                     foreach (var phone in phones) RepositoryContactPhone.Delete(phone);
-                }
-                catch { }
-                try
-                {
-                    var emails = RepositoryContactEmail.Get().Where(x => x.Contact.Id == Id).ToList();
+
+                var emails = RepositoryContactEmail.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (emails.Count() > 0)
                     foreach (var email in emails) RepositoryContactEmail.Delete(email);
-                }
-                catch { }
-                try
-                {
-                    var websites = RepositoryContactWebsite.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var website in websites) RepositoryContactEmail.Delete(website);
-                }
-                catch { }
-                try
-                {
-                    var addresses = RepositoryContactAddress.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var address in addresses) RepositoryContactEmail.Delete(address);
-                }
-                catch { }
-                try
-                {
-                    var dates = RepositoryContactDate.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var date in dates) RepositoryContactEmail.Delete(date);
-                }
-                catch { }
-                try
-                {
-                    var relateds = RepositoryContactRelated.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var related in relateds) RepositoryContactEmail.Delete(related);
-                }
-                catch { }
-                try
-                {
-                    var ims = RepositoryContactIM.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var im in ims) RepositoryContactEmail.Delete(im);
-                }
-                catch { }
-                try
-                {
-                    var intcalls = RepositoryContactInternetCall.Get().Where(x => x.Contact.Id == Id).ToList();
-                    foreach (var intcall in intcalls) RepositoryContactEmail.Delete(intcall);
-                }
-                catch { }
 
-                RepositoryContact.Delete(Id);
+                var websites = RepositoryContactWebsite.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (websites.Count() > 0)
+                    foreach (var website in websites) RepositoryContactWebsite.Delete(website);
 
-                this.Save();
+                var addresses = RepositoryContactAddress.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (addresses.Count() > 0)
+                    foreach (var address in addresses) RepositoryContactAddress.Delete(address);
+
+                var dates = RepositoryContactDate.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (dates.Count() > 0)
+                    foreach (var date in dates) RepositoryContactDate.Delete(date);
+
+                var relateds = RepositoryContactRelated.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (relateds.Count() > 0)
+                    foreach (var related in relateds) RepositoryContactRelated.Delete(related);
+
+                var ims = RepositoryContactIM.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (ims.Count() > 0)
+                    foreach (var im in ims) RepositoryContactIM.Delete(im);
+
+                var intcalls = RepositoryContactInternetCall.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
+                if (intcalls.Count() > 0)
+                    foreach (var intcall in intcalls) RepositoryContactInternetCall.Delete(intcall);
+
+                await RepositoryContact.Delete(Id);
 
             }
             catch (Exception ex)
@@ -141,8 +182,6 @@ namespace DNXTest.Dal
                 throw ex;
             }
         }
-    
-
 
         public GenericRepository<Contact> RepositoryContact
         {
@@ -448,19 +487,6 @@ namespace DNXTest.Dal
             }
         }
 
-        public void Save()
-        {
-            try
-            { 
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-                throw ex;
-            }
-        }
-
         public async Task SaveAsync()
         {
             try
@@ -473,7 +499,6 @@ namespace DNXTest.Dal
                 throw ex;
             }
         }
-
 
         private bool disposed = false;
 

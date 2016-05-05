@@ -44,6 +44,8 @@ namespace DNXTest.Models
             this.ContactHealthInfo.Id               = this.Id;
         }
 
+        
+
 
         //[Key]
         public Guid         Id                          { get; set; }
@@ -111,6 +113,8 @@ namespace DNXTest.Models
         //[Key]
         public int      Id                  { get; set; }
 
+        public int      SortOrder           { get; set; }
+
         public DateTime Date                { get; set; }
         public string   Description         { get; set; }
 
@@ -122,6 +126,8 @@ namespace DNXTest.Models
         {
             //[Key]
             public int      Id          { get; set; }
+
+            public int      SortOrder   { get; set; }
 
             [StringLength(100)]
             public string   Email       { get; set; }
@@ -135,7 +141,9 @@ namespace DNXTest.Models
         public partial class ContactPhone
         {
             //[Key]
-            public int Id { get; set; }
+            public int Id               { get; set; }
+
+            public int SortOrder        { get; set; }
 
             [StringLength(10)]
             public string   CountryCode { get; set; }
@@ -152,7 +160,9 @@ namespace DNXTest.Models
         public partial class ContactAddress
         {
             //[Key]
-            public int Id { get; set; }
+            public int Id                   { get; set; }
+
+            public int SortOrder            { get; set; }
 
             [StringLength(100)]
             public string   Street          { get; set; }
@@ -174,7 +184,8 @@ namespace DNXTest.Models
 
             public Country  Country         { get; set; }
 
-            public Contact  Contact     { get; set; }
+            public Contact  Contact         { get; set; }
+        
         }
 
         public partial class Country
@@ -200,6 +211,7 @@ namespace DNXTest.Models
             //[Key]
             public int Id { get; set; }
 
+            public int                  SortOrder           { get; set; }
             public Contact              RelatedContact      { get; set; }
             public ContactRelationship  Relationship        { get; set; }
 
@@ -209,7 +221,8 @@ namespace DNXTest.Models
         public partial class ContactWebsite
         {
             //[Key]
-            public int Id { get; set; }
+            public int      Id               { get; set; }
+            public int      SortOrder        { get; set; }
 
             [StringLength(100)]
             public string   WebSite         { get; set; }
@@ -217,7 +230,7 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description     { get; set; }
 
-            public Contact  Contact     { get; set; }
+            public Contact  Contact         { get; set; }
         }
 
 
@@ -226,13 +239,14 @@ namespace DNXTest.Models
             //[Key]
             public int Id { get; set; }
 
+            public int      SortOrder           { get; set; }
             [StringLength(100)]
             public string   InstantMessaging    { get; set; }
 
             [StringLength(100)]
             public string   IMContact           { get; set; }
 
-            public Contact  Contact     { get; set; }
+            public Contact  Contact             { get; set; }
         }
 
         public partial class ContactInternetCall
@@ -240,13 +254,15 @@ namespace DNXTest.Models
             //[Key]
             public int Id { get; set; }
 
-            [StringLength(100)]
-            public string   InternetCallId    { get; set; }
+            public int      SortOrder           { get; set; }
 
             [StringLength(100)]
-            public string   Description       { get; set; }
+            public string   InternetCallId      { get; set; }
 
-            public Contact  Contact     { get; set; }
+            [StringLength(100)]
+            public string   Description         { get; set; }
+
+            public Contact  Contact             { get; set; }
         }
 
     
