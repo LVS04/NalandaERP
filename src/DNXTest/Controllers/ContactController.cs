@@ -85,7 +85,7 @@ namespace DNXTest.Controllers
 
                 //contact.ContactName = string.Format("{0} {1} {2} {3}" contact.Prefix
                 contact.LastChangeTimestamp = DateTime.Now;
-                _contactUnitOfWork.InsertContact(contact);
+                _contactUnitOfWork.InsertContact(contact); 
 
                 await _contactUnitOfWork.SaveAsync();
                  

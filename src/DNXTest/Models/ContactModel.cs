@@ -182,7 +182,8 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   PostalCode      { get; set; }
 
-            public Country  Country         { get; set; }
+            [StringLength(100)]
+            public string  Country          { get; set; }
 
             public Contact  Contact         { get; set; }
         
@@ -427,7 +428,10 @@ namespace DNXTest.Models
         {
             
             public Contact  EmergencyContact1                                                       { get; set; }
+            public ContactRelationship EmergencyContact1Relationship                                { get; set; }
+
             public Contact  EmergencyContact2                                                       { get; set; }
+            public ContactRelationship EmergencyContact2Relationship                                { get; set; }
 
             [StringLength(100)]
             public string   AllergiesToMedications                                                  { get; set; }

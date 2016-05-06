@@ -32,7 +32,7 @@ namespace Microsoft.Data.Entity.Extensions
             {
                 // Return the local object if it exists.
                 return entry.Entity;
-            }
+            } 
 
             // TODO: Build the real LINQ Expression
             // set.Where(x => x.Id == keyValues[0]);

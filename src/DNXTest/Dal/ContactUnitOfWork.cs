@@ -490,7 +490,7 @@ namespace DNXTest.Dal
         public async Task SaveAsync()
         {
             try
-            {
+            { 
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)

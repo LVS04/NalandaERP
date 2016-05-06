@@ -24,7 +24,7 @@ namespace DNXTest.Controllers
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return View(); 
         }
 
         public IActionResult Error()
