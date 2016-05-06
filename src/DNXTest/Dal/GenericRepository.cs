@@ -79,8 +79,6 @@ namespace DNXTest.Dal
         {
             try
             {
-
-
                 IQueryable<TEntity> query = _dbSet;
 
                 if (filter != null)

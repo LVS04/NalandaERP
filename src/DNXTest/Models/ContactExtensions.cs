@@ -41,7 +41,7 @@ namespace DNXTest.Models
 
                             var destInnerObjProperty = destInnerObj.GetType().GetProperty(innerProp.Name);
                             destInnerObjProperty.SetValue(destInnerObj, innerObj);
-                        }
+                        }  
                     }
                 }
                 else

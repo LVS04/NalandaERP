@@ -16,7 +16,7 @@ $("#Prefix").change(function () {
     SetFullName();
 });
 $("#FirstName").keyup(function () {
-    SetFullName();
+    SetFullName(); 
 });
 $("#LastName").keyup(function () {
     SetFullName();
@@ -63,7 +63,7 @@ $("#btnEcontact").click(function () {
 function fadeOutRemove( element )
 {
     $(element).fadeOut(1000, function () {
-        ($(this)).remove();
+        ($(this)).children().remove();
     });
 }
 
@@ -86,8 +86,8 @@ function clearForm() {
 $("#btnNew").click(function () {
     //$('#formContact').trigger("reset");
     clearForm();
-    $('#Main').tab('show');
-    $("#divMain").scrollTo("#divGeneral");
+    //$('#Main').tab('show');
+    //$("#divMain").scrollTo("#divGeneral");
     oddBackground = true;
     $("#btnSave").val('Create');
 });
@@ -105,12 +105,15 @@ $(".removeDiv").click(function () {
 
 var oddBackground = true;
 $("#btnAddAddress").click(function () {
+
+    $('.typeahead').typeahead('destroy');
+
     if (!oddBackground) {
-        $("#divNewAddress").append('<div class="divAddress"><div class="row container  paddingTop10"><div class="col-sm-6 "><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 "><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container "><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Country must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Country]" type="text" value=""></div></div></div><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
+        $("#divNewAddress").append('<div class="divAddress"><div class="row container  paddingTop10"><div class="col-sm-6 "><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 "><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container "><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     }
     else
     {
-        $("#divNewAddress").append('<div class="divAddress"><div class="row container oddBackground paddingTop10"><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container oddBackground"><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Country must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Country]" type="text" value=""></div></div></div><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
+        $("#divNewAddress").append('<div class="divAddress"><div class="row container oddBackground paddingTop10"><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container oddBackground"><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
     }
     $(".removeDiv").click(function () {
@@ -119,6 +122,17 @@ $("#btnAddAddress").click(function () {
         });
     })
     oddBackground = !oddBackground;
+
+    $('.country .typeahead').typeahead({
+        hint: false,
+        highlight: true,
+        minLength: 1
+    },
+
+    {
+        name: 'arrCountries',
+        source: substringMatcher(arrCountries)
+    });
 });
 
 $("#btnAddPhone").click(function () {

@@ -14,54 +14,41 @@ namespace DNXTest.Models
             
             base.OnModelCreating(modelBuilder);
 
-//            modelBuilder.Entity<Contact>().Property<DateTime>("UpdatedTimestamp");
-
             modelBuilder.Entity<Contact>()
                 .HasKey(k => k.Id);
 
             modelBuilder.Entity<Contact>()
                 .Property(e => e.ContactName);
-                //;//.IsUnicode(false);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.Prefix)
-                ;//.IsUnicode(false);
+                .Property(e => e.Prefix);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.FirstName)
-                ;//.IsUnicode(false);
+                .Property(e => e.FirstName);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.LastName)
-                ;//.IsUnicode(false);
+                .Property(e => e.LastName);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.Suffix)
-                ;//.IsUnicode(false);
+                .Property(e => e.Suffix);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.Gender)
-                ;//.IsUnicode(false);
+                .Property(e => e.Gender);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.PositionAndCompany)
-                ;//.IsUnicode(false);
+                .Property(e => e.PositionAndCompany);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.NickName)
-                ;//.IsUnicode(false);
+                .Property(e => e.NickName);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.Notes)
-                ;//.IsUnicode(false);
+                .Property(e => e.Notes);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.HistoryWithTheCenter)
-                ;//.IsUnicode(false);
+                .Property(e => e.HistoryWithTheCenter);
 
             modelBuilder.Entity<Contact>()
-                .Property(e => e.FoodAllergies)
-                ;//.IsUnicode(false);
+                .Property(e => e.FoodAllergies);
 
             modelBuilder.Entity<Contact>()
                 .Property(e => e.Birthdate);
@@ -142,76 +129,76 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactDate>()
                 .Property(e => e.Description);
 
-
+            modelBuilder.Entity<ContactDate>()
+                .HasIndex(new string[] { "ContactId", "SortOrder"});
 
             //  ------------------------------------
             //  ContactEmail
             //  ------------------------------------
             modelBuilder.Entity<ContactEmail>()
-                .Property(e => e.Email)
-                ;//.IsUnicode(true);
+                .Property(e => e.Email);
 
             modelBuilder.Entity<ContactEmail>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
+            modelBuilder.Entity<ContactEmail>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  ContactPhone
             //  ------------------------------------
             modelBuilder.Entity<ContactPhone>()
-                .Property(e => e.CountryCode)
-                ;//.IsUnicode(true);
+                .Property(e => e.CountryCode);
 
             modelBuilder.Entity<ContactPhone>()
-                .Property(e => e.Number)
-                ;//.IsUnicode(true);
+                .Property(e => e.Number);
 
             modelBuilder.Entity<ContactPhone>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
+            modelBuilder.Entity<ContactPhone>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  ContactAddress
             //  ------------------------------------
             modelBuilder.Entity<ContactAddress>()
-                .Property(e => e.Street)
-                ;//.IsUnicode(true);
+                .Property(e => e.Street);
 
             modelBuilder.Entity<ContactAddress>()
-                .Property(e => e.POBOX)
-                ;//.IsUnicode(true);
+                .Property(e => e.POBOX);
 
             modelBuilder.Entity<ContactAddress>()
-                .Property(e => e.Neighborhood)
-                ;//.IsUnicode(true);
+                .Property(e => e.Neighborhood);
 
             modelBuilder.Entity<ContactAddress>()
-                .Property(e => e.City)
-                ;//.IsUnicode(true);
+                .Property(e => e.City);
 
             modelBuilder.Entity<ContactAddress>()
-                .Property(e => e.Province)
-                ;//.IsUnicode(true);
+                .Property(e => e.Province);
 
             modelBuilder.Entity<ContactAddress>()
-                .Property(e => e.PostalCode)
-                ;//.IsUnicode(true);
+                .Property(e => e.PostalCode);
+
+            /*TODO
+            modelBuilder.Entity<ContactAddress>()
+                .HasOne(e => e.Country);*/
 
             modelBuilder.Entity<ContactAddress>()
-                .HasOne(e => e.Country);//.HasRequired(e => e.Country);
+                .Property(e => e.Country);
 
+            modelBuilder.Entity<ContactAddress>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  Country for address TODO: improve later
             //  ------------------------------------
             modelBuilder.Entity<Country>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description) 
+                ;
 
 
 
@@ -220,7 +207,7 @@ namespace DNXTest.Models
             //  ------------------------------------
             modelBuilder.Entity<ContactRelationship>()
                     .Property(e => e.Description)
-                    ;//.IsUnicode(true);
+                    ;
 
 
 
@@ -233,53 +220,54 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactRelated>()
                 .HasOne(e => e.Relationship);
 
+            modelBuilder.Entity<ContactRelated>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  ContactWebsite
             //  ------------------------------------
             modelBuilder.Entity<ContactWebsite>()
-                .Property(e => e.WebSite)
-                ;//.IsUnicode(true);
+                .Property(e => e.WebSite);
 
             modelBuilder.Entity<ContactWebsite>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
+           modelBuilder.Entity<ContactWebsite>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  ContactInstantMessaging
             //  ------------------------------------
             modelBuilder.Entity<ContactInstantMessaging>()
-                .Property(e => e.InstantMessaging)
-                ;//.IsUnicode(true);
+                .Property(e => e.InstantMessaging);
 
             modelBuilder.Entity<ContactInstantMessaging>()
-                .Property(e => e.IMContact)
-                ;//.IsUnicode(true);
+                .Property(e => e.IMContact);
 
+            modelBuilder.Entity<ContactInstantMessaging>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  ContactInternetCall
             //  ------------------------------------
             modelBuilder.Entity<ContactInternetCall>()
-                .Property(e => e.InternetCallId)
-                ;//.IsUnicode(true);
+                .Property(e => e.InternetCallId);
 
             modelBuilder.Entity<ContactInternetCall>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
+            modelBuilder.Entity<ContactInternetCall>()
+                .HasIndex(new string[] { "ContactId", "SortOrder" });
 
 
             //  ------------------------------------
             //  SpokenLanguage for ContactIdentification
             //  ------------------------------------
             modelBuilder.Entity<SpokenLanguage>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
 
 
@@ -287,8 +275,7 @@ namespace DNXTest.Models
             //  ContactIdentification
             //  ------------------------------------
             modelBuilder.Entity<ContactIdentification>()
-                .Property(e => e.IdOrPassport)
-                ;//.IsUnicode(true);
+                .Property(e => e.IdOrPassport);
 
             modelBuilder.Entity<ContactIdentification>()
                 .Property(e => e.IdOrPassportIssueDate);
@@ -297,11 +284,10 @@ namespace DNXTest.Models
                 .Property(e => e.IdOrPassportExpiryDate);
 
             modelBuilder.Entity<ContactIdentification>()
-                .Property(e => e.FiscalId)
-                ;//.IsUnicode(true);
+                .Property(e => e.FiscalId);
 
             modelBuilder.Entity<ContactIdentification>()
-                .HasOne(e => e.BornInCountry);//.HasRequired(e => e.BornInCountry);
+                .HasOne(e => e.BornInCountry);
 
             modelBuilder.Entity<ContactIdentification>()
                 .HasMany(e => e.SpokenLanguages);
@@ -315,16 +301,13 @@ namespace DNXTest.Models
             //  ContactDharmaExperience
             //  ------------------------------------
             modelBuilder.Entity<ContactDharmaExperience>()
-                .Property(e => e.FollowerOfReligionWhich)
-                ;//.IsUnicode(true);
+                .Property(e => e.FollowerOfReligionWhich);
 
             modelBuilder.Entity<ContactDharmaExperience>()
-                .Property(e => e.InterestInFollowingTeachings)
-                ;//.IsUnicode(true);
+                .Property(e => e.InterestInFollowingTeachings);
 
             modelBuilder.Entity<ContactDharmaExperience>()
-                .Property(e => e.DescriptionOfBuddhistBackgroundOfAnyTradition)
-                ;//.IsUnicode(true);
+                .Property(e => e.DescriptionOfBuddhistBackgroundOfAnyTradition);
 
 
 
@@ -332,12 +315,10 @@ namespace DNXTest.Models
             //  ContactEducation
             //  ------------------------------------
             modelBuilder.Entity<ContactEducation>()
-                .Property(e => e.DetailsOfUniversityPostGraduateOrTechnicalStudies)
-                ;//.IsUnicode(true);
+                .Property(e => e.DetailsOfUniversityPostGraduateOrTechnicalStudies);
 
             modelBuilder.Entity<ContactEducation>()
-                .Property(e => e.OtherEducationalExperience)
-                ;//.IsUnicode(true);
+                .Property(e => e.OtherEducationalExperience);
 
 
 
@@ -366,16 +347,13 @@ namespace DNXTest.Models
                 .Property(e => e.ArtWorkshop);
 
             modelBuilder.Entity<ContactWorkPreference>()
-                .Property(e => e.ExperienceOnWorkAreas)
-                ;//.IsUnicode(true);
+                .Property(e => e.ExperienceOnWorkAreas);
 
             modelBuilder.Entity<ContactWorkPreference>()
-                .Property(e => e.WorkAreasExclusionAndReasons)
-                ;//.IsUnicode(true);
+                .Property(e => e.WorkAreasExclusionAndReasons);
 
             modelBuilder.Entity<ContactWorkPreference>()
-                .Property(e => e.ReasonsToOfferVoluntaryWorkToCenter)
-                ;//.IsUnicode(true);
+                .Property(e => e.ReasonsToOfferVoluntaryWorkToCenter);
 
             modelBuilder.Entity<ContactWorkPreference>()
                 .Property(e => e.WhenToComeStartDate);
@@ -384,16 +362,13 @@ namespace DNXTest.Models
                 .Property(e => e.WhenToComeEndDate);
 
             modelBuilder.Entity<ContactWorkPreference>()
-                .Property(e => e.HopesExpectationsForStay)
-                ;//.IsUnicode(true);
+                .Property(e => e.HopesExpectationsForStay);
 
             modelBuilder.Entity<ContactWorkPreference>()
-                .Property(e => e.SkillsAndKnowledgesToDevelopDuringStay)
-                ;//.IsUnicode(true);
+                .Property(e => e.SkillsAndKnowledgesToDevelopDuringStay);
 
             modelBuilder.Entity<ContactWorkPreference>()
-                .Property(e => e.HowDidContactFoundTheCenter)
-                ;//.IsUnicode(true);
+                .Property(e => e.HowDidContactFoundTheCenter);
 
 
 
@@ -401,11 +376,10 @@ namespace DNXTest.Models
             //  ContactVolunteeringExperience
             //  ------------------------------------
             modelBuilder.Entity<ContactVolunteeringExperience>()
-                .Property(e => e.DetailsOfMainWorkAndVolunteerinExperience)
-                ;//.IsUnicode(true);
+                .Property(e => e.DetailsOfMainWorkAndVolunteerinExperience);
 
             modelBuilder.Entity<ContactVolunteeringExperience>()
-                .HasOne(e => e.ContactToAskAboutExperience);//.HasRequired(e => e.ContactToAskAboutExperience);
+                .HasOne(e => e.ContactToAskAboutExperience);
 
 
 
@@ -413,8 +387,7 @@ namespace DNXTest.Models
             //  DonorContext for ContactDonorInfo
             //  ------------------------------------
             modelBuilder.Entity<DonorContext>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
 
 
@@ -422,8 +395,7 @@ namespace DNXTest.Models
             //  DonorInterest for ContactDonorInfo
             //  ------------------------------------
             modelBuilder.Entity<DonorInterest>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
 
 
@@ -431,8 +403,7 @@ namespace DNXTest.Models
             //  DonorReligiousSituation for ContactDonorInfo
             //  ------------------------------------
             modelBuilder.Entity<DonorReligiousSituation>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
 
 
@@ -440,8 +411,7 @@ namespace DNXTest.Models
             //  DonorType for ContactDonorInfo
             //  ------------------------------------
             modelBuilder.Entity<DonorType>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
 
 
@@ -449,10 +419,10 @@ namespace DNXTest.Models
             //  ContactDonorInfo
             //  ------------------------------------
             modelBuilder.Entity<ContactDonorInfo>()
-                .HasOne(e => e.DonorReligiousSituation);// HasRequired(e => e.DonorReligiousSituation);
+                .HasOne(e => e.DonorReligiousSituation);
 
             modelBuilder.Entity<ContactDonorInfo>()
-                .HasOne(e => e.DonorType);//.HasRequired(e => e.DonorType);
+                .HasOne(e => e.DonorType);
 
             modelBuilder.Entity<ContactDonorInfo>()
                 .HasMany(e => e.DonorContexts);
@@ -466,8 +436,7 @@ namespace DNXTest.Models
             //  ContactBloodType for ContactHealthInfo
             //  ------------------------------------
             modelBuilder.Entity<ContactBloodType>()
-                .Property(e => e.Description)
-                ;//.IsUnicode(true);
+                .Property(e => e.Description);
 
 
 
@@ -475,51 +444,58 @@ namespace DNXTest.Models
             //  ContactHealthInfo
             //  ------------------------------------
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.EmergencyContact1);//.HasRequired(e => e.EmergencyContact1);
+                .HasOne(e => e.EmergencyContact1);
+
+            modelBuilder.Entity<ContactHealthInfo>()
+                .HasOne(e => e.EmergencyContact1Relationship);
 
             modelBuilder.Entity<ContactHealthInfo>()
                 .HasOne(e => e.EmergencyContact2);
-            //.HasRequired(e => e.EmergencyContact2);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.AllergiesToMedications)
-                ;//.IsUnicode(true);
+                .HasOne(e => e.EmergencyContact2Relationship);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.HealthInsuranceProvider)
-                ;//.IsUnicode(true);
+                .Property(e => e.AllergiesToMedications);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.HealthInsurancePolicyNr)
-                ;//.IsUnicode(true);
+                .Property(e => e.HealthInsuranceProvider);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.DetailsToInformEmergencyServices)
-                ;//.IsUnicode(true);
+                .Property(e => e.HealthInsurancePolicyNr);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.PrescribedMedicationInLast4MonthsAndReasons)
-                ;//.IsUnicode(true);
+                .Property(e => e.DetailsToInformEmergencyServices);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years)
-                ;//.IsUnicode(true);
+                .Property(e => e.PrescribedMedicationInLast4MonthsAndReasons);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.MedicalConditionsToConsiderInEventOfEmergency)
-                ;//.IsUnicode(true);
+                .Property(e => e.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .Property(e => e.RestrictivePhysicalProblems)
-                ;//.IsUnicode(true);
+                .Property(e => e.MedicalConditionsToConsiderInEventOfEmergency);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.ContactBloodType);//.HasOptional(e => e.ContactBloodType);
+                .Property(e => e.RestrictivePhysicalProblems);
+
+            modelBuilder.Entity<ContactHealthInfo>()
+                .HasOne(e => e.ContactBloodType);
            
         }
 
-        public DbSet<ExceptionLogger>           ExceptionLogger         { get; set; }
-        public DbSet<Contact>                   Contact                 { get; set; }
+        public DbSet<ExceptionLogger>           ExceptionLogger             { get; set; }
+        public DbSet<Contact>                   Contact                     { get; set; }
+
+        //  Lookup sets for seed methods
+        public DbSet<ContactBloodType>          ContactBloodType            { get; set; }
+        public DbSet<DonorType>		            DonorType		            { get; set; }
+        public DbSet<DonorReligiousSituation>   DonorReligiousSituation     { get; set; }
+        public DbSet<DonorInterest>             DonorInterest               { get; set; }
+        public DbSet<DonorContext>	            DonorContext	            { get; set; }
+        public DbSet<ContactRelationship>       ContactRelationship         { get; set; }
+        public DbSet<SpokenLanguage>            SpokenLanguage              { get; set; }
+        public DbSet<Country>                   Country                     { get; set; }
 
         
         //public DbSet<ContactIdentification>     ContactIdentification   { get; set; }

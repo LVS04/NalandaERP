@@ -27,7 +27,7 @@ namespace DNXTest.Controllers
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory) 
         {
             _userManager = userManager;
             _signInManager = signInManager;

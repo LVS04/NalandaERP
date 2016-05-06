@@ -15,7 +15,7 @@ using DNXTest.ViewModels.Account;
 
 namespace DNXTest.Controllers
 {
-    [Authorize]
+    [Authorize] 
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

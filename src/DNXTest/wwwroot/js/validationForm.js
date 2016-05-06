@@ -1,151 +1,15 @@
-﻿/**
- * jQuery serializeObject
- * @copyright 2014, macek <paulmacek@gmail.com>
- * @link https://github.com/macek/jquery-serialize-object
- * @license BSD
- * @version 2.5.0
- */
-(function(root, factory) {
+﻿
+jQuery.validator.addMethod("isCountry", function (value, element) {
 
-  // AMD
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "jquery"], function(exports, $) {
-      return factory(exports, $);
-    });
-  }
+    var in_array = $.inArray(value, arrCountries);
 
-  // CommonJS
-  else if (typeof exports !== "undefined") {
-    var $ = require("jquery");
-    factory(exports, $);
-  }
-
-  // Browser
-  else {
-    factory(root, (root.jQuery || root.Zepto || root.ender || root.$));
-  }
-
-}(this, function(exports, $) {
-
-  var patterns = {
-    validate: /^[a-z_][a-z0-9_]*(?:\[(?:\d*|[a-z0-9_]+)\])*$/i,
-    key:      /[a-z0-9_]+|(?=\[\])/gi,
-    push:     /^$/,
-    fixed:    /^\d+$/,
-    named:    /^[a-z0-9_]+$/i
-  };
-
-  function FormSerializer(helper, $form) {
-
-    // private variables
-    var data     = {},
-        pushes   = {};
-
-    // private API
-    function build(base, key, value) {
-      base[key] = value;
-      return base;
+    if (in_array == -1) {
+        return false;
     }
-
-    function makeObject(root, value) {
-
-      var keys = root.match(patterns.key), k;
-
-      // nest, nest, ..., nest
-      while ((k = keys.pop()) !== undefined) {
-        // foo[]
-        if (patterns.push.test(k)) {
-          var idx = incrementPush(root.replace(/\[\]$/, ''));
-          value = build([], idx, value);
-        }
-
-        // foo[n]
-        else if (patterns.fixed.test(k)) {
-          value = build([], k, value);
-        }
-
-        // foo; foo[bar]
-        else if (patterns.named.test(k)) {
-          value = build({}, k, value);
-        }
-      }
-
-      return value;
+    else {
+        return true;
     }
-
-    function incrementPush(key) {
-      if (pushes[key] === undefined) {
-        pushes[key] = 0;
-      }
-      return pushes[key]++;
-    }
-
-    function encode(pair) {
-      switch ($('[name="' + pair.name + '"]', $form).attr("type")) {
-        case "checkbox":
-          return pair.value === "on" ? true : pair.value;
-        default:
-          return pair.value;
-      }
-    }
-
-    function addPair(pair) {
-      if (!patterns.validate.test(pair.name)) return this;
-      var obj = makeObject(pair.name, encode(pair));
-      data = helper.extend(true, data, obj);
-      return this;
-    }
-
-    function addPairs(pairs) {
-      if (!helper.isArray(pairs)) {
-        throw new Error("formSerializer.addPairs expects an Array");
-      }
-      for (var i=0, len=pairs.length; i<len; i++) {
-        this.addPair(pairs[i]);
-      }
-      return this;
-    }
-
-    function serialize() {
-      return data;
-    }
-
-    function serializeJSON() {
-      return JSON.stringify(serialize());
-    }
-
-    // public API
-    this.addPair = addPair;
-    this.addPairs = addPairs;
-    this.serialize = serialize;
-    this.serializeJSON = serializeJSON;
-  }
-
-  FormSerializer.patterns = patterns;
-
-  FormSerializer.serializeObject = function serializeObject() {
-    return new FormSerializer($, this).
-      addPairs(this.serializeArray()).
-      serialize();
-  };
-
-  FormSerializer.serializeJSON = function serializeJSON() {
-    return new FormSerializer($, this).
-      addPairs(this.serializeArray()).
-      serializeJSON();
-  };
-
-  if (typeof $.fn !== "undefined") {
-    $.fn.serializeObject = FormSerializer.serializeObject;
-    $.fn.serializeJSON   = FormSerializer.serializeJSON;
-  }
-
-  exports.FormSerializer = FormSerializer;
-
-  return FormSerializer;
-}));
-
-
+}, "Please select a valid country name.");
 
 
 //  JQuery validator to allow repeated names in forms with different IDs
@@ -157,13 +21,12 @@ jQuery.validator.prototype.checkForm = function () {
             for (var cnt = 0; cnt < this.findByName(elements[i].name).length; cnt++) {
                 this.check(this.findByName(elements[i].name)[cnt]);
             }
-        } else {
+        } else { 
             this.check(elements[i]);
         }
     }
     return this.valid();
 };
-
 
 $('#formContact').validate({
     rules: {
@@ -189,10 +52,10 @@ $('#formContact').validate({
         },
         'Addresses[][PostalCode]': {
             required: true
-        }/*,
+        },
         'Addresses[][Country]': {
             required: true
-        }*/,
+        },
         'Emails[][Email]': {
             required: true,
             email: true
@@ -208,7 +71,7 @@ $('#formContact').validate({
             required: true
         },
         'Websites[][Website]': {
-            url:true
+            url: true
         }
 
     },
@@ -235,6 +98,7 @@ $('#formContact').submit(function () {
     form.validate();
 
     if (form.valid()) {
+
         var JSONForm = JSON.stringify($('#formContact').serializeObject());
         var varDestiny;
 
@@ -278,7 +142,21 @@ $('#formContact').submit(function () {
             });
         }
         return false;
-    } 
+    }
     return false;
 });
 
+/*
+        var test = $('#formContact').serializeObject();
+        //alert(JSONForm);
+        
+        
+        $.each(test, function (key, value) {
+            if (key == 'Addresses')
+            {
+                $.each(value, function (addressKey, addressValue) {
+                    alert(addressKey + ": " + addressValue);
+                });
+            }
+        });
+        */

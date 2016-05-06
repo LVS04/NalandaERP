@@ -17,3 +17,4 @@ namespace DNXTest.Models
         public  DateTime    LogTime             { get; set; }
     }
 }
+  

@@ -12,3 +12,4 @@ namespace DNXTest.ViewModels.Contact
         public ContactWorkPreference contactWorkPreference;
     }
 }
+ 
