@@ -96,7 +96,6 @@ $("#btnNew").click(function () {
 
 //  Dynamic one-to-many elements
 //  ----------------------------
-
 $(".removeDiv").click(function () {
     ($(this)).parent().parent().parent().parent().parent().fadeOut(1000, function () {
         ($(this)).remove();

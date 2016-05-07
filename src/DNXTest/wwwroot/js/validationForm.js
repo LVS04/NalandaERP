@@ -1,15 +1,4 @@
 ﻿
-jQuery.validator.addMethod("isCountry", function (value, element) {
-
-    var in_array = $.inArray(value, arrCountries);
-
-    if (in_array == -1) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}, "Please select a valid country name.");
 
 
 //  JQuery validator to allow repeated names in forms with different IDs
@@ -27,6 +16,18 @@ jQuery.validator.prototype.checkForm = function () {
     }
     return this.valid();
 };
+
+jQuery.validator.addMethod("isValidCountry", function (value) {
+
+    var in_array = $.inArray(value, arrCountries);
+
+    if (in_array == -1) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}, "Please select a valid country name.");
 
 $('#formContact').validate({
     rules: {
@@ -54,7 +55,8 @@ $('#formContact').validate({
             required: true
         },
         'Addresses[][Country]': {
-            required: true
+            required: true,
+            isValidCountry: true
         },
         'Emails[][Email]': {
             required: true,
@@ -91,6 +93,7 @@ $('#formContact').validate({
         }
     }
 });
+
 
 $('#formContact').submit(function () {
 
