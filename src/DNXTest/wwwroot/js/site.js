@@ -60,7 +60,7 @@ $("#btnEcontact").click(function () {
     $("#divMain").scrollTo("#divEcontact");
 });
 
-function fadeOutRemove( element )
+function fadeOutWipeContent( element )
 {
     $(element).fadeOut(1000, function () {
         ($(this)).children().remove();
@@ -69,12 +69,12 @@ function fadeOutRemove( element )
 
 function clearForm() {
     //  Remove all dynamically added content to reset form
-    fadeOutRemove("#divNewAddress");
-    fadeOutRemove("#divNewPhone");
-    fadeOutRemove("#divNewEmail");
-    fadeOutRemove("#divNewWebsite");
-    fadeOutRemove("#divNewIM");
-    fadeOutRemove("#divNewInternetCallId");
+    fadeOutWipeContent("#divNewAddress");
+    fadeOutWipeContent("#divNewPhone");
+    fadeOutWipeContent("#divNewEmail");
+    fadeOutWipeContent("#divNewWebsite");
+    fadeOutWipeContent("#divNewIM");
+    fadeOutWipeContent("#divNewInternetCallId");
 
     //  Cleanup all 
     $(':input').not(':button, :submit, :reset, :checkbox, :radio').val('');
@@ -86,7 +86,7 @@ function clearForm() {
 $("#btnNew").click(function () {
     //$('#formContact').trigger("reset");
     clearForm();
-    //$('#Main').tab('show');
+    $('#myTabs a[href="#Main"]').tab('show')
     //$("#divMain").scrollTo("#divGeneral");
     oddBackground = true;
     $("#btnSave").val('Create');

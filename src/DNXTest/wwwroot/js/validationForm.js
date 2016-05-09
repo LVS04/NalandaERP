@@ -140,7 +140,7 @@ $('#formContact').submit(function () {
                 },
                 success: function (response) {
                     alert(response.responseText);
-                    clearForm();
+                    /*clearForm();*/
                 }
             });
         }
