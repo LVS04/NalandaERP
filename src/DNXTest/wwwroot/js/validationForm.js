@@ -67,7 +67,8 @@ $('#formContact').validate({
         },
         'Phones[][Number]': {
             required: true,
-            digits: true
+            digits: true,
+            minlength: 9
         },
         'Phones[][Description]': {
             required: true
@@ -140,7 +141,7 @@ $('#formContact').submit(function () {
                 },
                 success: function (response) {
                     alert(response.responseText);
-                    /*clearForm();*/
+                    clearForm();
                 }
             });
         }

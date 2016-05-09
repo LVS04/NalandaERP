@@ -28,6 +28,10 @@ namespace DNXTest.Models
             ContactVolunteeringExperience   = new ContactVolunteeringExperience();
             ContactDonorInfo                = new ContactDonorInfo();
             ContactHealthInfo               = new ContactHealthInfo();
+
+            this.ContactWorkPreference.WhenToComeStartDate = this.ContactWorkPreference.WhenToComeEndDate =
+            this.ContactIdentification.IdOrPassportIssueDate = this.ContactIdentification.IdOrPassportExpiryDate = DateTime.MinValue;
+
         }
 
         public void InitIds(Guid? id = null)
@@ -42,6 +46,8 @@ namespace DNXTest.Models
             this.ContactVolunteeringExperience.Id   = this.Id;
             this.ContactDonorInfo.Id                = this.Id;
             this.ContactHealthInfo.Id               = this.Id;
+
+            
         }
 
         

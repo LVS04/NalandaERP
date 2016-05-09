@@ -79,8 +79,9 @@ function clearForm() {
     //  Cleanup all 
     $(':input').not(':button, :submit, :reset, :checkbox, :radio').val('');
     $(':checkbox, :radio').prop('checked', false);
-
-
+    $('input[type="date"]').val('0001-01-01');
+    $('input[name="Birthdate"]').val('');
+    $("#btnSave").val('Create');
 }
 
 $("#btnNew").click(function () {
@@ -89,7 +90,6 @@ $("#btnNew").click(function () {
     $('#myTabs a[href="#Main"]').tab('show')
     //$("#divMain").scrollTo("#divGeneral");
     oddBackground = true;
-    $("#btnSave").val('Create');
 });
 
 
