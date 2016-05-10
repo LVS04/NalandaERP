@@ -3,6 +3,8 @@
     string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='ContactIdentification[{0}]' type='text' value='{1}' />";
     string inputDateFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-date='The field {0} must be a date.' data-val-required='The {0} field is required.' id='{0}' name='ContactIdentification[{0}]' type='date' value='{1}' />";
 
+    string inputFieldCountry_WithValue = "<input type='text' class='typeahead tt-input form-control text-box single-line isCountry' autocomplete='off' name='ContactIdentification[BornInCountry]' value='{0}'>";
+
 }
 <div class="col-sm-6">
     <div class="form-group">
@@ -17,8 +19,6 @@
             @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "IdOrPassportIssueDate", Model.IdOrPassportIssueDate.ToString("yyyy-MM-dd")))
         </div>
     </div>
-</div>
-<div class="col-sm-6">
     <div class="form-group">
         <label class="" for="IdOrPassportExpiryDate">Id or Passport expiry date</label>
         <div class="">
@@ -29,6 +29,14 @@
         <label class="" for="FiscalId">Fiscal Id ( donation tax reduction receipts )</label>
         <div class="">
             @Html.Raw(string.Format(inputFieldHTML__WithValue, "FiscalId", Model.FiscalId))
+        </div>
+    </div>
+</div>
+<div class="col-sm-6">
+    <div class="form-group" >
+        <label class="" for="BornInContry">Born in Country</label>
+        <div class="country">
+            @Html.Raw(string.Format(inputFieldCountry_WithValue, Model.BornInCountry))
         </div>
     </div>
 </div> 

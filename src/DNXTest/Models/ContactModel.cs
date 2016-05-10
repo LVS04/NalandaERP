@@ -29,8 +29,8 @@ namespace DNXTest.Models
             ContactDonorInfo                = new ContactDonorInfo();
             ContactHealthInfo               = new ContactHealthInfo();
 
-            this.ContactWorkPreference.WhenToComeStartDate = this.ContactWorkPreference.WhenToComeEndDate =
-            this.ContactIdentification.IdOrPassportIssueDate = this.ContactIdentification.IdOrPassportExpiryDate = DateTime.MinValue;
+            this.ContactWorkPreference.WhenToComeStartDate = this.ContactWorkPreference.WhenToComeEndDate = DateTime.MinValue;
+            //this.ContactIdentification.IdOrPassportIssueDate = this.ContactIdentification.IdOrPassportExpiryDate = DateTime.MinValue;
 
         }
 
@@ -197,6 +197,11 @@ namespace DNXTest.Models
 
         public partial class Country
         {
+            public Country()
+            {
+                Description = string.Empty;
+            }
+
             //[Key]
             public int Id { get; set; }
 
@@ -280,6 +285,13 @@ namespace DNXTest.Models
         public partial class ContactIdentification
         {
 
+            public  ContactIdentification()
+            {
+                IdOrPassportIssueDate = IdOrPassportExpiryDate = DateTime.MinValue;
+                BornInCountry = string.Empty;
+            }
+
+
             [StringLength(100)]
             public          string   IdOrPassport                           { get; set; } 
             public          DateTime IdOrPassportIssueDate                  { get; set; }
@@ -287,7 +299,8 @@ namespace DNXTest.Models
 
             [StringLength(100)]
             public          string   FiscalId                               { get; set; }
-            public          Country  BornInCountry                          { get; set; }
+            public          string   BornInCountry                          { get; set; }
+            //public          Country  BornInCountry                          { get; set; }
             public virtual  ICollection<SpokenLanguage> SpokenLanguages     { get; set; }
             public          SpokenLanguage PreferredLanguage                { get; set; }
            

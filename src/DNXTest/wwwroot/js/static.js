@@ -31,3 +31,4 @@ $('.country .typeahead').typeahead({
     name: 'arrCountries',
     source: substringMatcher(arrCountries)
 });
+

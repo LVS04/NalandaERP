@@ -15,7 +15,13 @@ input,
 select
 {
     max-width: 280px;
+    text-transform: uppercase;
 }
+
+.btn
+{
+    text-transform: capitalize;
+}    
 
 input.fullWidth
 {
@@ -32,6 +38,7 @@ input.Width85
 textarea {
     max-width: 95%;
     min-width: 95%;
+    text-transform: uppercase;
 }
 
 /* Carousel */
@@ -78,4 +85,12 @@ label {
 .paddingBottom25{
     padding-bottom:25px;
 }
- 
+
+#divMain{
+    overflow-y:auto;
+    overflow-x:hidden;
+    height:446px;
+} 
+.divCombobox{
+    width: 280px;
+}

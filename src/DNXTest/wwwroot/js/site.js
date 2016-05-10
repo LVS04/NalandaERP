@@ -40,11 +40,12 @@ $('#myTabs a').click(function (e) {
     $(this).tab('show')
 })
 
+
 //  Scroll to...
 $.fn.scrollTo = function (elem, speed) {
     $(this).animate({
         scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
-    }, speed == undefined ? 1000 : speed);
+    }, speed == undefined ? 'slow' : speed);
     return this;
 };
 $("#btnGeneral").click(function () {
@@ -67,6 +68,42 @@ function fadeOutWipeContent( element )
     });
 }
 
+//$('#divMain').scroll(function(){
+//    event.preventDefault();
+//    alert("scroll!");
+//    $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+//});
+
+(function ($) {
+    $.fn.offsetRelative = function (top) {
+        var $this = $(this);
+        var $parent = $this.offsetParent();
+        var offset = $this.position();
+        if (!top) return offset; // Didn't pass a 'top' element
+        else if ($parent.get(0).tagName == "BODY") return offset; // Reached top of document
+        else if ($(top, $parent).length) return offset; // Parent element contains the 'top' element we want the offset to be relative to
+        else if ($parent[0] == $(top)[0]) return offset; // Reached the 'top' element we want the offset to be relative to
+        else { // Get parent's relative offset
+            var parent_offset = $parent.offsetRelative(top);
+            offset.top += parent_offset.top;
+            offset.left += parent_offset.left;
+            return offset;
+        }
+    };
+    //$.fn.positionRelative = function (top) {
+    //    return $(this).offsetRelative(top);
+    //};
+}(jQuery));
+
+$('input[type="text"]').focus(function () {
+
+    var center = $("#divMain").height() / 2;
+    var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop()- $("#divMain").position().top;
+    
+    $("#divMain").animate({ scrollTop: (top - center) }, 500);
+
+});
+
 function clearForm() {
     //  Remove all dynamically added content to reset form
     fadeOutWipeContent("#divNewAddress");
@@ -87,12 +124,13 @@ function clearForm() {
 $("#btnNew").click(function () {
     //$('#formContact').trigger("reset");
     clearForm();
-    $('#myTabs a[href="#Main"]').tab('show')
+    //$('#myTabs a[href="#Main"]').tab('show')
     //$("#divMain").scrollTo("#divGeneral");
     oddBackground = true;
 });
 
 
+$('.combobox').combobox();
 
 //  Dynamic one-to-many elements
 //  ----------------------------
@@ -106,6 +144,7 @@ var oddBackground = true;
 $("#btnAddAddress").click(function () {
 
     $('.typeahead').typeahead('destroy');
+    $('input[type="text"]').unbind("focus");
 
     if (!oddBackground) {
         $("#divNewAddress").append('<div class="divAddress"><div class="row container  paddingTop10"><div class="col-sm-6 "><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 "><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container "><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
@@ -122,6 +161,14 @@ $("#btnAddAddress").click(function () {
     })
     oddBackground = !oddBackground;
 
+    $('input[type="text"]').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
     $('.country .typeahead').typeahead({
         hint: false,
         highlight: true,
@@ -132,48 +179,104 @@ $("#btnAddAddress").click(function () {
         name: 'arrCountries',
         source: substringMatcher(arrCountries)
     });
+
 });
 
 $("#btnAddPhone").click(function () {
+
+    $("input[type='text']").unbind("focus");
+
     $("#divNewPhone").append('<div class="divPhone"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Phone Nr</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Number must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Phones[][Number]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Phones[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove phone" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     $(".removeDiv").click(function () {
         ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
             ($(this)).remove();
         });
     })
+    $(':input').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
 });
 
 $("#btnAddEmail").click(function () {
+
+    $(":input").unbind("focus");
+
     $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Email must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     $(".removeDiv").click(function () {
         ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
             ($(this)).remove();
         });
     })
+    $(':input').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
 });
 $("#btnAddWebsite").click(function () {
+
+    $(":input").unbind("focus");
+
     $("#divNewWebsite").append('<div class="divWebsite"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Website</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Website must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Websites[][Website]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Websites[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove website" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     $(".removeDiv").click(function () {
         ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
             ($(this)).remove();
         });
     })
+    $(':input').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
 });
 $("#btnAddIM").click(function () {
+
+    $(":input").unbind("focus");
+
     $("#divNewIM").append('<div class="divIM"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Instant Messaging</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field InstantMessaging must be a string with a maximum length of 50." data-val-length-max="50" id="" name="IMs[][InstantMessaging]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Instant Messaging Contact</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field IMContact must be a string with a maximum length of 50." data-val-length-max="50" id="" name="IMs[][IMContact]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove IM" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     $(".removeDiv").click(function () {
         ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
             ($(this)).remove();
         });
     })
+    $(':input').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
 });
 $("#btnAddInternetCallId").click(function () {
+
+    $(":input").unbind("focus");
+
     $("#divNewInternetCallId").append('<div class="divInternetCalls"><div class="row container oddBackground paddingTop10"><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Number">Internet Call Id</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field InternetCallId must be a string with a maximum length of 50." data-val-length-max="50" id="" name="InternetCallIds[][InternetCallId]" type="text" value=""></div></div></div><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="InternetCallIds[][Description]" type="text" value=""></div></div></div><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove Internet call id" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     $(".removeDiv").click(function () {
         ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
             ($(this)).remove();
         });
     })
+    $(':input').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
 });
 
 // Contact page end

@@ -46,13 +46,13 @@
             <br />
             <!--<div class="container-fluid">-->
 
-            <div style="overflow-y:auto;overflow-x:hidden;height:446px;" id="divMain">
+            <div id="divMain">
                 <div class="row container">
                     <div class="col-sm-6">
                         <div class="form-group" id="divGeneral">
                             <label class="" for="Prefix">Prefix</label>
-                            <div class="">
-                                @Html.DropDownListFor(model => model.Prefix, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Venerable", Value = "Venerable" }, new SelectListItem() { Text = "Honorable", Value = "Honorable" }, new SelectListItem() { Text = "Sir", Value = "Sir" }, new SelectListItem() { Text = "Lady", Value = "Lady" }, new SelectListItem() { Text = "Mr", Value = "Mr" }, new SelectListItem() { Text = "Mrs", Value = "Mrs" }, new SelectListItem() { Text = "Miss", Value = "Miss" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line" })
+                            <div class="divCombobox">
+                                @Html.DropDownListFor(model => model.Prefix, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Venerable", Value = "Venerable" }, new SelectListItem() { Text = "Honorable", Value = "Honorable" }, new SelectListItem() { Text = "Sir", Value = "Sir" }, new SelectListItem() { Text = "Lady", Value = "Lady" }, new SelectListItem() { Text = "Mr", Value = "Mr" }, new SelectListItem() { Text = "Mrs", Value = "Mrs" }, new SelectListItem() { Text = "Miss", Value = "Miss" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line combobox" })
                                 @Html.ValidationMessageFor(model => model.Prefix, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -84,8 +84,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="" for="Gender">Gender</label>
-                            <div class="">
-                                @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line" })
+                            <div class="divCombobox">
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line combobox" })
                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                             </div>
                         </div>

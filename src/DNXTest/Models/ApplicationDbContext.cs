@@ -286,8 +286,11 @@ namespace DNXTest.Models
             modelBuilder.Entity<ContactIdentification>()
                 .Property(e => e.FiscalId);
 
+            //modelBuilder.Entity<ContactIdentification>()
+            //    .HasOne(e => e.BornInCountry);
+
             modelBuilder.Entity<ContactIdentification>()
-                .HasOne(e => e.BornInCountry);
+                .Property(e => e.BornInCountry);
 
             modelBuilder.Entity<ContactIdentification>()
                 .HasMany(e => e.SpokenLanguages);

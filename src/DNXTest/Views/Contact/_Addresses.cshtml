@@ -88,8 +88,8 @@ else
         if (count == 1)
         {
             <div class="divAddress">
-                <div class=@Html.Raw(string.Format("'row container{0} paddingTop10'", (oddBackground) ? " oddBackground" : ""))>
-                    <div class=@Html.Raw(string.Format("'{0}'", (oddBackground) ? "col-sm-6 oddBackground" : "col-sm-6"))
+                <div class=@Html.Raw(string.Format("'row container{0} '", (oddBackground) ? " oddBackground" : ""))>
+                    <div class=@Html.Raw(string.Format("'{0} paddingTop10'", (oddBackground) ? "col-sm-6 oddBackground" : "col-sm-6 "))
                          @if (first) { @Html.Raw(" id='divAddresses'")     first = false; } else { }>
                         <div class="form-group">
                             <label class="" for="Street">Street</label>
@@ -110,7 +110,7 @@ else
                             </div>
                         </div>
                     </div>
-                    <div class=@Html.Raw(string.Format("{0}", (oddBackground) ? "'col-sm-6 oddBackground'" : "'col-sm-6'"))>
+                    <div class=@Html.Raw(string.Format("{0} ", (oddBackground) ? "'col-sm-6 oddBackground'" : "'col-sm-6'"))>
                         <div class="form-group">
                             <label class="" for="City">City</label>
                             <div class="">

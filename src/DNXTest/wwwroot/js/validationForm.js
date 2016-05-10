@@ -30,6 +30,7 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
 }, "Please select a valid country name.");
 
 $('#formContact').validate({
+    ignore: [],
     rules: {
         FirstName: {
             required: true,
@@ -99,7 +100,7 @@ $('#formContact').validate({
 $('#formContact').submit(function () {
 
     var form = $("#formContact");
-    form.validate();
+    var validator = form.validate();
 
     if (form.valid()) {
 
@@ -146,6 +147,10 @@ $('#formContact').submit(function () {
             });
         }
         return false;
+    }
+    else// form is invalid
+    {
+        alert("There is non-valid data in the form. Please check the different tabs.");
     }
     return false;
 });
