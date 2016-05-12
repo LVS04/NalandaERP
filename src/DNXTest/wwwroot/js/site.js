@@ -110,9 +110,10 @@ function clearForm() {
     fadeOutWipeContent("#divNewInternetCallId");
 
     //  Cleanup all 
-    $(':input').not(':button, :submit, :reset, :checkbox, :radio').val('');
+    $(':input').not('input[type="number"], :button, :submit, :reset, :checkbox, :radio').val('');
     $(':checkbox, :radio').prop('checked', false);
     $('input[type="date"]').val('0001-01-01');
+    $('input[type="number"]').val('0');
     $('input[name="Birthdate"]').val('');
     $('#btnSave').val('Create');
 
@@ -148,21 +149,12 @@ var oddBackground = true;
 
 function ControlEventUnbindings() {
     $('.typeahead').typeahead('destroy');
-    $('input[type="text"]').unbind('focus');
-    $('textarea').unbind('focus');
+    $('input[type="text"], textarea').unbind('focus');
     $(".removeDiv").unbind('click');
 }
 
 function ControlsEventBindings() {
-    $('input[type="text"]').focus(function () {
-
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
-
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
-    });
-
-    $('textarea').focus(function () {
+    $('input[type="text"], textarea').focus(function () {
 
         var center = $("#divMain").height() / 2;
         var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;

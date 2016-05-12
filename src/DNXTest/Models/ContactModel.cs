@@ -47,6 +47,13 @@ namespace DNXTest.Models
             this.ContactDonorInfo.Id                = this.Id;
             this.ContactHealthInfo.Id               = this.Id;
 
+            foreach (var item in this.Addresses)        item.Contact = this;
+            foreach (var item in this.Phones)           item.Contact = this;
+            foreach (var item in this.RelatedContacts)  item.Contact = this;
+            foreach (var item in this.Emails)           item.Contact = this;
+            foreach (var item in this.WebSites)         item.Contact = this;
+            foreach (var item in this.IMs)              item.Contact = this;
+            foreach (var item in this.InternetCallIds)  item.Contact = this;
             
         }
 
