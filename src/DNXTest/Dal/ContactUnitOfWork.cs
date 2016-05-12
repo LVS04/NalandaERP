@@ -135,46 +135,24 @@ namespace DNXTest.Dal
             RepositoryContact.Insert(contact);
         }
 
-        public async void DeleteContactById(Guid Id)
+        public void DeleteContact(Contact Contact)
         {
             try
             {
+                if (Contact != null)
+                {
+                    //  Cascade delete still not available in EF7!!! TODO: Change this as soon as cascade delete is available
+                    foreach (var item in Contact.Phones)            RepositoryContactPhone.Delete(item);
+                    foreach (var item in Contact.Emails)            RepositoryContactEmail.Delete(item);
+                    foreach (var item in Contact.WebSites)          RepositoryContactWebsite.Delete(item);
+                    foreach (var item in Contact.Addresses )        RepositoryContactAddress.Delete(item);
+                    foreach (var item in Contact.Dates)             RepositoryContactDate.Delete(item);
+                    foreach (var item in Contact.RelatedContacts)   RepositoryContactRelated.Delete(item);
+                    foreach (var item in Contact.IMs)               RepositoryContactIM.Delete(item);
+                    foreach (var item in Contact.InternetCallIds)   RepositoryContactInternetCall.Delete(item);
 
-                //  Cascade delete still not available in EF7!!! TODO: Change this as soon as cascade delete is available
-                var phones = RepositoryContactPhone.GetAsync(orderBy: x=>x.OrderBy(k => k.Contact.Id== Id)).Result;
-                if(phones.Count()>0)
-                    foreach (var phone in phones) RepositoryContactPhone.Delete(phone);
-
-                var emails = RepositoryContactEmail.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (emails.Count() > 0)
-                    foreach (var email in emails) RepositoryContactEmail.Delete(email);
-
-                var websites = RepositoryContactWebsite.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (websites.Count() > 0)
-                    foreach (var website in websites) RepositoryContactWebsite.Delete(website);
-
-                var addresses = RepositoryContactAddress.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (addresses.Count() > 0)
-                    foreach (var address in addresses) RepositoryContactAddress.Delete(address);
-
-                var dates = RepositoryContactDate.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (dates.Count() > 0)
-                    foreach (var date in dates) RepositoryContactDate.Delete(date);
-
-                var relateds = RepositoryContactRelated.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (relateds.Count() > 0)
-                    foreach (var related in relateds) RepositoryContactRelated.Delete(related);
-
-                var ims = RepositoryContactIM.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (ims.Count() > 0)
-                    foreach (var im in ims) RepositoryContactIM.Delete(im);
-
-                var intcalls = RepositoryContactInternetCall.GetAsync(orderBy: x => x.OrderBy(k => k.Contact.Id == Id)).Result;
-                if (intcalls.Count() > 0)
-                    foreach (var intcall in intcalls) RepositoryContactInternetCall.Delete(intcall);
-
-                await RepositoryContact.Delete(Id);
-
+                    RepositoryContact.Delete(Contact);
+                }
             }
             catch (Exception ex)
             {
@@ -508,7 +486,7 @@ namespace DNXTest.Dal
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    //_context.Dispose();
                 }
             }
             this.disposed = true;

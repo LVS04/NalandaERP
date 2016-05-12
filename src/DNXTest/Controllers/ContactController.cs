@@ -8,19 +8,17 @@ using DNXTest.Dal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DNXTest.Controllers
 {
     public class ContactController : Controller
     {
-
         private readonly ContactUnitOfWork      _contactUnitOfWork;
         private readonly ILogger                _logger;
 
         public ContactController(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
-            _contactUnitOfWork = new ContactUnitOfWork(context,loggerFactory);
+            _contactUnitOfWork = new ContactUnitOfWork(context, loggerFactory);
             _logger = loggerFactory.CreateLogger("ContactController");
         }
 
@@ -139,66 +137,9 @@ namespace DNXTest.Controllers
             }
         }
 
-        //public async Task<ActionResult> Edit(Guid? id)
-        //{
-        //    try
-        //    {
-        //        if (id == null)
-        //        {
-        //            return RedirectToAction("Index");
-        //        }
-
-        //        Contact contact = await _contactUnitOfWork.RepositoryContact.GetByIDAsync(id);
-        //        if (contact == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-
-        //        return RedirectToAction("Index",  contact); 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-        //        throw ex;
-        //    }
-        //}
-
-        //// POST: Contacts/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind("Id,ContactName,Email,PhoneNr,Address")] Contact contact)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        RepoContact.Update(contact);
-        //        RepoContact.Save();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contact);
-        //}
-
-
-        //// GET: Contacts/Details/5
-        //public ActionResult Details(Guid? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    Contact contact = RepoContact.GetByID(id);
-        //    if (contact == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(contact);
-        //}
-
 
         // GET: Contacts/Delete/5
-        public async Task<ActionResult> Delete(Guid? Id)
+        public async Task< ActionResult> Delete(Guid? Id)
         {
             try
             {
@@ -206,10 +147,9 @@ namespace DNXTest.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-
-                _contactUnitOfWork.DeleteContactById(Id.Value);
+                Contact Contact = await _contactUnitOfWork.GetContactByIdAsync(Id.Value);
+                 _contactUnitOfWork.DeleteContact(Contact);
                 await _contactUnitOfWork.SaveAsync();
-
                 return RedirectToAction("List");
             }
             
@@ -221,16 +161,7 @@ namespace DNXTest.Controllers
 
         }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(Guid id)
-        //{
-        //    Contact contact = RepoContact.GetByID(id);
-        //    RepoContact.Delete(contact);
-        //    RepoContact.Save();
 
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

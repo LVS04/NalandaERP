@@ -285,7 +285,7 @@ namespace DNXTest.Models
         public partial class ContactIdentification
         {
 
-            public  ContactIdentification()
+            public ContactIdentification()
             {
                 IdOrPassportIssueDate = IdOrPassportExpiryDate = DateTime.MinValue;
                 BornInCountry = string.Empty;

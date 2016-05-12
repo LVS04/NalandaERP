@@ -10,7 +10,7 @@ jQuery.validator.prototype.checkForm = function () {
             for (var cnt = 0; cnt < this.findByName(elements[i].name).length; cnt++) {
                 this.check(this.findByName(elements[i].name)[cnt]);
             }
-        } else { 
+        } else {
             this.check(elements[i]);
         }
     }
@@ -30,7 +30,7 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
 }, "Please select a valid country name.");
 
 $('#formContact').validate({
-    ignore: [],
+//    ignore: [],
     rules: {
         FirstName: {
             required: true,
@@ -43,9 +43,9 @@ $('#formContact').validate({
         Gender: {
             required: true
         },
-        Birthdate: {
-            required: true
-        },
+        //Birthdate: {
+        //    required: true
+        //},
         'Addresses[][Street]': {
             required: true
         },
@@ -63,17 +63,17 @@ $('#formContact').validate({
             required: true,
             email: true
         },
-        'Emails[][Description]': {
-            required: true
-        },
+        //'Emails[][Description]': {
+        //    required: true
+        //},
         'Phones[][Number]': {
             required: true,
-            digits: true,
-            minlength: 9
+            digits: true/*,
+            minlength: 9*/
         },
-        'Phones[][Description]': {
-            required: true
-        },
+        //'Phones[][Description]': {
+        //    required: true
+        //},
         'Websites[][Website]': {
             url: true
         }

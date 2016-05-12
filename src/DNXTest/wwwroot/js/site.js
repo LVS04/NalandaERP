@@ -1,7 +1,5 @@
-﻿// Contact page start 
-
-
-//  Fill full name field 
+﻿//  Fill full name field - start
+//  ----------------------------
 function SetFullName() {
     var fullName = $("#Prefix").val().trim() + ' ' + $("#FirstName").val().trim() + ' ' + $("#LastName").val().trim() + ' ' + $("#Suffix").val().trim();
     if (fullName.trim().length == 0) {
@@ -12,68 +10,67 @@ function SetFullName() {
     }
     $("#ContactName").val(fullName.trim().toUpperCase());
 }
+
 $("#Prefix").change(function () {
     SetFullName();
 });
+
 $("#FirstName").keyup(function () {
     SetFullName(); 
 });
+
 $("#LastName").keyup(function () {
     SetFullName();
 });
+
 $("#Suffix").keyup(function () {
     SetFullName();
 });
 
 SetFullName();
 
+$('.combobox').combobox();
 
 
-//$('#btnCreate').click(function (e) {
-//    e.preventDefault()
-//    $('#formContact').serializeObject();
-    
-//})
 
+//  Contacts tabs activation - start
+//  --------------------------------
 $('#myTabs a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
 })
 
 
-//  Scroll to...
+
+//  Scroll to buttons inside Main contacts area - start
+//  ---------------------------------------------------
 $.fn.scrollTo = function (elem, speed) {
     $(this).animate({
         scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
     }, speed == undefined ? 'slow' : speed);
     return this;
 };
+
 $("#btnGeneral").click(function () {
     $("#divMain").scrollTo("#divGeneral");
 });
+
 $("#btnNotes").click(function () {
     $("#divMain").scrollTo("#divNotes");
 });
+
 $("#btnAddresses").click(function () {
     $("#divMain").scrollTo("#divAddresses");
 });
+
 $("#btnEcontact").click(function () {
     $("#divMain").scrollTo("#divEcontact");
 });
 
-function fadeOutWipeContent( element )
-{
-    $(element).fadeOut(1000, function () {
-        ($(this)).children().remove();
-    });
-}
 
-//$('#divMain').scroll(function(){
-//    event.preventDefault();
-//    alert("scroll!");
-//    $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
-//});
 
+//  Fields focus scroll - start
+//  ---------------------------
 (function ($) {
     $.fn.offsetRelative = function (top) {
         var $this = $(this);
@@ -90,21 +87,20 @@ function fadeOutWipeContent( element )
             return offset;
         }
     };
-    //$.fn.positionRelative = function (top) {
-    //    return $(this).offsetRelative(top);
-    //};
 }(jQuery));
 
-$('input[type="text"]').focus(function () {
 
-    var center = $("#divMain").height() / 2;
-    var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop()- $("#divMain").position().top;
-    
-    $("#divMain").animate({ scrollTop: (top - center) }, 500);
 
-});
+//  Form cleaning - start
+//  ---------------------
+function fadeOutWipeContent(element) {
+    $(element).fadeOut(1000, function () {
+        ($(this)).children().remove();
+    });
+}
 
 function clearForm() {
+
     //  Remove all dynamically added content to reset form
     fadeOutWipeContent("#divNewAddress");
     fadeOutWipeContent("#divNewPhone");
@@ -118,9 +114,18 @@ function clearForm() {
     $(':checkbox, :radio').prop('checked', false);
     $('input[type="date"]').val('0001-01-01');
     $('input[name="Birthdate"]').val('');
-    $("#btnSave").val('Create');
+    $('#btnSave').val('Create');
+
+    //https://github.com/danielfarrell/bootstrap-combobox/issues/168
+    //this.$('select').data('combobox').refresh();
+    //$('.combobox').data('combobox').clearTarget();
+    //$('#element').data('combobox').clearElement();
 }
 
+
+
+//  New contact click, form cleaning - start 
+//  ----------------------------------------
 $("#btnNew").click(function () {
     //$('#formContact').trigger("reset");
     clearForm();
@@ -130,7 +135,6 @@ $("#btnNew").click(function () {
 });
 
 
-$('.combobox').combobox();
 
 //  Dynamic one-to-many elements
 //  ----------------------------
@@ -141,27 +145,24 @@ $(".removeDiv").click(function () {
 })
 
 var oddBackground = true;
-$("#btnAddAddress").click(function () {
 
+function ControlEventUnbindings() {
     $('.typeahead').typeahead('destroy');
-    $('input[type="text"]').unbind("focus");
+    $('input[type="text"]').unbind('focus');
+    $('textarea').unbind('focus');
+    $(".removeDiv").unbind('click');
+}
 
-    if (!oddBackground) {
-        $("#divNewAddress").append('<div class="divAddress"><div class="row container  paddingTop10"><div class="col-sm-6 "><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 "><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container "><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-    }
-    else
-    {
-        $("#divNewAddress").append('<div class="divAddress"><div class="row container oddBackground paddingTop10"><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container oddBackground"><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-
-    }
-    $(".removeDiv").click(function () {
-        ($(this)).parent().parent().parent().parent().parent().fadeOut(1000, function () {
-            ($(this)).remove();
-        });
-    })
-    oddBackground = !oddBackground;
-
+function ControlsEventBindings() {
     $('input[type="text"]').focus(function () {
+
+        var center = $("#divMain").height() / 2;
+        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+
+        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+    });
+
+    $('textarea').focus(function () {
 
         var center = $("#divMain").height() / 2;
         var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
@@ -174,110 +175,84 @@ $("#btnAddAddress").click(function () {
         highlight: true,
         minLength: 1
     },
-
     {
         name: 'arrCountries',
         source: substringMatcher(arrCountries)
     });
 
+    $(".removeDiv").click(function () {
+        ($(this)).parent().parent().parent().parent().parent().fadeOut(1000, function () {
+            ($(this)).remove();
+        });
+    })
+}
+
+ControlsEventBindings();
+
+$("#btnAddAddress").click(function () {
+
+    ControlEventUnbindings();
+
+    if (!oddBackground) {
+        $("#divNewAddress").append('<div class="divAddress"><div class="row container  paddingTop10"><div class="col-sm-6 "><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 "><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container "><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15  col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
+    }
+    else
+    {
+        $("#divNewAddress").append('<div class="divAddress"><div class="row container oddBackground paddingTop10"><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="Street">Street</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Street must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Street]" type="text" value=""></div></div><div class="form-group"><label class="" for="POBOX">POBOX</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field POBOX must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][POBOX]" type="text" value=""></div></div><div class="form-group"><label class="" for="Neighborhood">Neighborhood</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Neighborhood must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Neighborhood]" type="text" value=""></div></div></div><div class="col-sm-6 oddBackground"><div class="form-group"><label class="" for="City">City</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field City must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][City]" type="text" value=""></div></div><div class="form-group"><label class="" for="Province">Province</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Province must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][Province]" type="text" value=""></div></div><div class="form-group"><label class="" for="PostalCode">Postal Code</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field PostalCode must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Addresses[][PostalCode]" type="text" value=""></div></div></div></div><div class="row container oddBackground"><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">Country</label><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" name="Addresses[][Country]" value=""></div></div></div><div class="paddingBottom15 oddBackground col-sm-6"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove address" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
+
+    }
+
+    oddBackground = !oddBackground;
+    ControlsEventBindings();
 });
 
 $("#btnAddPhone").click(function () {
 
-    $("input[type='text']").unbind("focus");
+    ControlEventUnbindings();
 
-    $("#divNewPhone").append('<div class="divPhone"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Phone Nr</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Number must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Phones[][Number]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Phones[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove phone" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-    $(".removeDiv").click(function () {
-        ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
-            ($(this)).remove();
-        });
-    })
-    $(':input').focus(function () {
+    $("#divNewPhone").append('<div class="divPhone"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Phone Nr</label><div class=""><input class="form-control text-box single-line" name="Phones[][Number]" type="text" value="" ></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" name="Phones[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove phone" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
-
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
-    });
-
+    ControlsEventBindings();
 });
 
 $("#btnAddEmail").click(function () {
 
-    $(":input").unbind("focus");
+    ControlEventUnbindings();
 
     $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Email must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-    $(".removeDiv").click(function () {
-        ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
-            ($(this)).remove();
-        });
-    })
-    $(':input').focus(function () {
 
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
-
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
-    });
-
+    ControlsEventBindings();
 });
+
 $("#btnAddWebsite").click(function () {
 
-    $(":input").unbind("focus");
+    ControlEventUnbindings();
 
     $("#divNewWebsite").append('<div class="divWebsite"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Website</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Website must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Websites[][Website]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Websites[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove website" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-    $(".removeDiv").click(function () {
-        ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
-            ($(this)).remove();
-        });
-    })
-    $(':input').focus(function () {
 
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
-
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
-    });
-
+    ControlsEventBindings();
 });
+
 $("#btnAddIM").click(function () {
 
-    $(":input").unbind("focus");
+    ControlEventUnbindings();
 
     $("#divNewIM").append('<div class="divIM"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Instant Messaging</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field InstantMessaging must be a string with a maximum length of 50." data-val-length-max="50" id="" name="IMs[][InstantMessaging]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Instant Messaging Contact</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field IMContact must be a string with a maximum length of 50." data-val-length-max="50" id="" name="IMs[][IMContact]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove IM" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-    $(".removeDiv").click(function () {
-        ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
-            ($(this)).remove();
-        });
-    })
-    $(':input').focus(function () {
-
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
-
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
-    });
-
+    
+    ControlsEventBindings();
 });
+
 $("#btnAddInternetCallId").click(function () {
 
-    $(":input").unbind("focus");
+    ControlEventUnbindings();
 
     $("#divNewInternetCallId").append('<div class="divInternetCalls"><div class="row container oddBackground paddingTop10"><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Number">Internet Call Id</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field InternetCallId must be a string with a maximum length of 50." data-val-length-max="50" id="" name="InternetCallIds[][InternetCallId]" type="text" value=""></div></div></div><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="InternetCallIds[][Description]" type="text" value=""></div></div></div><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove Internet call id" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
-    $(".removeDiv").click(function () {
-        ($(this)).parent().parent().parent().parent().fadeOut(1000, function () {
-            ($(this)).remove();
-        });
-    })
-    $(':input').focus(function () {
-
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
-
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
-    });
-
+    
+    ControlsEventBindings();
 });
+
+
+
 
 // Contact page end
 
