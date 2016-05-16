@@ -132,7 +132,7 @@ namespace DNXTest.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                    _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                 return Json(new { success = false, responseText = "There was an error Updating the contact!" });
             }
         }
@@ -161,7 +161,18 @@ namespace DNXTest.Controllers
 
         }
 
-
+        public ActionResult BloodHoundContacts()
+        {
+            try
+            {
+                return Json( _contactUnitOfWork.RepositoryContact.GetAsync(orderBy: x => x.OrderBy(k => k.FirstName)).Result.Select(x => new { x.Id, x.ContactName }));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {

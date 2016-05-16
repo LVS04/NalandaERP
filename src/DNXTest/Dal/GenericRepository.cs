@@ -1,5 +1,6 @@
 ﻿using DNXTest.Models;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Query;
 using Microsoft.Data.Entity.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
@@ -51,11 +52,11 @@ namespace DNXTest.Dal
                 }
 
                 /*
-                    foreach (string includeProperty in includeProperties.Split
-                                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                            {
-                                query = query.Include  Include(includeProperty);
-                            }
+                foreach (string includeProperty in includeProperties.Split
+                            (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(x => x); //  Include  Include(includeProperty);
+                }
                 */
                 if (orderBy != null)
                 {

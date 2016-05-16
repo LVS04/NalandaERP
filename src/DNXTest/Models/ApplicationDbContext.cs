@@ -215,7 +215,10 @@ namespace DNXTest.Models
             //  ContactRelated
             //  ------------------------------------
             modelBuilder.Entity<ContactRelated>()
-                 .HasOne(e => e.RelatedContact);
+                 .Property(e => e.IdContactRelated);
+
+            modelBuilder.Entity<ContactRelated>()
+                 .Property(e => e.ContacRelatedtName);
 
             modelBuilder.Entity<ContactRelated>()
                 .HasOne(e => e.Relationship);
@@ -293,10 +296,10 @@ namespace DNXTest.Models
                 .Property(e => e.BornInCountry);
 
             modelBuilder.Entity<ContactIdentification>()
-                .HasMany(e => e.SpokenLanguages);
+                .Property(e => e.SpokenLanguages);
 
             modelBuilder.Entity<ContactIdentification>()
-                .HasOne(e => e.PreferredLanguage);
+                .Property(e => e.PreferredLanguage);
 
 
 
@@ -421,17 +424,28 @@ namespace DNXTest.Models
             //  ------------------------------------
             //  ContactDonorInfo
             //  ------------------------------------
+            //modelBuilder.Entity<ContactDonorInfo>()
+            //    .HasOne(e => e.DonorReligiousSituation);
+
+            //modelBuilder.Entity<ContactDonorInfo>()
+            //    .HasOne(e => e.DonorType);
+
+            //modelBuilder.Entity<ContactDonorInfo>()
+            //    .HasMany(e => e.DonorContexts);
+
+            //modelBuilder.Entity<ContactDonorInfo>()
+            //    .HasMany(e => e.DonorInterests);
             modelBuilder.Entity<ContactDonorInfo>()
-                .HasOne(e => e.DonorReligiousSituation);
+                .Property(e => e.DonorReligiousSituationId);
 
             modelBuilder.Entity<ContactDonorInfo>()
-                .HasOne(e => e.DonorType);
+                .Property(e => e.DonorTypeId);
 
             modelBuilder.Entity<ContactDonorInfo>()
-                .HasMany(e => e.DonorContexts);
+                .Property(e => e.DonorContexts);
 
             modelBuilder.Entity<ContactDonorInfo>()
-                .HasMany(e => e.DonorInterests);
+                .Property(e => e.DonorInterests);
 
 
 
@@ -447,16 +461,22 @@ namespace DNXTest.Models
             //  ContactHealthInfo
             //  ------------------------------------
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.EmergencyContact1);
+                .Property(e => e.EmergencyContact1Id);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.EmergencyContact1Relationship);
+                .Property(e => e.EmergencyContact1Name);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.EmergencyContact2);
+                .Property(e => e.EmergencyContact1RelationshipId);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.EmergencyContact2Relationship);
+                .Property(e => e.EmergencyContact2Id);
+
+            modelBuilder.Entity<ContactHealthInfo>()
+                .Property(e => e.EmergencyContact2Name);
+
+            modelBuilder.Entity<ContactHealthInfo>()
+                .Property(e => e.EmergencyContact2RelationshipId);
 
             modelBuilder.Entity<ContactHealthInfo>()
                 .Property(e => e.AllergiesToMedications);
@@ -483,7 +503,7 @@ namespace DNXTest.Models
                 .Property(e => e.RestrictivePhysicalProblems);
 
             modelBuilder.Entity<ContactHealthInfo>()
-                .HasOne(e => e.ContactBloodType);
+                .Property(e => e.ContactBloodType);
            
         }
 

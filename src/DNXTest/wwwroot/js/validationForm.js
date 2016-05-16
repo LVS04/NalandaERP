@@ -30,7 +30,7 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
 }, "Please select a valid country name.");
 
 $('#formContact').validate({
-//    ignore: [],
+    ignore: [],
     rules: {
         FirstName: {
             required: true,
@@ -40,9 +40,9 @@ $('#formContact').validate({
             maxlength: 100,
             required: true
         },
-        Gender: {
-            required: true
-        },
+        //Gender: {
+        //    required: true
+        //},
         //Birthdate: {
         //    required: true
         //},
@@ -103,6 +103,8 @@ $('#formContact').submit(function () {
     var validator = form.validate();
 
     if (form.valid()) {
+
+        //$('#cnt1').val(emergencyContact1Id);
 
         var JSONForm = JSON.stringify($('#formContact').serializeObject());
         var varDestiny;

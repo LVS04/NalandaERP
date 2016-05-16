@@ -202,12 +202,11 @@ namespace DNXTest
                     }
 
                     if (context.SpokenLanguage.Count() == 0)
-                    {
+                    {   //  Languages with translation
                         context.SpokenLanguage.Add(new SpokenLanguage() { Id = 1, Description = "French" });
                         context.SpokenLanguage.Add(new SpokenLanguage() { Id = 2, Description = "English" });
                         context.SpokenLanguage.Add(new SpokenLanguage() { Id = 3, Description = "Spanish" });
                         context.SpokenLanguage.Add(new SpokenLanguage() { Id = 4, Description = "Tibetan" });
-                        context.SpokenLanguage.Add(new SpokenLanguage() { Id = 5, Description = "German" });
                     }
 
                     if (context.Country.Count() == 0)

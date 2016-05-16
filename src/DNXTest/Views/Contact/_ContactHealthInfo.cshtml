@@ -1,97 +1,166 @@
 ﻿@model DNXTest.Models.ContactHealthInfo
+@using Microsoft.AspNet.Mvc.Rendering;
 @{
-    string textAreaHTML__WithValue= "<textarea class='form-control text-box' name='ContactHealthInfo[{0}]' rows='5' />{1}</textarea>";
+
+    string textAreaHTML__WithValue = "<textarea class='form-control text-box' name='ContactHealthInfo[{0}]' rows='5' />{1}</textarea>";
     string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 100.' data-val-length-max='100' id='' name='ContactHealthInfo[{0}]' type='text' value='{1}' />";
+    string inputFieldContact_WithValue = "<input type='text' class='typeahead form-control text-box single-line fullWidth' type='text' autocomplete='off' name='ContactHealthInfo[{0}]' value ='{1}' >";
+    string hiddenInputFieldContact_WithValue = "<input type='text' class='hide contactId' type='text' autocomplete='off' name='ContactHealthInfo[{0}]' value ='{1}' >";
 }
-<div class="col-sm-6">
-    <div class="form-group">
-        <label class="" for="">First emergency contact</label>
-        <div class="">
-            <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
-            <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+<div id="divEmergency">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="" for="">First emergency contact</label>
+            <div class="emergencyContact">
+                @Html.Raw(string.Format(inputFieldContact_WithValue, "EmergencyContact1Name", Model.EmergencyContact1Name))
+                @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "EmergencyContact1Id", Model.EmergencyContact1Id))
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="" for="">First emergency contact relationship</label>
-        <div class="">
+        <div class="form-group">
+            <label class="" for="">First emergency contact relationship</label>
             <div class="">
-                <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                <div class="">
+                    <div class="divCombobox">
+                        @{var listofItems = new SelectList(new List<SelectListItem>()
+                        {
+                            new SelectListItem() {Value ="0", Text=" "            },
+                            new SelectListItem() {Value ="1", Text="Spouse"            ,Selected= Model.EmergencyContact1RelationshipId == 1 },
+                            new SelectListItem() {Value ="2", Text="Child"             ,Selected= Model.EmergencyContact1RelationshipId == 2 },
+                            new SelectListItem() {Value ="3", Text="Mother"            ,Selected= Model.EmergencyContact1RelationshipId == 3 },
+                            new SelectListItem() {Value ="4", Text="Father"            ,Selected= Model.EmergencyContact1RelationshipId == 4 },
+                            new SelectListItem() {Value ="5", Text="Parent"            ,Selected= Model.EmergencyContact1RelationshipId == 5 },
+                            new SelectListItem() {Value ="6", Text="Brother"           ,Selected= Model.EmergencyContact1RelationshipId == 6 },
+                            new SelectListItem() {Value ="7", Text="Sister"            ,Selected= Model.EmergencyContact1RelationshipId == 7 },
+                            new SelectListItem() {Value ="8", Text="Friend"            ,Selected= Model.EmergencyContact1RelationshipId == 8 },
+                            new SelectListItem() {Value ="9", Text="Relative"          ,Selected= Model.EmergencyContact1RelationshipId == 9 },
+                            new SelectListItem() {Value ="10", Text="Manager"          ,Selected= Model.EmergencyContact1RelationshipId == 10 },
+                            new SelectListItem() {Value ="11", Text="Assistant"        ,Selected= Model.EmergencyContact1RelationshipId == 11 },
+                            new SelectListItem() {Value ="12", Text="Referred by"      ,Selected= Model.EmergencyContact1RelationshipId == 12 },
+                            new SelectListItem() {Value ="13", Text="Partner"          ,Selected= Model.EmergencyContact1RelationshipId == 13 },
+                            new SelectListItem() {Value ="14", Text="Domestic partner" ,Selected= Model.EmergencyContact1RelationshipId == 14 }
+                        });}
+
+                        @Html.Raw(string.Format("<select class='form-control text-box single-line combobox' name='ContactHealthInfo[EmergencyContact1RelationshipId]' style='display: none;' >"))
+                        @foreach (SelectListItem i in listofItems.Items)
+                        {
+                            if (i.Selected)
+                            {
+                                @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                            }
+                            else
+                            {
+                                @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
+                            }
+                        }
+                        @Html.Raw(string.Format("</select>"))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="" for="">Second emergency contact</label>
+            <div class="emergencyContact">
+                @Html.Raw(string.Format(inputFieldContact_WithValue, "EmergencyContact2Name", Model.EmergencyContact2Name))
+                @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "EmergencyContact2Id", Model.EmergencyContact2Id))
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="" for="">First emergency contact relationship</label>
+            <div class="">
+                <div class="">
+                    <div class="divCombobox">
+                        @{var listofItems2 = new SelectList(new List<SelectListItem>()
+                        {
+                            new SelectListItem() {Value ="0", Text=" "            },
+                            new SelectListItem() {Value ="1", Text="Spouse"            ,Selected= Model.EmergencyContact2RelationshipId == 1 },
+                            new SelectListItem() {Value ="2", Text="Child"             ,Selected= Model.EmergencyContact2RelationshipId == 2 },
+                            new SelectListItem() {Value ="3", Text="Mother"            ,Selected= Model.EmergencyContact2RelationshipId == 3 },
+                            new SelectListItem() {Value ="4", Text="Father"            ,Selected= Model.EmergencyContact2RelationshipId == 4 },
+                            new SelectListItem() {Value ="5", Text="Parent"            ,Selected= Model.EmergencyContact2RelationshipId == 5 },
+                            new SelectListItem() {Value ="6", Text="Brother"           ,Selected= Model.EmergencyContact2RelationshipId == 6 },
+                            new SelectListItem() {Value ="7", Text="Sister"            ,Selected= Model.EmergencyContact2RelationshipId == 7 },
+                            new SelectListItem() {Value ="8", Text="Friend"            ,Selected= Model.EmergencyContact2RelationshipId == 8 },
+                            new SelectListItem() {Value ="9", Text="Relative"          ,Selected= Model.EmergencyContact2RelationshipId == 9 },
+                            new SelectListItem() {Value ="10", Text="Manager"          ,Selected= Model.EmergencyContact2RelationshipId == 10 },
+                            new SelectListItem() {Value ="11", Text="Assistant"        ,Selected= Model.EmergencyContact2RelationshipId == 11 },
+                            new SelectListItem() {Value ="12", Text="Referred by"      ,Selected= Model.EmergencyContact2RelationshipId == 12 },
+                            new SelectListItem() {Value ="13", Text="Partner"          ,Selected= Model.EmergencyContact2RelationshipId == 13 },
+                            new SelectListItem() {Value ="14", Text="Domestic partner" ,Selected= Model.EmergencyContact2RelationshipId == 14 }
+                        });}
+
+                        @Html.Raw(string.Format("<select class='form-control text-box single-line combobox' name='ContactHealthInfo[EmergencyContact2RelationshipId]' style='display: none;' >"))
+                        @foreach (SelectListItem i in listofItems2.Items)
+                        {
+                            if (i.Selected)
+                            {
+                                @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                            }
+                            else
+                            {
+                                @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
+                            }
+                        }
+                        @Html.Raw(string.Format("</select>"))
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="" for="">Second emergency contact</label>
-        <div class="">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label class="" for="HealthInsuranceProvider">Health insurance provider</label>
             <div class="">
-                <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
+                @Html.Raw(string.Format(inputFieldHTML__WithValue, "HealthInsuranceProvider", Model.HealthInsuranceProvider))
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="" for="HealthInsurancePolicyNr">Health insurance policy Nr</label>
+            <div class="">
+                @Html.Raw(string.Format(inputFieldHTML__WithValue, "HealthInsurancePolicyNr", Model.HealthInsurancePolicyNr))
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="" for="AllergiesToMedications">Allergies to medications</label>
+            <div class="">
+                @Html.Raw(string.Format(textAreaHTML__WithValue, "AllergiesToMedications", Model.AllergiesToMedications))
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label class="" for="DetailsToInformEmergencyServices">Details to inform emergency services</label>
+            <div class="">
+                @Html.Raw(string.Format(textAreaHTML__WithValue, "DetailsToInformEmergencyServices", Model.DetailsToInformEmergencyServices))
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="" for="">Second emergency contact relationship</label>
-        <div class="">
-            <div class="">
-                <input class="form-control text-box single-line" data-val="true" data-val-length="" data-val-length-max="100" id="" name="" type="text" value="" />
-                <span class="field-validation-valid text-danger" data-valmsg-for="AllergiesToMedications" data-valmsg-replace="true"></span>
-            </div> 
-        </div>
-    </div>
 </div>
-<div class="col-sm-6">
-    <div class="form-group">
-        <label class="" for="HealthInsuranceProvider">Health insurance provider</label>
-        <div class="">
-            @Html.Raw(string.Format(inputFieldHTML__WithValue, "HealthInsuranceProvider", Model.HealthInsuranceProvider))
+    <div class="col-sm-12 oddBackground paddingTop10" id="divHistory">
+        <div class="form-group">
+            <label class="" for="PrescribedMedicationInLast4MonthsAndReasons">Prescribed medication in the last 4 months and reasons</label>
+            <div class="oddBackground">
+                @Html.Raw(string.Format(textAreaHTML__WithValue, "PrescribedMedicationInLast4MonthsAndReasons", Model.PrescribedMedicationInLast4MonthsAndReasons))
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="" for="HealthInsurancePolicyNr">Health insurance policy Nr</label>
-        <div class="">
-            @Html.Raw(string.Format(inputFieldHTML__WithValue, "HealthInsurancePolicyNr", Model.HealthInsurancePolicyNr))
+        <div class="form-group">
+            <label class="" for="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years">Please inform about psychological or serious physical conditions treatment in the last 2 years</label>
+            <div class="oddBackground">
+                @Html.Raw(string.Format(textAreaHTML__WithValue, "PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years", Model.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years))
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="" for="AllergiesToMedications">Allergies to medications</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue, "AllergiesToMedications", Model.AllergiesToMedications))
-        </div>
-    </div>
-</div>
-<div class="col-sm-12">
-    <div class="form-group">
-        <label class="" for="DetailsToInformEmergencyServices">Details to inform emergency services</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue, "DetailsToInformEmergencyServices", Model.DetailsToInformEmergencyServices))
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="" for="PrescribedMedicationInLast4MonthsAndReasons">Prescribed medication in the last 4 months and reasons</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue, "PrescribedMedicationInLast4MonthsAndReasons", Model.PrescribedMedicationInLast4MonthsAndReasons))
+        <div class="form-group">
+            <label class="" for="MedicalConditionsToConsiderInEventOfEmergency">Medical conditions to consider in event of emergency</label>
+            <div class="oddBackground">
+                @Html.Raw(string.Format(textAreaHTML__WithValue, "MedicalConditionsToConsiderInEventOfEmergency", Model.MedicalConditionsToConsiderInEventOfEmergency))
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="" for="PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years">Please inform about psychological or serious physical conditions treatment in the last 2 years</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue, "PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years", Model.PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years))
+        <div class="form-group">
+            <label class="" for="RestrictivePhysicalProblems">Restrictive physical problems</label>
+            <div class="oddBackground">
+                @Html.Raw(string.Format(textAreaHTML__WithValue, "RestrictivePhysicalProblems", Model.RestrictivePhysicalProblems))
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <label class="" for="MedicalConditionsToConsiderInEventOfEmergency">Medical conditions to consider in event of emergency</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue, "MedicalConditionsToConsiderInEventOfEmergency", Model.MedicalConditionsToConsiderInEventOfEmergency))
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="" for="RestrictivePhysicalProblems">Restrictive physical problems</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue, "RestrictivePhysicalProblems", Model.RestrictivePhysicalProblems))
-        </div>
-    </div>
-</div>

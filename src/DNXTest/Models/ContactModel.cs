@@ -231,7 +231,8 @@ namespace DNXTest.Models
             public int Id { get; set; }
 
             public int                  SortOrder           { get; set; }
-            public Contact              RelatedContact      { get; set; }
+            public Guid                 IdContactRelated    { get; set; }
+            public string               ContacRelatedtName  { get; set; }
             public ContactRelationship  Relationship        { get; set; }
 
             public Contact              Contact             { get; set; }
@@ -294,8 +295,9 @@ namespace DNXTest.Models
 
             public ContactIdentification()
             {
-                IdOrPassportIssueDate = IdOrPassportExpiryDate = DateTime.MinValue;
-                BornInCountry = string.Empty;
+                this.IdOrPassportIssueDate  = this.IdOrPassportExpiryDate = DateTime.MinValue;
+                this.BornInCountry          = string.Empty;
+                this.SpokenLanguages = string.Empty;
             }
 
 
@@ -307,9 +309,9 @@ namespace DNXTest.Models
             [StringLength(100)]
             public          string   FiscalId                               { get; set; }
             public          string   BornInCountry                          { get; set; }
-            //public          Country  BornInCountry                          { get; set; }
-            public virtual  ICollection<SpokenLanguage> SpokenLanguages     { get; set; }
-            public          SpokenLanguage PreferredLanguage                { get; set; }
+
+            public          string   SpokenLanguages                        { get; set; }
+            public string   PreferredLanguage                               { get; set; }
            
             public Guid      Id                                             { get; set; }
             public virtual  Contact  Contact                                { get; set; }
@@ -395,14 +397,21 @@ namespace DNXTest.Models
         //  ----------------------------------------------------------------------------------------------------------------------------
         public partial class ContactDonorInfo
         {
+            public ContactDonorInfo()
+            {
+                DonorReligiousSituationId   = string.Empty;
+                DonorTypeId                 = string.Empty;
+                DonorContexts               = string.Empty;           
+                DonorInterests              = string.Empty;          
+            }
+            public string       DonorReligiousSituationId                                       { get; set; }
+            public string       DonorTypeId                                                     { get; set; }
+            public string       DonorContexts                                                   { get; set; }
+            public string       DonorInterests                                                  { get; set; }
+            public DateTime?    LastDonationDate                                                { get; set; }
 
-            public DonorReligiousSituation                      DonorReligiousSituation { get; set; }
-            public DonorType                                    DonorType               { get; set; }
-            public virtual  ICollection<DonorContext>           DonorContexts           { get; set; }
-            public virtual  ICollection<DonorInterest>          DonorInterests          { get; set; }
-
-            public Guid              Id                                                 { get; set; }
-            public virtual  Contact  Contact                                            { get; set; }
+            public Guid              Id                                                         { get; set; }
+            public virtual  Contact  Contact                                                    { get; set; }
         }
 
         public partial class DonorContext //is a bp student, was a bp student, is a volunteer, was a volunteer, 
@@ -452,18 +461,20 @@ namespace DNXTest.Models
 
         public partial class ContactHealthInfo
         {
-            
-            public Contact  EmergencyContact1                                                       { get; set; }
-            public ContactRelationship EmergencyContact1Relationship                                { get; set; }
 
-            public Contact  EmergencyContact2                                                       { get; set; }
-            public ContactRelationship EmergencyContact2Relationship                                { get; set; }
+            public Guid?                EmergencyContact1Id                                         { get; set; }
+            public string               EmergencyContact1Name                                       { get; set; }
+            public int?                 EmergencyContact1RelationshipId                             { get; set; }
+
+            public Guid?                EmergencyContact2Id                                         { get; set; }
+            public string               EmergencyContact2Name                                       { get; set; }
+            public int?                 EmergencyContact2RelationshipId                             { get; set; }
 
             [StringLength(100)]
-            public string   AllergiesToMedications                                                  { get; set; }
+            public string               AllergiesToMedications                                      { get; set; }
 
             [StringLength(100)]
-            public string   HealthInsuranceProvider                                                 { get; set; }
+            public string               HealthInsuranceProvider                                     { get; set; }
 
             [StringLength(100)]
             public string   HealthInsurancePolicyNr                                                 { get; set; }
@@ -472,7 +483,7 @@ namespace DNXTest.Models
             public string   PsychologicalOrSeriousPhysicalConditionsTreatmentInTheLast2Years        { get; set; }
             public string   MedicalConditionsToConsiderInEventOfEmergency                           { get; set; }
             public string   RestrictivePhysicalProblems                                             { get; set; }
-            public ContactBloodType ContactBloodType                                                { get; set; } 
+            public int      ContactBloodType                                                        { get; set; } 
 
             public Guid              Id                                                             { get; set; }
             public Contact           Contact                                                        { get; set; }

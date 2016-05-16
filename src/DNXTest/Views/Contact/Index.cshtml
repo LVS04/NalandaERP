@@ -46,7 +46,7 @@
             <br />
             <!--<div class="container-fluid">-->
 
-            <div id="divMain">
+            <div id="divMain" class="divScroll">
                 <div class="row container">
                     <div class="col-sm-6">
                         <div class="form-group" id="divGeneral">
@@ -150,6 +150,7 @@
         </div>
         <div role="tabpanel" class="tab-pane fade" id="DonorInfo">
             <div style="overflow-y:auto;height:500px;">
+                @Html.Partial("_ContactDonorInfo", Model.ContactDonorInfo)
             </div>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="DharmaExperience">
@@ -163,12 +164,27 @@
             </div>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="Volunteering">
-            <div style="overflow-y:auto;height:500px;">
+            <div class="container">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" id="btnWorkPrefs">Work Preferences</button>
+                    <button type="button" class="btn btn-default" id="btnMotivation">Motivation</button>
+                    <button type="button" class="btn btn-default" id="btnWhen">When to come</button>
+                </div>
+            </div>
+            <br />
+            <div id="divVolunteering" class="divScroll">
                 @Html.Partial("_ContactVolunteering", new DNXTest.ViewModels.Contact.VolunteeringViewModel() { contactVolunteeringExperience = Model.ContactVolunteeringExperience , contactWorkPreference = Model.ContactWorkPreference } )
             </div>
         </div>
         <div role="tabpanel" class="tab-pane fade " id="HealthInfo">
-            <div style="overflow-y:scroll;height:500px;">
+            <div class="container">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" id="btnEmergency">Emergency</button>
+                    <button type="button" class="btn btn-default" id="btnHistory">History</button>
+                </div>
+            </div>
+            <br />
+            <div id="divHealth" class="divScroll">
                 @Html.Partial("_ContactHealthInfo", Model.ContactHealthInfo)
             </div>
         </div>
@@ -187,7 +203,7 @@
     var varDestinyC = '@Url.Action("Create")';
     var varDestinyU = '@Url.Action("Update")';
     var varGUID = '@Model.Id';
+    var varBloodHoundPrefetch = '@Url.Action("BloodHoundContacts")';
 
-    
 </script>
 

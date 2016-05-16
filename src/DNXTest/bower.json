@@ -6,6 +6,7 @@
     "jquery-validation-unobtrusive": "3.2.4",
     "jquery": "2.1.4",
     "bootstrap": "3.3.5",
-    "bootstrap-combobox": "~1.1.7"
+    "bootstrap-combobox": "~1.1.7",
+    "bootstrap-select": "1.7.3"
   }
 }

@@ -8,117 +8,135 @@
 
     string inputDateFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-date='The field {0} must be a date.' data-val-required='The {0} field is required.' id='{0}' name='ContactWorkPreference[{0}]' type='date' value='{1}' />";
 }
-<div class="col-sm-12">
-    <div class="form-group">
-        <label class="" for="DetailsOfMainWorkAndVolunteerinExperience">Details of main work and volunteering experience</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_VolunteeringExperience, "DetailsOfMainWorkAndVolunteerinExperience", Model.contactVolunteeringExperience.DetailsOfMainWorkAndVolunteerinExperience))
+<div id="divWorkPrefs">
+    <div class="row oddBackground container paddingTop10 ">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="" for="Cooking">Work area preference cooking</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Maintenance", Model.contactWorkPreference.Maintenance))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="Maintenance">Work area preference maintenance</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Cooking", Model.contactWorkPreference.Cooking))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="Gardening">Work area preference gardening</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Gardening", Model.contactWorkPreference.Gardening))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="Cleaning">Work area preference cleaning</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Cleaning", Model.contactWorkPreference.Cleaning))
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="" for="IT">Work area preference IT</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "IT", Model.contactWorkPreference.IT))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="Office">Work area preference office</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Office", Model.contactWorkPreference.Office))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="ArtWorkshop">Work area preference art workshop</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "ArtWorkshop", Model.contactWorkPreference.ArtWorkshop))
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="" for="ExperienceOnWorkAreas">Please detail experience on work areas</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "ExperienceOnWorkAreas", Model.contactWorkPreference.ExperienceOnWorkAreas))
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="" for="WorkAreasExclusionAndReasons">Work area to exclude and reasons why</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "WorkAreasExclusionAndReasons", Model.contactWorkPreference.WorkAreasExclusionAndReasons))
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="" for="DetailsOfMainWorkAndVolunteerinExperience">Details of main work and volunteering experience</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_VolunteeringExperience, "DetailsOfMainWorkAndVolunteerinExperience", Model.contactVolunteeringExperience.DetailsOfMainWorkAndVolunteerinExperience))
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-<div class="col-sm-6">
-    <div class="form-group">
-        <label class="" for="Cooking">Work preference cooking</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Maintenance", Model.contactWorkPreference.Maintenance))
-        </div>
-    </div>
+<div id="divMotivation">
+    <div class="row container paddingTop10 ">
+        <div class="col-sm-12">
 
-    <div class="form-group">
-        <label class="" for="Maintenance">Work preference maintenance</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Cooking", Model.contactWorkPreference.Cooking))
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="" for="Gardening">Work preference gardening</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Gardening", Model.contactWorkPreference.Gardening))
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="" for="Cleaning">Work preference cleaning</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Cleaning", Model.contactWorkPreference.Cleaning))
+            <div class="form-group">
+                <label class="" for="ReasonsToOfferVoluntaryWorkToCenter">Reasons to offer voluntary work to center</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "ReasonsToOfferVoluntaryWorkToCenter", Model.contactWorkPreference.ReasonsToOfferVoluntaryWorkToCenter))
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="" for="HopesExpectationsForStay">What are your hopes and expectations during stay?</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "HopesExpectationsForStay", Model.contactWorkPreference.HopesExpectationsForStay))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="SkillsAndKnowledgesToDevelopDuringStay">What skills and knowledges do you expect to develop during stay?</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "SkillsAndKnowledgesToDevelopDuringStay", Model.contactWorkPreference.SkillsAndKnowledgesToDevelopDuringStay))
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="" for="HowDidContactFoundTheCenter">How did you found about the center?</label>
+                <div class="">
+                    @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "HowDidContactFoundTheCenter", Model.contactWorkPreference.HowDidContactFoundTheCenter))
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="col-sm-6">
-    <div class="form-group">
-        <label class="" for="IT">Work preference IT</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "IT", Model.contactWorkPreference.IT))
+<div id="divWhen">
+    <div class="row oddBackground container paddingTop10 marginBottomBig">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="" for="WhenToComeStartDate">When to come - start date</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate.ToString("yyyy-MM-dd")))
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <label class="" for="Office">Work preference office</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "Office", Model.contactWorkPreference.Office))
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="" for="ArtWorkshop">Work preference art workshop</label>
-        <div class="">
-            @Html.Raw(string.Format(inputNumericFieldHTML__WithValue, "ArtWorkshop", Model.contactWorkPreference.ArtWorkshop))
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="" for="WhenToComeStartDate">When to come - start date</label>
-        <div class="">
-            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate.ToString("yyyy-MM-dd")))
-        </div> 
-    </div>
-
-    <div class="form-group">
-        <label class="" for="WhenToComeEndDate">When to come - end date</label>
-        <div class="">
-            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate.ToString("yyyy-MM-dd")))
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="" for="WhenToComeEndDate">When to come - end date</label>
+                <div class="">
+                    @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate.ToString("yyyy-MM-dd")))
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div class="col-sm-12">
-    <div class="form-group">
-        <label class="" for="ExperienceOnWorkAreas">Please detail experience on work areas</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "ExperienceOnWorkAreas",Model.contactWorkPreference.ExperienceOnWorkAreas))
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label class="" for="WorkAreasExclusionAndReasons">Work area to exclude and reasons why</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "WorkAreasExclusionAndReasons", Model.contactWorkPreference.WorkAreasExclusionAndReasons))
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="" for="ReasonsToOfferVoluntaryWorkToCenter">Reasons to offer voluntary work to center</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "ReasonsToOfferVoluntaryWorkToCenter", Model.contactWorkPreference.ReasonsToOfferVoluntaryWorkToCenter))
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="" for="HopesExpectationsForStay">What are your hopes and expectations during stay?</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "HopesExpectationsForStay", Model.contactWorkPreference.HopesExpectationsForStay))
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="" for="SkillsAndKnowledgesToDevelopDuringStay">What skills and knowledges do you expect to develop during stay?</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "SkillsAndKnowledgesToDevelopDuringStay", Model.contactWorkPreference.SkillsAndKnowledgesToDevelopDuringStay))
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="" for="HowDidContactFoundTheCenter">How did you found about the center?</label>
-        <div class="">
-            @Html.Raw(string.Format(textAreaHTML__WithValue_ContactWorkPreference, "HowDidContactFoundTheCenter", Model.contactWorkPreference.HowDidContactFoundTheCenter))
-        </div>
-    </div>
-</div>

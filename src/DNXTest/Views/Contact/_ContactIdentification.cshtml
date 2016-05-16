@@ -5,6 +5,8 @@
 
     string inputFieldCountry_WithValue = "<input type='text' class='typeahead tt-input form-control text-box single-line isCountry' autocomplete='off' name='ContactIdentification[BornInCountry]' value='{0}'>";
 
+    string hiddenInputFieldContact_WithValue = "<input type='text' class='hide selectedIds' type='text' autocomplete='off' name='ContactIdentification[{0}]' value ='{1}' >";
+
 }
 <div class="col-sm-6">
     <div class="form-group">
@@ -25,18 +27,57 @@
             @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "IdOrPassportExpiryDate", Model.IdOrPassportExpiryDate.ToString("yyyy-MM-dd")))
         </div>
     </div>
+</div>
+<div class="col-sm-6">
     <div class="form-group">
         <label class="" for="FiscalId">Fiscal Id ( donation tax reduction receipts )</label>
         <div class="">
             @Html.Raw(string.Format(inputFieldHTML__WithValue, "FiscalId", Model.FiscalId))
         </div>
     </div>
-</div>
-<div class="col-sm-6">
+
     <div class="form-group" >
         <label class="" for="BornInContry">Born in Country</label>
         <div class="country">
             @Html.Raw(string.Format(inputFieldCountry_WithValue, Model.BornInCountry))
         </div>
     </div>
+
+    <div class="form-group">
+        <label class="" for="Spoken Languages">Spoken languages</label>
+        <div class="">
+            <div class="divCombobox">
+                @{var listofItems = new SelectList(new List<SelectListItem>()
+                        {
+                            new SelectListItem() {Value ="1", Text="French"            },
+                            new SelectListItem() {Value ="2", Text="English"             },
+                            new SelectListItem() {Value ="3", Text="Spanish"            },
+                            new SelectListItem() {Value ="4", Text="Tibetan"            },
+                        });
+
+                    string[] selectedLanguages = Model.SpokenLanguages.Split(',');
+                    }
+
+                @Html.Raw(string.Format("<select class='form-control selectpicker'  multiple data-selected-text-format='count > 4' name=''>"))
+                @foreach (SelectListItem i in listofItems.Items)
+                {
+                    string val = i.Value;
+                    if (selectedLanguages.Contains(val)  )
+                    {
+                        @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                    }
+                    else
+                    {
+                        @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
+                    }
+                }
+                @Html.Raw(string.Format("</select>"))
+                              
+                @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "SpokenLanguages", Model.SpokenLanguages))
+            </div>
+
+
+        </div>
+    </div>
+
 </div> 

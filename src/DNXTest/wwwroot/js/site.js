@@ -42,7 +42,7 @@ $('#myTabs a').click(function (e) {
 
 
 
-//  Scroll to buttons inside Main contacts area - start
+//  Scroll to buttons inside - start
 //  ---------------------------------------------------
 $.fn.scrollTo = function (elem, speed) {
     $(this).animate({
@@ -65,6 +65,26 @@ $("#btnAddresses").click(function () {
 
 $("#btnEcontact").click(function () {
     $("#divMain").scrollTo("#divEcontact");
+});
+//  --------------------------------------------------
+$("#btnWorkPrefs").click(function () {
+    $("#divVolunteering").scrollTo("#divWorkPrefs");
+});
+
+$("#btnMotivation").click(function () {
+    $("#divVolunteering").scrollTo("#divMotivation");
+});
+
+$("#btnWhen").click(function () {
+    $("#divVolunteering").scrollTo("#divWhen");
+});
+//  --------------------------------------------------
+$("#btnEmergency").click(function () {
+    $("#divHealth").scrollTo("#divEmergency");
+});
+
+$("#btnHistory").click(function () {
+    $("#divHealth").scrollTo("#divHistory");
 });
 
 
@@ -116,6 +136,9 @@ function clearForm() {
     $('input[type="number"]').val('0');
     $('input[name="Birthdate"]').val('');
     $('#btnSave').val('Create');
+    $('.selectpicker').selectpicker('deselectAll');
+
+    $("#divMain").scrollTo("#divGeneral");
 
     //https://github.com/danielfarrell/bootstrap-combobox/issues/168
     //this.$('select').data('combobox').refresh();
@@ -131,7 +154,6 @@ $("#btnNew").click(function () {
     //$('#formContact').trigger("reset");
     clearForm();
     //$('#myTabs a[href="#Main"]').tab('show')
-    //$("#divMain").scrollTo("#divGeneral");
     oddBackground = true;
 });
 
@@ -147,20 +169,45 @@ $(".removeDiv").click(function () {
 
 var oddBackground = true;
 
+var varContacts = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ContactName'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: varBloodHoundPrefetch
+});
+
+$('.emergencyContact .typeahead').typeahead(null, {
+    name: 'lookupcontact',
+    displayKey: 'ContactName',
+    source: varContacts
+}).bind('typeahead:select', function (event, data) {
+    $('.emergencyContact .contactId').val(data.Id);
+});
+
+$('.selectpicker').selectpicker({
+    size: 4
+}).on('changed.bs.select', function (e) {
+    var teste = $(this).parent().parent().find('.selectedIds');
+    var valor = $(this).parent().children('.selectpicker').selectpicker('val');
+    teste.val(valor);
+});
+
 function ControlEventUnbindings() {
     $('.typeahead').typeahead('destroy');
-    $('input[type="text"], textarea').unbind('focus');
+    $('input[type="text"], input[type="number"], textarea').unbind('focus');
     $(".removeDiv").unbind('click');
 }
 
-function ControlsEventBindings() {
-    $('input[type="text"], textarea').focus(function () {
+function BindScrollFocus(hostingDiv) {
+    $(hostingDiv + ' input[type="text"], input[type="number"], textarea').focus(function () {
 
-        var center = $("#divMain").height() / 2;
-        var top = $(this).offsetRelative("#divMain").top + $("#divMain").scrollTop() - $("#divMain").position().top;
+        var center = $(hostingDiv).height() / 2;
+        var top = $(this).offsetRelative(hostingDiv).top + $(hostingDiv).scrollTop() - $(hostingDiv).position().top;
 
-        $("#divMain").animate({ scrollTop: (top - center) }, 500);
+        $(hostingDiv).animate({ scrollTop: (top - center) }, 500);
     });
+}
+
+function OtherEventBindings() {
 
     $('.country .typeahead').typeahead({
         hint: false,
@@ -177,6 +224,14 @@ function ControlsEventBindings() {
             ($(this)).remove();
         });
     })
+
+}
+
+function ControlsEventBindings() {
+    BindScrollFocus("#divMain");
+    BindScrollFocus("#divVolunteering");
+    BindScrollFocus("#divHealth");
+    OtherEventBindings();
 }
 
 ControlsEventBindings();
@@ -242,9 +297,6 @@ $("#btnAddInternetCallId").click(function () {
     
     ControlsEventBindings();
 });
-
-
-
 
 // Contact page end
 

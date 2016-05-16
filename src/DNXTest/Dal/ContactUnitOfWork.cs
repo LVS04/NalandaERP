@@ -80,6 +80,20 @@ namespace DNXTest.Dal
 
         }
 
+        //public object GetContactsForSearch()
+        //{
+        //    try
+        //    {
+        //        return RepositoryContact.GetAsync(orderBy: x => x.OrderBy(k=>k.FirstName)).Result.Select(x => new { x.Id, x.ContactName }); 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+        //        throw ex;
+        //    }
+        //}
+
+
         public void ResetContactDependants(Contact contact)
         {
 
@@ -123,15 +137,30 @@ namespace DNXTest.Dal
 
         }
 
+        private void FormatContactName(Contact contact)
+        {
+            contact.ContactName = string.Format("{0} {1} {2} {3}",
+                contact.FirstName.Trim(),
+                contact.LastName.Trim(),
+                contact.NickName.Trim(),
+                contact.ContactIdentification.BornInCountry.Trim()).Trim().Replace("  ", " ");
+        } 
+
         public void UpdateContact(Contact contact)
         {
             InsertContactDependants(contact);
+
+            FormatContactName(contact);
+
             _repoContact.Update(contact);
         }
         
         public void InsertContact(Contact contact)
         {
             InsertContactDependants(contact);
+
+            FormatContactName(contact);
+
             RepositoryContact.Insert(contact);
         }
 
@@ -160,7 +189,7 @@ namespace DNXTest.Dal
                 throw ex;
             }
         }
-
+        
         public GenericRepository<Contact> RepositoryContact
         {
             get
@@ -464,6 +493,8 @@ namespace DNXTest.Dal
                 return this._repoContactHealthInfo;
             }
         }
+
+        
 
         public async Task SaveAsync()
         {

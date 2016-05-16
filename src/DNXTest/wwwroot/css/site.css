@@ -35,6 +35,7 @@ input.Width85
     min-width: 85%;
 }
 
+
 textarea {
     max-width: 95%;
     min-width: 95%;
@@ -86,7 +87,11 @@ label {
     padding-bottom:25px;
 }
 
-#divMain{
+.marginBottomBig{
+    margin-bottom:362px;
+}
+
+.divScroll{
     overflow-y:auto;
     overflow-x:hidden;
     height:446px;
@@ -94,3 +99,4 @@ label {
 .divCombobox{
     width: 280px;
 }
+
