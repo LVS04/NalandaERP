@@ -172,7 +172,7 @@ var oddBackground = true;
 var varContacts = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ContactName'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: varBloodHoundPrefetch
+    prefetch: varBloodHoundPrefetch
 });
 
 $('.emergencyContact .typeahead').typeahead(null, {
