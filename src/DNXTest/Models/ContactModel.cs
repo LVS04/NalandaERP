@@ -131,6 +131,7 @@ namespace DNXTest.Models
         public DateTime Date                { get; set; }
         public string   Description         { get; set; }
 
+        public Guid     ContactId           { get; set; }
         public Contact  Contact             { get; set; }
 
     }
@@ -168,6 +169,7 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description { get; set; }
 
+            public Guid     ContactId   { get; set; }
             public Contact  Contact     { get; set; }
         }
 
@@ -199,8 +201,8 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string  Country          { get; set; }
 
+            public Guid     ContactId       { get; set; }
             public Contact  Contact         { get; set; }
-        
         }
 
         public partial class Country
@@ -236,6 +238,7 @@ namespace DNXTest.Models
             public string               ContacRelatedtName  { get; set; }
             public ContactRelationship  Relationship        { get; set; }
 
+            public Guid                 ContactId       { get; set; }
             public Contact              Contact             { get; set; }
         }   
     
@@ -250,7 +253,8 @@ namespace DNXTest.Models
 
             [StringLength(100)]
             public string   Description     { get; set; }
-
+            
+            public Guid     ContactId       { get; set; }
             public Contact  Contact         { get; set; }
         }
 
@@ -267,6 +271,7 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   IMContact           { get; set; }
 
+            public Guid     ContactId           { get; set; }
             public Contact  Contact             { get; set; }
         }
 
@@ -283,6 +288,7 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description         { get; set; }
 
+            public Guid     ContactId           { get; set; }
             public Contact  Contact             { get; set; }
         }
 

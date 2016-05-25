@@ -29,7 +29,9 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
 }, "Please select a valid country name.");
 
 function cleanValidator() {
+
     $('#formContact').removeData('validator');
+
 }
 
 function initValidator(){
