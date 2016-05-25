@@ -165,7 +165,31 @@ namespace DNXTest.Controllers
         {
             try
             {
-                return Json( _contactUnitOfWork.RepositoryContact.GetAsync(orderBy: x => x.OrderBy(k => k.FirstName)).Result.Select(x => new { x.Id, x.ContactName }));
+                return Json(_contactUnitOfWork.RepositoryContact.Get(orderBy: x => x.OrderBy(k => k.FirstName)).Select(x => new { x.Id, x.ContactName }));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
+
+        public ActionResult EmailExists(string Id)
+        {
+            try
+            {
+                string email = Request.Form["Emails[][Email]"];
+                Guid contactId = new Guid(Id);
+                var test = _contactUnitOfWork.RepositoryContactEmail.GetAsync(e => e.Email.ToLower() == email.ToLower()).Result.ToList();
+                if (test.Count>0)
+                {
+                    //var get
+                    var count = test.Where(c => c.ContactId != contactId).Count();
+                    if (count > 0)
+                        return Json("E-mail address already in use!");
+                }
+                  
+                return Json("true");
             }
             catch (Exception ex)
             {

@@ -100,3 +100,7 @@ label {
     width: 280px;
 }
 
+.zemail
+{
+    text-transform:lowercase;
+}

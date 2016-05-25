@@ -135,8 +135,11 @@ namespace DNXTest.Models
             //  ------------------------------------
             //  ContactEmail
             //  ------------------------------------
+            /*modelBuilder.Entity<ContactEmail>()
+                .Property(e => e.Email);*/
             modelBuilder.Entity<ContactEmail>()
-                .Property(e => e.Email);
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
             modelBuilder.Entity<ContactEmail>()
                 .Property(e => e.Description);

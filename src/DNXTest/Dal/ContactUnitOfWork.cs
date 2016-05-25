@@ -504,7 +504,7 @@ namespace DNXTest.Dal
             }
             catch (Exception ex)
             {
-                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                _logger .LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                 throw ex;
             }
         }

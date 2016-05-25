@@ -1,7 +1,4 @@
-﻿
-
-
-//  JQuery validator to allow repeated names in forms with different IDs
+﻿//  JQuery validator to allow repeated names in forms with different IDs
 //  --------------------------------------------------------------------
 jQuery.validator.prototype.checkForm = function () {
     this.prepareForm();
@@ -17,6 +14,8 @@ jQuery.validator.prototype.checkForm = function () {
     return this.valid();
 };
 
+
+
 jQuery.validator.addMethod("isValidCountry", function (value) {
 
     var in_array = $.inArray(value, arrCountries);
@@ -28,6 +27,8 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
         return true;
     }
 }, "Please select a valid country name.");
+
+
 
 $('#formContact').validate({
     ignore: [],
@@ -61,7 +62,12 @@ $('#formContact').validate({
         },
         'Emails[][Email]': {
             required: true,
-            email: true
+            email: true,
+            remote: {
+                url: varDestinyEmail + '/' + varGUID ,
+                type: 'post',
+            }
+            
         },
         //'Emails[][Description]': {
         //    required: true
@@ -78,6 +84,13 @@ $('#formContact').validate({
             url: true
         }
 
+    },
+    messages: {
+        email: {
+            required: "Please Enter Email!",
+            email: "This is not a valid email!",
+            remote: "E-mail address already in use!"
+        }
     },
     highlight: function (element) {
         $(element).closest('.form-group').addClass('has-error');
@@ -104,8 +117,6 @@ $('#formContact').submit(function () {
 
     if (form.valid()) {
 
-        //$('#cnt1').val(emergencyContact1Id);
-
         var JSONForm = JSON.stringify($('#formContact').serializeObject());
         var varDestiny;
 
@@ -119,7 +130,6 @@ $('#formContact').submit(function () {
                     contactJSON: JSONForm,
                     id: varGUID
                 },
-                //contentType: "application/json; charset=utf-8",
                 error: function (response) {
                     alert(response.responseText);
                 },
@@ -138,7 +148,6 @@ $('#formContact').submit(function () {
                 data: {
                     contactJSON: JSONForm
                 },
-                //contentType: "application/json; charset=utf-8",
                 error: function (response) {
                     alert(response.responseText);
                 },
@@ -156,18 +165,3 @@ $('#formContact').submit(function () {
     }
     return false;
 });
-
-/*
-        var test = $('#formContact').serializeObject();
-        //alert(JSONForm);
-        
-        
-        $.each(test, function (key, value) {
-            if (key == 'Addresses')
-            {
-                $.each(value, function (addressKey, addressValue) {
-                    alert(addressKey + ": " + addressValue);
-                });
-            }
-        });
-        */

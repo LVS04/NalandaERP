@@ -136,6 +136,7 @@ function clearForm() {
     $('input[type="number"]').val('0');
     $('input[name="Birthdate"]').val('');
     $('#btnSave').val('Create');
+    varGUID = '00000000-0000-0000-0000-000000000000';
     $('.selectpicker').selectpicker('deselectAll');
 
     $("#divMain").scrollTo("#divGeneral");
@@ -200,7 +201,7 @@ function ControlEventUnbindings() {
 function BindScrollFocus(hostingDiv) {
     $(hostingDiv + ' input[type="text"], input[type="number"], textarea').focus(function () {
 
-        var center = $(hostingDiv).height() / 2;
+        var center = $(hostingDiv).height()/2;
         var top = $(this).offsetRelative(hostingDiv).top + $(hostingDiv).scrollTop() - $(hostingDiv).position().top;
 
         $(hostingDiv).animate({ scrollTop: (top - center) }, 500);
@@ -266,7 +267,7 @@ $("#btnAddEmail").click(function () {
 
     ControlEventUnbindings();
 
-    $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Email must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
+    $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Email must be a string with a maximum length of 50." data-val-length-max="50" id="" autocomplete="off" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" autocomplete="off" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
     ControlsEventBindings();
 });

@@ -148,6 +148,7 @@ namespace DNXTest.Models
             [StringLength(100)]
             public string   Description { get; set; }
 
+            public Guid     ContactId   { get; set; }
             public Contact  Contact     { get; set; }
         }
     

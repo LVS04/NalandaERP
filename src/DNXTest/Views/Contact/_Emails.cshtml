@@ -4,7 +4,7 @@
 
 @if (Model.Count() == 0)
 {
-    string inputFieldHTML = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Emails[][{0}]' type='text' value='' />";
+    string inputFieldHTML = "<input class='form-control text-box single-line zemail' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Emails[][{0}]' type='text' autocomplete='off' value='' />";
     <div class="row container oddBackground paddingTop10">
         <div class="col-sm-4 oddBackground" id="divEcontact">
             <div class="form-group">
@@ -36,7 +36,7 @@
 else
 {
 
-    string inputFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Emails[][{0}]' type='text' value='{1}' />";
+    string inputFieldHTML__WithValue = "<input class='form-control text-box single-line zemail' data-val='true' data-val-length='The field {0} must be a string with a maximum length of 50.' data-val-length-max='50' id='' name='Emails[][{0}]' type='text' autocomplete='off' value='{1}' />";
 
     int countTotal = Model.Count(), count = 1;
 
