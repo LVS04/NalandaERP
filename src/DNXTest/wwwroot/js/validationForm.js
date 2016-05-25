@@ -28,87 +28,92 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
     }
 }, "Please select a valid country name.");
 
+function cleanValidator() {
+    $('#formContact').removeData('validator');
+}
 
+function initValidator(){
+    $('#formContact').validate({
+        ignore: [],
+        rules: {
+            FirstName: {
+                required: true,
+                maxlength: 100
+            },
+            LastName: {
+                maxlength: 100,
+                required: true
+            },
+            //Gender: {
+            //    required: true
+            //},
+            //Birthdate: {
+            //    required: true
+            //},
+            'Addresses[][Street]': {
+                required: true
+            },
+            'Addresses[][City]': {
+                required: true
+            },
+            'Addresses[][PostalCode]': {
+                required: true
+            },
+            'Addresses[][Country]': {
+                required: true,
+                isValidCountry: true
+            },
+            'Emails[][Email]': {
+                required: true,
+                email: true,
+                remote: {
+                    url: varDestinyEmail + '/' + varGUID,
+                    type: 'post',
+                }
 
-$('#formContact').validate({
-    ignore: [],
-    rules: {
-        FirstName: {
-            required: true,
-            maxlength: 100
-        },
-        LastName: {
-            maxlength: 100,
-            required: true
-        },
-        //Gender: {
-        //    required: true
-        //},
-        //Birthdate: {
-        //    required: true
-        //},
-        'Addresses[][Street]': {
-            required: true
-        },
-        'Addresses[][City]': {
-            required: true
-        },
-        'Addresses[][PostalCode]': {
-            required: true
-        },
-        'Addresses[][Country]': {
-            required: true,
-            isValidCountry: true
-        },
-        'Emails[][Email]': {
-            required: true,
-            email: true,
-            remote: {
-                url: varDestinyEmail + '/' + varGUID ,
-                type: 'post',
-            }
-            
-        },
-        //'Emails[][Description]': {
-        //    required: true
-        //},
-        'Phones[][Number]': {
-            required: true,
-            digits: true/*,
+            },
+            //'Emails[][Description]': {
+            //    required: true
+            //},
+            'Phones[][Number]': {
+                required: true,
+                digits: true/*,
             minlength: 9*/
+            },
+            //'Phones[][Description]': {
+            //    required: true
+            //},
+            'Websites[][Website]': {
+                url: true
+            }
+
         },
-        //'Phones[][Description]': {
-        //    required: true
-        //},
-        'Websites[][Website]': {
-            url: true
+        messages: {
+            email: {
+                required: "Please Enter Email!",
+                email: "This is not a valid email!",
+                remote: "E-mail address already in use!"
+            }
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
         }
+    });
+}
 
-    },
-    messages: {
-        email: {
-            required: "Please Enter Email!",
-            email: "This is not a valid email!",
-            remote: "E-mail address already in use!"
-        }
-    },
-    highlight: function (element) {
-        $(element).closest('.form-group').addClass('has-error');
-    },
-    unhighlight: function (element) {
-        $(element).closest('.form-group').removeClass('has-error');
-    },
-    errorElement: 'span',
-    errorClass: 'help-block',
-    errorPlacement: function (error, element) {
-        if (element.parent('.input-group').length) {
-            error.insertAfter(element.parent());
-        } else {
-            error.insertAfter(element);
-        }
-    }
-});
-
+initValidator();
 
 $('#formContact').submit(function () {
 

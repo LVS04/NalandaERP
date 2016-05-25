@@ -135,11 +135,19 @@ function clearForm() {
     $('input[type="date"]').val('0001-01-01');
     $('input[type="number"]').val('0');
     $('input[name="Birthdate"]').val('');
-    $('#btnSave').val('Create');
-    varGUID = '00000000-0000-0000-0000-000000000000';
     $('.selectpicker').selectpicker('deselectAll');
 
     $("#divMain").scrollTo("#divGeneral");
+
+
+    $('#btnSave').val('Create');
+    varGUID = '00000000-0000-0000-0000-000000000000';
+    
+    var validator = $('#formContact').validate();
+    validator.resetForm();
+
+    cleanValidator();
+    initValidator();
 
     //https://github.com/danielfarrell/bootstrap-combobox/issues/168
     //this.$('select').data('combobox').refresh();
