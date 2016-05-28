@@ -21,6 +21,9 @@ namespace DNXTest.Models
                 .Property(e => e.ContactName);
 
             modelBuilder.Entity<Contact>()
+                .HasIndex(u => u.ContactName);
+
+            modelBuilder.Entity<Contact>()
                 .Property(e => e.Prefix);
 
             modelBuilder.Entity<Contact>()

@@ -84,8 +84,10 @@
                     @await Html.PartialAsync("_LoginPartial")
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Contact info to search ...">&nbsp;<span class="badge">150</span>
-                        </div>
+                            <div class="">
+                                <input id="searchContact" type="text" class="form-control zemail typeahead" placeholder="Contact name to search ...">
+                            </div>
+                        </div>&nbsp;<span id="countContact" class="label label-as-badge label-default">000</span>
                     </form>
                 </div>
             </div><!-- /.navbar-collapse -->
@@ -97,6 +99,11 @@
             <p>&copy; 2016 - Nalanda Monastery</p>
         </footer>
     </div>
+    <script>
+        var varBloodHoundRemote = '@Url.Action("BloodHoundRemote", "Contact")';
+        var varDestinyEmail = '@Url.Action("EmailExists", "Contact")';
+        var varContactList = '@Url.Action("List", "Contact")';
+    </script>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -109,6 +116,7 @@
         <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="~/js/static.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/global.js" asp-append-version="true"></script>
         <script src="~/js/validationForm.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
@@ -123,7 +131,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("scripts", required: false)
 </body>
 </html>

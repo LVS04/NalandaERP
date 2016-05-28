@@ -170,6 +170,14 @@ $("#btnNew").click(function () {
 
 //  Dynamic one-to-many elements
 //  ----------------------------
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}
+
 $(".removeDiv").click(function () {
     ($(this)).parent().parent().parent().parent().parent().fadeOut(1000, function () {
         ($(this)).remove();
@@ -181,7 +189,10 @@ var oddBackground = true;
 var varContacts = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ContactName'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: varBloodHoundPrefetch
+    remote: {
+        url: varBloodHoundRemote + '?wildcard=%QUERY',
+        wildcard: '%QUERY'
+    }
 });
 
 $('.emergencyContact .typeahead').typeahead(null, {
@@ -191,6 +202,9 @@ $('.emergencyContact .typeahead').typeahead(null, {
 }).bind('typeahead:select', function (event, data) {
     $('.emergencyContact .contactId').val(data.Id);
 });
+
+
+
 
 $('.selectpicker').selectpicker({
     size: 4

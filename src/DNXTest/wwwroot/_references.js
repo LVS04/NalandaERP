@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../gulpfile.js" />
+/// <reference path="js/global.js" />
 /// <reference path="js/site.js" />
 /// <reference path="js/static.js" />
 /// <reference path="js/validationform.js" />

@@ -50,11 +50,15 @@ namespace DNXTest.Controllers
             }
         }
 
-        public async Task<IActionResult> List()
+
+        public async Task<IActionResult> List(string wildcard)
         {
             try
             {
-                return View(await _contactUnitOfWork.RepositoryContact.GetAsync());
+                if(wildcard == null )
+                    return View(await _contactUnitOfWork.RepositoryContact.GetAsync());
+                else
+                    return View(await _contactUnitOfWork.RepositoryContact.GetAsync(filter: c => c.ContactName.Contains(wildcard)));
             }
             catch (Exception ex)
             {
@@ -165,7 +169,20 @@ namespace DNXTest.Controllers
         {
             try
             {
-                return Json(_contactUnitOfWork.RepositoryContact.Get(orderBy: x => x.OrderBy(k => k.FirstName)).Select(x => new { x.Id, x.ContactName }));
+                return Json(_contactUnitOfWork.RepositoryContact.Get(orderBy: x => x.OrderBy(k => k.FirstName)).Take(500).Select(x => new { x.Id, x.ContactName }));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
+        public ActionResult BloodHoundRemote(string wildcard)
+        {
+            try
+            {
+                var results = _contactUnitOfWork.RepositoryContact.Get(filter: c => c.ContactName.Contains(wildcard)).Take(500);
+                return Json( results.Select(x => new { x.Id, x.ContactName}));
             }
             catch (Exception ex)
             {
@@ -180,7 +197,7 @@ namespace DNXTest.Controllers
             {
                 string email = Request.Form["Emails[][Email]"];
                 Guid contactId = new Guid(Id);
-                var test = _contactUnitOfWork.RepositoryContactEmail.GetAsync(e => e.Email.ToLower() == email.ToLower()).Result.ToList();
+                var test = _contactUnitOfWork.RepositoryContactEmail.Get(e => e.Email.ToLower() == email.ToLower()).ToList();
                 if (test.Count>0)
                 {
                     //var get

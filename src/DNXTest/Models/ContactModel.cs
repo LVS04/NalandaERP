@@ -238,7 +238,7 @@ namespace DNXTest.Models
             public string               ContacRelatedtName  { get; set; }
             public ContactRelationship  Relationship        { get; set; }
 
-            public Guid                 ContactId       { get; set; }
+            public Guid                 ContactId           { get; set; }
             public Contact              Contact             { get; set; }
         }   
     
@@ -393,8 +393,8 @@ namespace DNXTest.Models
             public string   DetailsOfMainWorkAndVolunteerinExperience   { get; set; }
             public Contact  ContactToAskAboutExperience                 { get; set; }
 
-            public Guid              Id                                     { get; set; }
-            public virtual  Contact  Contact                                { get; set; }
+            public Guid              Id                                 { get; set; }
+            public virtual  Contact  Contact                            { get; set; }
         }
 
 
