@@ -3,11 +3,18 @@
     string FullName = string.Empty;
 }
 <h2>Contact List</h2>
-<p>
-    @Html.ActionLink("Create contact", "Index")
-</p>
+<div class="container">
+    <p>
+        @Html.ActionLink("Create contact", "Index")
+    </p>
+</div>
 
-<table class="table">
+
+
+
+
+    
+    <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ContactName)

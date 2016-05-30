@@ -38,7 +38,7 @@ namespace DNXTest.Dal
 
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null/*,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int rowCount=0, int currentPage=1/*,
             string includeProperties = ""*/)
         {
             try
@@ -60,11 +60,19 @@ namespace DNXTest.Dal
                 */
                 if (orderBy != null)
                 {
-                    return await orderBy(query).ToListAsync();
+                    if (rowCount > 0)
+                    {
+                        return await orderBy(query).Skip(rowCount * currentPage).Take(rowCount).ToListAsync();
+                    }
+                    else return await orderBy(query).ToListAsync();
                 }
                 else
                 {
-                    return await query.ToListAsync();
+                    if (rowCount > 0)
+                    {
+                        return await query.Skip(rowCount * currentPage).Take(rowCount).ToListAsync();
+                    }
+                    else return await query.ToListAsync();
                 }
             }
             catch (Exception ex)

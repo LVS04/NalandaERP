@@ -51,22 +51,6 @@ namespace DNXTest.Controllers
         }
 
 
-        public async Task<IActionResult> List(string wildcard)
-        {
-            try
-            {
-                if(wildcard == null )
-                    return View(await _contactUnitOfWork.RepositoryContact.GetAsync());
-                else
-                    return View(await _contactUnitOfWork.RepositoryContact.GetAsync(filter: c => c.ContactName.Contains(wildcard)));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-                throw ex;
-            }
-        }
-
         // GET: Contact/Create
         public ActionResult Create()
         {
@@ -190,6 +174,60 @@ namespace DNXTest.Controllers
                 throw ex;
             }
         }
+
+        public ActionResult ListBase()
+        {
+            return View();
+        }
+
+
+        public async Task<IActionResult> ListBazzing(int current = 1, int rowCount = 10, string[] sort = null, string searchPhrase = "")
+        {
+            try
+            {
+                var results = _contactUnitOfWork.RepositoryContact.GetAsync( /*filter: c => c.ContactName.Contains(searchPhrase),*/
+                                                                              rowCount: rowCount,
+                                                                              currentPage: current
+                                                                            )
+                                                                            .Result.Select(x => new
+                                                                            {
+                                                                                x.ContactName,
+                                                                                x.Gender,
+                                                                                x.PositionAndCompany,
+                                                                                x.NickName,
+                                                                                x.Birthdate,
+                                                                                x.FoodAllergies
+                                                                            });
+
+                //var count = _contactUnitOfWork.RepositoryContact.GetAsync(/*filter: c => c.ContactName.Contains(searchPhrase)*/).Result.Count();
+
+                return Json(new { current = current, rowCount = rowCount, rows = results.ToArray(), total = 5698 });
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
+
+        public async Task<IActionResult> List(string wildcard)
+        {
+            try
+            {
+                if (wildcard == null)
+                    return View( await _contactUnitOfWork.RepositoryContact.GetAsync() ); 
+                else
+                    return View ( await _contactUnitOfWork.RepositoryContact.GetAsync(filter: c => c.ContactName.Contains(wildcard)));
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
+
 
         public ActionResult EmailExists(string Id)
         {
