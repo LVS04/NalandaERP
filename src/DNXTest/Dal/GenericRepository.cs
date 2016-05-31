@@ -36,9 +36,36 @@ namespace DNXTest.Dal
 
         }
 
+        public Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> GetSortExpression(string orderColumn, string orderType)
+        {
+            Type typeQueryable = typeof(IQueryable<TEntity>);
+            ParameterExpression argQueryable = Expression.Parameter(typeQueryable, "p");
+            var outerExpression = Expression.Lambda(argQueryable, argQueryable);
+            string[] props = orderColumn.Split('.');
+            IQueryable<TEntity> query = new List<TEntity>().AsQueryable<TEntity>();
+            Type type = typeof(TEntity);
+            ParameterExpression arg = Expression.Parameter(type, "x");
+
+            Expression expr = arg;
+            foreach (string prop in props)
+            {
+                PropertyInfo pi = type.GetProperty(prop, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                expr = Expression.Property(expr, pi);
+                type = pi.PropertyType;
+            }
+            LambdaExpression lambda = Expression.Lambda(expr, arg);
+            string methodName = orderType == "asc" ? "OrderBy" : "OrderByDescending";
+
+            MethodCallExpression resultExp =
+                Expression.Call(typeof(Queryable), methodName, new Type[] { typeof(TEntity), type }, outerExpression.Body, Expression.Quote(lambda));
+            var finalLambda = Expression.Lambda(resultExp, argQueryable);
+            return (Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>)finalLambda.Compile();
+        }
+
+
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int rowCount=0, int currentPage=1/*,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, int rowCount=0, int currentPage=1, int totalRecords = 0/*,
             string includeProperties = ""*/)
         {
             try
@@ -58,11 +85,18 @@ namespace DNXTest.Dal
                     query = query.Include(x => x); //  Include  Include(includeProperty);
                 }
                 */
+                int lines = rowCount;
+                if(rowCount > 0)
+                {
+                    if ((totalRecords - rowCount * (currentPage - 1)) < rowCount)
+                        lines = totalRecords - rowCount * (currentPage - 1) ;
+                }
+
                 if (orderBy != null)
                 {
                     if (rowCount > 0)
                     {
-                        return await orderBy(query).Skip(rowCount * currentPage).Take(rowCount).ToListAsync();
+                        return await orderBy(query).Skip(rowCount * (currentPage-1)).Take(lines).ToListAsync();
                     }
                     else return await orderBy(query).ToListAsync();
                 }
@@ -70,7 +104,7 @@ namespace DNXTest.Dal
                 {
                     if (rowCount > 0)
                     {
-                        return await query.Skip(rowCount * currentPage).Take(rowCount).ToListAsync();
+                        return await query.Skip(rowCount * (currentPage - 1)).Take(lines).ToListAsync();
                     }
                     else return await query.ToListAsync();
                 }
@@ -82,7 +116,26 @@ namespace DNXTest.Dal
             }
         }
 
-        public virtual IEnumerable<TEntity> Get(
+        public virtual int CountRecords(Expression<Func<TEntity, bool>> filter = null)
+        {
+            try
+            {
+                IQueryable<TEntity> query = _dbSet;
+
+                if (filter == null)
+                    return query.Count();
+                else
+                    return query.Where(filter).Count();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
+
+
+    public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null/*,
             string includeProperties = ""*/)

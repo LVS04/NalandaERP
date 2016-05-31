@@ -263,7 +263,7 @@
 
             // todo: improve the following comment
             // setTimeout decouples the initialization so that adding event handlers happens before
-            window.setTimeout(function () { update(rows, total); }, 10);
+            window.setTimeout(function () { update(rows, total); }, 10);/*****/
         }
     }
 
@@ -1018,8 +1018,8 @@
         navigation: 3, // it's a flag: 0 = none, 1 = top, 2 = bottom, 3 = both (top and bottom)
         padding: 2, // page padding (pagination)
         columnSelection: true,
-        rowCount: [10, 25, 50, -1], // rows per page int or array of int (-1 represents "All")
-
+        //rowCount: [50, 100, -1], // rows per page int or array of int (-1 represents "All")
+        rowCount: [15, 20, 50, 100, -1],
         /**
          * Enables row selection (to enable multi selection see also `multiSelect`). Default value is `false`.
          *

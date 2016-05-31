@@ -80,6 +80,11 @@ namespace DNXTest.Dal
 
         }
 
+       //public void CountContacts(string whereClause)
+       // {
+       //     var sql = "SELECT COUNT(*) FROM dbo.Logs";
+       //     var total = _context.Database. .SqlQuery<int>(sql).Single();
+       // } 
         //public object GetContactsForSearch()
         //{
         //    try

@@ -7,14 +7,16 @@ using DNXTest.Models;
 using DNXTest.Dal;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.AspNet.Http.Internal;
+using Microsoft.Extensions.Primitives;
 
 
 namespace DNXTest.Controllers
 {
     public class ContactController : Controller
     {
-        private readonly ContactUnitOfWork      _contactUnitOfWork;
-        private readonly ILogger                _logger;
+        private readonly ContactUnitOfWork _contactUnitOfWork;
+        private readonly ILogger _logger;
 
         public ContactController(ApplicationDbContext context, ILoggerFactory loggerFactory)
         {
@@ -24,18 +26,18 @@ namespace DNXTest.Controllers
 
         // GET: /<controller>/
         [HttpGet]
-        public async Task<IActionResult>  Index(Guid? id)
+        public async Task<IActionResult> Index(Guid? id)
         {
             try
             {
                 Contact _contact = null;
-                
+
                 if (!(id == null))
                 {
                     _contact = await _contactUnitOfWork.GetContactByIdAsync(id.Value);
                     ViewData["SaveOperation"] = "Save";
                 }
-                
+
                 if (_contact == null)
                 {
                     _contact = new Contact();
@@ -45,7 +47,7 @@ namespace DNXTest.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name" , ex.Message), ex);
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                 throw ex;
             }
         }
@@ -62,7 +64,7 @@ namespace DNXTest.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken] TODO
-        public async Task<ActionResult> Create( string contactJSON)
+        public async Task<ActionResult> Create(string contactJSON)
         {
             try
             {
@@ -71,17 +73,17 @@ namespace DNXTest.Controllers
 
                 //contact.ContactName = string.Format("{0} {1} {2} {3}" contact.Prefix
                 contact.LastChangeTimestamp = DateTime.Now;
-                _contactUnitOfWork.InsertContact(contact); 
+                _contactUnitOfWork.InsertContact(contact);
 
                 await _contactUnitOfWork.SaveAsync();
-                 
+
                 //  Success
-                return Json( new { success = true, responseText = "Contact has been saved succesfully!" });
+                return Json(new { success = true, responseText = "Contact has been saved succesfully!" });
             }
             catch (Exception ex)
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-                return Json( new { success = false, responseText = "There was an error processing the request!" });
+                return Json(new { success = false, responseText = "There was an error processing the request!" });
             }
         }
 
@@ -120,14 +122,14 @@ namespace DNXTest.Controllers
             }
             catch (Exception ex)
             {
-                    _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                 return Json(new { success = false, responseText = "There was an error Updating the contact!" });
             }
         }
 
 
         // GET: Contacts/Delete/5
-        public async Task< ActionResult> Delete(Guid? Id)
+        public async Task<ActionResult> Delete(Guid? Id)
         {
             try
             {
@@ -136,11 +138,11 @@ namespace DNXTest.Controllers
                     return RedirectToAction("Index");
                 }
                 Contact Contact = await _contactUnitOfWork.GetContactByIdAsync(Id.Value);
-                 _contactUnitOfWork.DeleteContact(Contact);
+                _contactUnitOfWork.DeleteContact(Contact);
                 await _contactUnitOfWork.SaveAsync();
                 return RedirectToAction("List");
             }
-            
+
             catch (Exception ex)
             {
                 _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
@@ -166,7 +168,7 @@ namespace DNXTest.Controllers
             try
             {
                 var results = _contactUnitOfWork.RepositoryContact.Get(filter: c => c.ContactName.Contains(wildcard)).Take(500);
-                return Json( results.Select(x => new { x.Id, x.ContactName}));
+                return Json(results.Select(x => new { x.Id, x.ContactName }));
             }
             catch (Exception ex)
             {
@@ -181,28 +183,147 @@ namespace DNXTest.Controllers
         }
 
 
-        public async Task<IActionResult> ListBazzing(int current = 1, int rowCount = 10, string[] sort = null, string searchPhrase = "")
+        public async Task<IActionResult> ListBazzing(int current = 1, int rowCount = 15, string searchPhrase = null  )
         {
             try
             {
-                var results = _contactUnitOfWork.RepositoryContact.GetAsync( /*filter: c => c.ContactName.Contains(searchPhrase),*/
-                                                                              rowCount: rowCount,
-                                                                              currentPage: current
-                                                                            )
-                                                                            .Result.Select(x => new
-                                                                            {
-                                                                                x.ContactName,
-                                                                                x.Gender,
-                                                                                x.PositionAndCompany,
-                                                                                x.NickName,
-                                                                                x.Birthdate,
-                                                                                x.FoodAllergies
-                                                                            });
+                int lines = rowCount;
+                if (Request.Form.Keys.Count == 4)
+                {
+                    //  Sorted request
+                    //  --------------
+                    KeyValuePair<string,StringValues> sortof = (KeyValuePair<string, StringValues>)Request.Form.ToArray()[2];
+                    string[]    fields = sortof.Key.Split('[');
+                    string      field = fields[1].Replace("]", "");
 
-                //var count = _contactUnitOfWork.RepositoryContact.GetAsync(/*filter: c => c.ContactName.Contains(searchPhrase)*/).Result.Count();
+                    var sortExpression = _contactUnitOfWork.RepositoryContact.GetSortExpression(field, sortof.Value);
 
-                return Json(new { current = current, rowCount = rowCount, rows = results.ToArray(), total = 5698 });
+                    if (searchPhrase != null)
+                    {
+                        //  Sorted request with where
+                        //  -------------------------
+                        var count = _contactUnitOfWork.RepositoryContact.CountRecords(c => c.ContactName.Contains(searchPhrase.ToLower()));
 
+                        var results = _contactUnitOfWork.RepositoryContact.GetAsync
+                        (
+                            filter: c => c.ContactName.Contains(searchPhrase.ToLower()),
+                            rowCount: lines,
+                            currentPage: current,
+                            totalRecords: count,
+                            orderBy: sortExpression
+                        ).Result.Select(x => new
+                        {
+                            x.ContactName,
+                            x.Gender,
+                            x.PositionAndCompany,
+                            x.NickName,
+                            x.Birthdate,
+                            x.FoodAllergies
+                        });
+
+                        return Json(new
+                        {
+                            current = current,
+                            rowCount = lines,
+                            rows = results.ToArray(),
+                            total = count
+                        });
+
+                    }
+                    else
+                    {
+                        //  Sorted request withOUT where
+                        //  -------------------------
+
+                        var count = _contactUnitOfWork.RepositoryContact.CountRecords();
+
+                        var results = _contactUnitOfWork.RepositoryContact.GetAsync
+                        (
+                            rowCount: lines,
+                            currentPage: current,
+                            totalRecords: count,
+                            orderBy: sortExpression
+                        ).Result.Select(x => new
+                        {
+                            x.ContactName,
+                            x.Gender,
+                            x.PositionAndCompany,
+                            x.NickName,
+                            x.Birthdate,
+                            x.FoodAllergies
+                        });
+
+                        return Json(new
+                        {
+                            current = current,
+                            rowCount = lines,
+                            rows = results.ToArray(),
+                            total = count
+                        });
+                    }
+                }
+                else
+                {
+                    //  Unsorted request
+                    //  ----------------
+                    if(searchPhrase == null)
+                    {
+                        var count = _contactUnitOfWork.RepositoryContact.CountRecords();
+
+                        var results = _contactUnitOfWork.RepositoryContact.GetAsync
+                        (
+                            rowCount: lines,
+                            currentPage: current,
+                            totalRecords: count
+
+                        ).Result.Select(x => new
+                        {
+                            x.ContactName,
+                            x.Gender,
+                            x.PositionAndCompany,
+                            x.NickName,
+                            x.Birthdate,
+                            x.FoodAllergies
+                        });
+
+                        return Json(new
+                        {
+                            current = current,
+                            rowCount = lines,
+                            rows = results.ToArray(),
+                            total = count
+                        });
+                    }
+                    else
+                    {
+                        var count = _contactUnitOfWork.RepositoryContact.CountRecords(c => c.ContactName.Contains(searchPhrase.ToLower()));
+
+                        var results = _contactUnitOfWork.RepositoryContact.GetAsync
+                        (
+                            filter: c => c.ContactName.Contains(searchPhrase.ToLower()),
+                            rowCount: lines,
+                            currentPage: current,
+                            totalRecords: count
+                        ).Result.Select(x => new
+                        {
+                            x.ContactName,
+                            x.Gender,
+                            x.PositionAndCompany,
+                            x.NickName,
+                            x.Birthdate,
+                            x.FoodAllergies
+                        });
+
+                        return Json(new
+                        {
+                            current = current,
+                            rowCount = lines,
+                            rows = results.ToArray(),
+                            total = count
+                        });
+
+                    }
+                }
             }
             catch (Exception ex)
             {
