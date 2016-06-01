@@ -57,8 +57,6 @@ namespace DNXTest.Models
             
         }
 
-        
-
 
         //[Key]
         public Guid         Id                          { get; set; }

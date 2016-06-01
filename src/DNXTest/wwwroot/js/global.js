@@ -33,3 +33,4 @@ $('#searchContact.typeahead').typeahead(null, {
 }).bind('typeahead:select', function (event, data) {
     window.location = '/Contact/Index/' + data.Id;
 });
+

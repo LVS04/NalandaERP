@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Http.Internal;
 using Microsoft.Extensions.Primitives;
+using DNXTest.Helpers;
 
 
 namespace DNXTest.Controllers
@@ -140,7 +141,7 @@ namespace DNXTest.Controllers
                 Contact Contact = await _contactUnitOfWork.GetContactByIdAsync(Id.Value);
                 _contactUnitOfWork.DeleteContact(Contact);
                 await _contactUnitOfWork.SaveAsync();
-                return RedirectToAction("List");
+                return RedirectToAction("ListBase");
             }
 
             catch (Exception ex)
@@ -177,11 +178,12 @@ namespace DNXTest.Controllers
             }
         }
 
-        public ActionResult ListBase()
+        public ActionResult ListBase(string wildcard = "")
         {
+            
+            ViewData["InItSeArCh"] = wildcard;
             return View();
         }
-
 
         public async Task<IActionResult> ListBazzing(int current = 1, int rowCount = 15, string searchPhrase = null  )
         {
@@ -217,10 +219,11 @@ namespace DNXTest.Controllers
                             x.Gender,
                             x.PositionAndCompany,
                             x.NickName,
-                            x.Birthdate,
-                            x.FoodAllergies
+                            Birthdate = (x.Birthdate.HasValue)?  x.Birthdate.Value.ToString("yyyy-MM-dd"):null,
+                            x.FoodAllergies,
+                            detail = WebHelpers.CreateLink(Url,"Contact", "Index", "details",x.Id),
+                            delete = WebHelpers.CreateLink(Url, "Contact", "Delete", "delete",x.Id, "text-danger", "$(\'#linkConfirm\').attr(\'href\', this.href);$('#ModalMessage').text('Do you confirm the contact deletion?');$(\'#ModalConfirm\').modal(\'show\');return false;")
                         });
-
                         return Json(new
                         {
                             current = current,
@@ -249,8 +252,10 @@ namespace DNXTest.Controllers
                             x.Gender,
                             x.PositionAndCompany,
                             x.NickName,
-                            x.Birthdate,
-                            x.FoodAllergies
+                            Birthdate = (x.Birthdate.HasValue) ? x.Birthdate.Value.ToString("yyyy-MM-dd") : null,
+                            x.FoodAllergies,
+                            detail = WebHelpers.CreateLink(Url, "Contact", "Index", "details", x.Id),
+                            delete = WebHelpers.CreateLink(Url, "Contact", "Delete", "delete", x.Id, "text-danger", "$(\'#linkConfirm\').attr(\'href\', this.href);$('#ModalMessage').text('Do you confirm the contact deletion?');$(\'#ModalConfirm\').modal(\'show\');return false;")
                         });
 
                         return Json(new
@@ -282,8 +287,11 @@ namespace DNXTest.Controllers
                             x.Gender,
                             x.PositionAndCompany,
                             x.NickName,
-                            x.Birthdate,
-                            x.FoodAllergies
+                            Birthdate = (x.Birthdate.HasValue) ? x.Birthdate.Value.ToString("yyyy-MM-dd") : null,
+                            x.FoodAllergies,
+                            detail = WebHelpers.CreateLink(Url, "Contact", "Index", "details", x.Id),
+                            delete = WebHelpers.CreateLink(Url, "Contact", "Delete", "delete", x.Id, "text-danger", "$(\'#linkConfirm\').attr(\'href\', this.href);$('#ModalMessage').text('Do you confirm the contact deletion?');$(\'#ModalConfirm\').modal(\'show\');return false;")
+
                         });
 
                         return Json(new
@@ -310,8 +318,10 @@ namespace DNXTest.Controllers
                             x.Gender,
                             x.PositionAndCompany,
                             x.NickName,
-                            x.Birthdate,
-                            x.FoodAllergies
+                            Birthdate = (x.Birthdate.HasValue) ? x.Birthdate.Value.ToString("yyyy-MM-dd") : null,
+                            x.FoodAllergies,
+                            detail = WebHelpers.CreateLink(Url, "Contact", "Index", "details", x.Id),
+                            delete = WebHelpers.CreateLink(Url, "Contact", "Delete", "delete", x.Id, "text-danger", "$(\'#linkConfirm\').attr(\'href\', this.href);$('#ModalMessage').text('Do you confirm the contact deletion?');$(\'#ModalConfirm\').modal(\'show\');return false;")
                         });
 
                         return Json(new
@@ -331,24 +341,6 @@ namespace DNXTest.Controllers
                 throw ex;
             }
         }
-
-        public async Task<IActionResult> List(string wildcard)
-        {
-            try
-            {
-                if (wildcard == null)
-                    return View( await _contactUnitOfWork.RepositoryContact.GetAsync() ); 
-                else
-                    return View ( await _contactUnitOfWork.RepositoryContact.GetAsync(filter: c => c.ContactName.Contains(wildcard)));
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-                throw ex;
-            }
-        }
-
 
         public ActionResult EmailExists(string Id)
         {

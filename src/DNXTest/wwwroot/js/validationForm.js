@@ -28,147 +28,206 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
     }
 }, "Please select a valid country name.");
 
-function cleanValidator() {
 
-    $('#formContact').removeData('validator');
-
-}
-
-function initValidator(){
-    $('#formContact').validate({
-        ignore: [],
-        rules: {
-            FirstName: {
-                required: true,
-                maxlength: 100
-            },
-            LastName: {
-                maxlength: 100,
-                required: true
-            },
-            //Gender: {
-            //    required: true
-            //},
-            //Birthdate: {
-            //    required: true
-            //},
-            'Addresses[][Street]': {
-                required: true
-            },
-            'Addresses[][City]': {
-                required: true
-            },
-            'Addresses[][PostalCode]': {
-                required: true
-            },
-            'Addresses[][Country]': {
-                required: true,
-                isValidCountry: true
-            },
-            'Emails[][Email]': {
-                required: true,
-                email: true,
-                remote: {
-                    url: varDestinyEmail + '/' + varGUID,
-                    type: 'post',
-                }
-
-            },
-            //'Emails[][Description]': {
-            //    required: true
-            //},
-            'Phones[][Number]': {
-                required: true,
-                digits: true/*,
-            minlength: 9*/
-            },
-            //'Phones[][Description]': {
-            //    required: true
-            //},
-            'Websites[][Website]': {
-                url: true
+$('#formContact').validate({
+    ignore: [],
+    rules: {
+        FirstName: {
+            required: true,
+            maxlength: 100
+        },
+        LastName: {
+            maxlength: 100,
+            required: true
+        },
+        //Gender: {
+        //    required: true
+        //},
+        //Birthdate: {
+        //    required: true
+        //},
+        'Addresses[][Street]': {
+            required: true
+        },
+        'Addresses[][City]': {
+            required: true
+        },
+        'Addresses[][PostalCode]': {
+            required: true
+        },
+        'Addresses[][Country]': {
+            required: true,
+            isValidCountry: true
+        },
+        'Emails[][Email]': {
+            required: true,
+            email: true,
+            remote: {
+                url: varDestinyEmail + '/' + varGUID,
+                type: 'post',
             }
 
         },
-        messages: {
-            email: {
-                required: "Please Enter Email!",
-                email: "This is not a valid email!",
-                remote: "E-mail address already in use!"
+        //'Emails[][Description]': {
+        //    required: true
+        //},
+        'Phones[][Number]': {
+            required: true,
+            digits: true/*,
+        minlength: 9*/
+        },
+        //'Phones[][Description]': {
+        //    required: true
+        //},
+        'Websites[][Website]': {
+            url: true
+        }
+
+    },
+    messages: {
+        email: {
+            required: "Please Enter Email!",
+            email: "This is not a valid email!",
+            remote: "E-mail address already in use!"
+        }
+    },
+    highlight: function (element) {
+        $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function (element) {
+        $(element).closest('.form-group').removeClass('has-error');
+    },
+    errorElement: 'span',
+    errorClass: 'help-block',
+    errorPlacement: function (error, element) {
+        if (element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else {
+            error.insertAfter(element);
+        }
+    },
+    submitHandler: function (form) {
+            $('#btnSave').attr("disabled", true);
+            var JSONForm = JSON.stringify($('#formContact').serializeObject());
+            var varDestiny;
+
+            if ($("#btnSave").val() == 'Save') {
+                varDestiny = varDestinyU;
+                $.ajax({
+                    url: varDestiny,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        contactJSON: JSONForm,
+                        id: varGUID
+                    },
+                    error: function (response) {
+                        $('#linkConfirm').attr('href', '');
+                        $('#ModalMessage').text(response.responseText);
+                        $('#ModalConfirm').modal('show');
+
+                        $('#btnSave').attr("disabled", false);
+                    },
+                    success: function (response) {
+                        $('#linkConfirm').attr('href', '');
+                        $('#ModalMessage').text(response.responseText);
+                        $('#ModalConfirm').modal('show');
+                        clearForm();
+                    }
+                });
             }
-        },
-        highlight: function (element) {
-            $(element).closest('.form-group').addClass('has-error');
-        },
-        unhighlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-error');
-        },
-        errorElement: 'span',
-        errorClass: 'help-block',
-        errorPlacement: function (error, element) {
-            if (element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else {
-                error.insertAfter(element);
+            else {
+                varDestiny = varDestinyC;
+                $.ajax({
+                    url: varDestiny,
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        contactJSON: JSONForm
+                    },
+                    error: function (response) {
+                        $('#linkConfirm').attr('href', '');
+                        $('#ModalMessage').text(response.responseText);
+                        $('#ModalConfirm').modal('show');
+                        $('#btnSave').attr("disabled", false);
+                    },
+                    success: function (response) {
+                        $('#linkConfirm').attr('href', '');
+                        $('#ModalMessage').text(response.responseText);
+                        $('#ModalConfirm').modal('show');
+                        clearForm();
+                    }
+                });
             }
-        }
-    });
-}
-
-initValidator();
-
-$('#formContact').submit(function () {
-
-    var form = $("#formContact");
-    var validator = form.validate();
-
-    if (form.valid()) {
-
-        var JSONForm = JSON.stringify($('#formContact').serializeObject());
-        var varDestiny;
-
-        if ($("#btnSave").val() == 'Save') {
-            varDestiny = varDestinyU;
-            $.ajax({
-                url: varDestiny,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    contactJSON: JSONForm,
-                    id: varGUID
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                },
-                success: function (response) {
-                    alert(response.responseText);
-                    clearForm();
-                }
-            });
-        }
-        else {
-            varDestiny = varDestinyC;
-            $.ajax({
-                url: varDestiny,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    contactJSON: JSONForm
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                },
-                success: function (response) {
-                    alert(response.responseText);
-                    clearForm();
-                }
-            });
-        }
+            return false;
+        //}
+        //else// form is invalid
+        //{
+        //    alert("There is non-valid data in the form. Please check the different tabs.");
+        //}
         return false;
     }
-    else// form is invalid
-    {
-        alert("There is non-valid data in the form. Please check the different tabs.");
-    }
-    return false;
 });
+
+
+
+
+//$('#btnSave').click(function () {
+    
+    //$('#formContact').submit();
+
+ //   var validated = $('#formContact').validate();
+
+    //if (validated.valid()) {
+
+    //    $('#btnSave').attr("disabled", true);
+    //    var JSONForm = JSON.stringify($('#formContact').serializeObject());
+    //    var varDestiny;
+
+    //    if ($("#btnSave").val() == 'Save') {
+    //        varDestiny = varDestinyU;
+    //        $.ajax({
+    //            url: varDestiny,
+    //            type: "POST",
+    //            dataType: "json",
+    //            data: {
+    //                contactJSON: JSONForm,
+    //                id: varGUID
+    //            },
+    //            error: function (response) {
+    //                alert(response.responseText);
+    //                $('#btnSave').attr("disabled", false);
+    //            },
+    //            success: function (response) {
+    //                alert(response.responseText);
+    //                clearForm();
+    //            }
+    //        });
+    //    }
+    //    else {
+    //        varDestiny = varDestinyC;
+    //        $.ajax({
+    //            url: varDestiny,
+    //            type: "POST",
+    //            dataType: "json",
+    //            data: {
+    //                contactJSON: JSONForm
+    //            },
+    //            error: function (response) {
+    //                alert(response.responseText);
+    //                $('#btnSave').attr("disabled", false);
+    //            },
+    //            success: function (response) {
+    //                alert(response.responseText);
+    //                clearForm();
+    //            }
+    //        });
+    //    }
+    //    return false;
+    //}
+    //else// form is invalid
+    //{
+    //    alert("There is non-valid data in the form. Please check the different tabs.");
+    //}
+    //return false;
+//});

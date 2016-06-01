@@ -116,7 +116,8 @@
                     id: data.columnId,
                     identifier: that.identifier == null && data.identifier || false,
                     converter: that.options.converters[data.converter || data.type] || that.options.converters["string"],
-                    text: $this.text(),
+                    //text: $this.text(), hammer joe was here!!!
+                    text: $this.html(),
                     align: data.align || "left",
                     headerAlign: data.headerAlign || "left",
                     cssClass: data.cssClass || "",
@@ -282,7 +283,8 @@
 
                 $.each(that.columns, function (i, column)
                 {
-                    row[column.id] = column.converter.from(cells.eq(i).text());
+                    //row[column.id] = column.converter.from(cells.eq(i).text()); hammer joe was here!!!
+                    row[column.id] = column.converter.from(cells.eq(i).html());
                 });
 
                 appendRow.call(that, row);
@@ -625,11 +627,17 @@
                                 column.formatter.call(that, column, row) :
                                     column.converter.to(row[column.id]),
                             cssClass = (column.cssClass.length > 0) ? " " + column.cssClass : "";
+
+                        console.log(JSON.stringify(value));
+
                         cells += tpl.cell.resolve(getParams.call(that, {
                             content: (value == null || value === "") ? "&nbsp;" : value,
                             css: ((column.align === "right") ? css.right : (column.align === "center") ?
                                 css.center : css.left) + cssClass,
-                            style: (column.width == null) ? "" : "width:" + column.width + ";" }));
+                            style: (column.width == null) ? "" : "width:" + column.width + ";"
+                        }));
+
+                        console.log(JSON.stringify(cells));
                     }
                 });
 
@@ -984,7 +992,8 @@
         this.converter = null; // The converter for the column that is marked as identifier
         this.rowCount = ($.isArray(rowCount)) ? rowCount[0] : rowCount;
         this.rows = [];
-        this.searchPhrase = "";
+        //this.searchPhrase = ''; /* hammer joe was here */ 
+        this.searchPhrase = InItSeArCh; /* hammer joe was here  */
         this.selectedRows = [];
         this.sortDictionary = {};
         this.total = 0;
@@ -1372,7 +1381,7 @@
             paginationItem: "<li class=\"{{ctx.css}}\"><a data-page=\"{{ctx.page}}\" class=\"{{css.paginationButton}}\">{{ctx.text}}</a></li>",
             rawHeaderCell: "<th class=\"{{ctx.css}}\">{{ctx.content}}</th>", // Used for the multi select box
             row: "<tr{{ctx.attr}}>{{ctx.cells}}</tr>",
-            search: "<div class=\"{{css.search}}\"><div class=\"input-group\"><span class=\"{{css.icon}} input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div>",
+            search: "<div class=\"{{css.search}}\"><div class=\"input-group\"><span class=\"{{css.icon}} input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" value='" + InItSeArCh + "' /></div></div>",/* hammer joe was here */
             select: "<input name=\"select\" type=\"{{ctx.type}}\" class=\"{{css.selectBox}}\" value=\"{{ctx.value}}\" {{ctx.checked}} />"
         }
     };
@@ -1903,7 +1912,8 @@
                         }
                         key = (prefixes) ? prefixes.join(".") + "." + key : key;
                         var pattern = new RegExp("\\{\\{" + key + "\\}\\}", "gm");
-                        result = result.replace(pattern, (value.replace) ? value.replace(/\$/gi, "&#36;") : value);
+                        //result = result.replace(pattern, (value.replace) ? value.replace(/\$/gi, "&#36;") : value);
+                        result = result.replace(pattern, (value.replace) ? value.replace(/\$/gi, "$") : value); //  hammer joe was here!!!
                     }
                 }
             });

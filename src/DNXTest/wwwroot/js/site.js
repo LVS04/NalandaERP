@@ -129,6 +129,8 @@ function clearForm() {
     fadeOutWipeContent("#divNewIM");
     fadeOutWipeContent("#divNewInternetCallId");
 
+    
+
     //  Cleanup all 
     $(':input').not('input[type="number"], :button, :submit, :reset, :checkbox, :radio').val('');
     $(':checkbox, :radio').prop('checked', false);
@@ -141,13 +143,13 @@ function clearForm() {
 
 
     $('#btnSave').val('Create');
+    $('#btnSave').attr("disabled", false);
     varGUID = '00000000-0000-0000-0000-000000000000';
     
-    var validator = $('#formContact').validate();
-    validator.resetForm();
-
-    cleanValidator();
-    initValidator();
+    //formValidator.validator.resetForm();
+    //cleanValidator();
+    
+    //initValidator();
 
     //https://github.com/danielfarrell/bootstrap-combobox/issues/168
     //this.$('select').data('combobox').refresh();
