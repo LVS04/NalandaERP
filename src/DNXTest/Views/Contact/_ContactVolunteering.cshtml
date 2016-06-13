@@ -6,7 +6,7 @@
 
     string inputNumericFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-number='The field {0} must be a number.' data-val-required='The {0} field is required.' id='{0}' name='ContactWorkPreference[{0}]' type='number' max='6' min='0' value='{1}' />";
 
-    string inputDateFieldHTML__WithValue = "<input class='form-control text-box single-line' data-val='true' data-val-date='The field {0} must be a date.' data-val-required='The {0} field is required.' id='{0}' name='ContactWorkPreference[{0}]' type='date' value='{1}' />";
+    string inputDateFieldHTML__WithValue = "<input class='form-control' name='ContactWorkPreference[{0}]' value='{1}' />";
 }
 <div id="divWorkPrefs">
     <div class="row oddBackground container paddingTop10 ">
@@ -123,17 +123,27 @@
     <div class="row oddBackground container paddingTop10 marginBottomBig">
         <div class="col-sm-6">
             <div class="form-group">
-                <label class="" for="WhenToComeStartDate">When to come - start date</label>
-                <div class="">
-                    @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate.ToString("yyyy-MM-dd")))
+                <label class="" for="WhenToComeStartDate">When to come - start date ( YYYY-MM-DD )</label>
+                <div class="divControl">
+                    <div class='input-group date' id='datetimepicker-when-startdate'>
+                        @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeStartDate", Model.contactWorkPreference.WhenToComeStartDate.ToString("yyyy-MM-dd")))
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label class="" for="WhenToComeEndDate">When to come - end date</label>
-                <div class="">
-                    @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate.ToString("yyyy-MM-dd")))
+                <label class="" for="WhenToComeEndDate">When to come - end date ( YYYY-MM-DD )</label>
+                <div class="divControl">
+                    <div class='input-group date' id='datetimepicker-when-enddate'>
+                        @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "WhenToComeEndDate", Model.contactWorkPreference.WhenToComeEndDate.ToString("yyyy-MM-dd")))
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

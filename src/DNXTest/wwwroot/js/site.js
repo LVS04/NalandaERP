@@ -121,6 +121,7 @@ function fadeOutWipeContent(element) {
 
 function clearForm() {
 
+    
     //  Remove all dynamically added content to reset form
     fadeOutWipeContent("#divNewAddress");
     fadeOutWipeContent("#divNewPhone");
@@ -144,12 +145,15 @@ function clearForm() {
 
     $('#btnSave').val('Create');
     $('#btnSave').attr("disabled", false);
+
     varGUID = '00000000-0000-0000-0000-000000000000';
-    
+    $('#formContact').removeData('validator');
+    //$('#formContact').removeData('unobtrusiveValidation');
+    InitValidator();
     //formValidator.validator.resetForm();
     //cleanValidator();
     
-    //initValidator();
+    
 
     //https://github.com/danielfarrell/bootstrap-combobox/issues/168
     //this.$('select').data('combobox').refresh();
@@ -193,7 +197,10 @@ var varContacts = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
         url: varBloodHoundRemote + '?wildcard=%QUERY',
-        wildcard: '%QUERY'
+        wildcard: '%QUERY',
+        filter: function (response) {
+            return response.rows;
+        }
     }
 });
 
@@ -209,12 +216,36 @@ $('.emergencyContact .typeahead').typeahead(null, {
 
 
 $('.selectpicker').selectpicker({
-    size: 4
+    size: 5
 }).on('changed.bs.select', function (e) {
     var teste = $(this).parent().parent().find('.selectedIds');
     var valor = $(this).parent().children('.selectpicker').selectpicker('val');
     teste.val(valor);
 });
+
+
+
+//  Date controls and validations
+//  -----------------------------
+$('.input-group.date').datetimepicker({
+    format:'YYYY-MM-DD'
+});
+
+$("#datetimepicker-passport-issue").on("dp.change", function (e) {
+    $('#datetimepicker-passport-expiry').data("DateTimePicker").minDate(e.date);
+});
+$("#datetimepicker-passport-expiry").on("dp.change", function (e) {
+    $('#datetimepicker-passport-issue').data("DateTimePicker").maxDate(e.date);
+});
+
+$("#datetimepicker-when-startdate").on("dp.change", function (e) {
+    $('#datetimepicker-when-enddate').data("DateTimePicker").minDate(e.date);
+});
+$("#datetimepicker-passport-expiry").on("dp.change", function (e) {
+    $('#datetimepicker-when-enddate').data("DateTimePicker").maxDate(e.date);
+});
+
+
 
 function ControlEventUnbindings() {
     $('.typeahead').typeahead('destroy');
@@ -291,7 +322,7 @@ $("#btnAddEmail").click(function () {
 
     ControlEventUnbindings();
 
-    $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Email must be a string with a maximum length of 50." data-val-length-max="50" id="" autocomplete="off" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" autocomplete="off" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
+    $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line zemail" autocomplete="off" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" id="" autocomplete="off" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
     ControlsEventBindings();
 });

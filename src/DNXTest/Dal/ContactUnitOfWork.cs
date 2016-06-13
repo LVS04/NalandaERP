@@ -80,25 +80,6 @@ namespace DNXTest.Dal
 
         }
 
-       //public void CountContacts(string whereClause)
-       // {
-       //     var sql = "SELECT COUNT(*) FROM dbo.Logs";
-       //     var total = _context.Database. .SqlQuery<int>(sql).Single();
-       // } 
-        //public object GetContactsForSearch()
-        //{
-        //    try
-        //    {
-        //        return RepositoryContact.GetAsync(orderBy: x => x.OrderBy(k=>k.FirstName)).Result.Select(x => new { x.Id, x.ContactName }); 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-        //        throw ex;
-        //    }
-        //}
-
-
         public void ResetContactDependants(Contact contact)
         {
 

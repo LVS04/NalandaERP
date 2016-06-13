@@ -2,7 +2,7 @@
 @{
     string FullName = string.Empty;
 }
-<h2>Contact List</h2>
+<h3>Contact List</h3>
 <div class="container">
     <p>
         @Html.ActionLink("Create contact", "Index")
@@ -10,18 +10,18 @@
 </div>
 
 
-<table id="grid-data-api" class="table table-condensed table-hover table-striped" data-toggle="bootgrid" data-ajax="true" data-url="/Contact/ListBazzing">
+<table id="grid-data-api" class="table table-condensed table-hover table-striped" data-toggle="bootgrid" data-ajax="true" data-url="/Contact/ListBazzing" >
     <thead>
         <tr>
             @*<th data-column-id="id" data-type="numeric" data-identifier="true">ID</th>*@
             <th data-column-id="ContactName" data-order="asc">Contact Name</th>
-            <th data-column-id="Gender">Gender</th>
+            <th data-column-id="Gender" data-align="center" data-header-align="center">Gender</th>
             <th data-column-id="PositionAndCompany">Position and company</th>
-            <th data-column-id="NickName">Nickname</th>
+            <th data-column-id="NickName" data-visible="false">Nickname</th>
             <th data-column-id="Birthdate">Birthdate</th>
-            <th data-column-id="FoodAllergies">FoodAllergies</th>
-            <th data-column-id="detail" data-sortable="false">DETAILS</th>
-            <th data-column-id="delete" data-sortable="false" data-type="string">DELETE</th>
+            <th data-column-id="FoodAllergies" data-visible="false">FoodAllergies</th>
+            <th data-column-id="detail" data-sortable="false" data-align="center" data-header-align="center">DETAILS</th>
+            <th data-column-id="delete" data-sortable="false" data-align="center" data-header-align="center">DELETE</th>
         </tr>
     </thead>
 </table>

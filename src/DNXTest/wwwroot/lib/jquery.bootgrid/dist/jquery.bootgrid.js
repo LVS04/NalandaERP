@@ -628,7 +628,7 @@
                                     column.converter.to(row[column.id]),
                             cssClass = (column.cssClass.length > 0) ? " " + column.cssClass : "";
 
-                        console.log(JSON.stringify(value));
+                        //console.log(JSON.stringify(value));
 
                         cells += tpl.cell.resolve(getParams.call(that, {
                             content: (value == null || value === "") ? "&nbsp;" : value,
@@ -637,7 +637,7 @@
                             style: (column.width == null) ? "" : "width:" + column.width + ";"
                         }));
 
-                        console.log(JSON.stringify(cells));
+                        //console.log(JSON.stringify(cells));
                     }
                 });
 

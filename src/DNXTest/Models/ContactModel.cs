@@ -300,7 +300,7 @@ namespace DNXTest.Models
 
             public ContactIdentification()
             {
-                this.IdOrPassportIssueDate  = this.IdOrPassportExpiryDate = DateTime.MinValue;
+                this.IdOrPassportIssueDate  = this.IdOrPassportExpiryDate = DateTime.Now.AddYears(-10);
                 this.BornInCountry          = string.Empty;
                 this.SpokenLanguages = string.Empty;
             }
@@ -361,6 +361,11 @@ namespace DNXTest.Models
 
         public partial class ContactWorkPreference
         {
+            public ContactWorkPreference()
+            {
+                this.WhenToComeStartDate = this.WhenToComeEndDate = DateTime.Now;
+            }
+        
 
             public int  Cooking         { get; set; }
             public int  Maintenance     { get; set; }

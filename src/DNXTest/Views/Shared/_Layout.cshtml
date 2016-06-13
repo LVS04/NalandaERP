@@ -10,9 +10,10 @@
             <link rel="stylesheet" href="~/lib/bootstrap-combobox/css/bootstrap-combobox.css" />
             <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" />
             <link rel="stylesheet" href="~/lib/jquery.bootgrid/dist/jquery.bootgrid.css" />
+            <link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+            <link rel="stylesheet" href="~/lib/bootstrap-treeview/src/css/bootstrap-treeview.css" />
             <link rel="stylesheet" href="~/css/typeahead.css" />
             <link rel="stylesheet" href="~/css/site.css" />
-
         </environment>
         <environment names="Staging,Production">
             <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -86,9 +87,9 @@
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <div class="">
-                                <input id="searchContact" type="text" class="form-control zemail typeahead" placeholder="Contact name to search ...">
+                                <input id="searchContact" type="text" class="form-control zemail typeahead" placeholder="contact quick search ...">
                             </div>
-                        </div>&nbsp;<span id="countContact" class="label label-as-badge label-default">000</span>
+                        </div>&nbsp;<span id="countContact" class="label label-as-badge label-default">000000</span>
                     </form>
                 </div>
             </div><!-- /.navbar-collapse -->
@@ -112,7 +113,7 @@
             </div>
         </div>
     </div>
-
+    @Html.Partial("_AdvancedSearch")
     <div class="container body-content">
         @RenderBody()
         <footer>
@@ -135,6 +136,9 @@
         <script src="~/lib/bootstrap-combobox/js/bootstrap-combobox.js"></script>
         <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="~/lib/jquery.bootgrid/dist/jquery.bootgrid.js"></script>
+        <script src="~/lib/moment/min/moment-with-locales.min.js"></script>
+        <script src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/lib/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
         <script src="~/js/static.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/js/global.js" asp-append-version="true"></script>

@@ -1,4 +1,13 @@
-﻿body {
+﻿/* bootstrap overrides */
+.list-group-item{
+    padding: 4px 15px;
+}
+
+
+
+
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -96,7 +105,13 @@ label {
     overflow-x:hidden;
     height:446px;
 } 
-.divCombobox{
+
+.divScrollSearch{
+    overflow-y:auto;
+    overflow-x:hidden;
+    height:246px;
+} 
+.divControl{
     width: 280px;
 }
 

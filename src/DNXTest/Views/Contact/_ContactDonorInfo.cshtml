@@ -3,23 +3,29 @@
 
 *@
 @{
-    string inputDateFieldHTML__WithValue = "<input class='form-control text-box single-line ' disabled data-val='true' data-val-date='The field {0} must be a date.' data-val-required='The {0} field is required.' id='{0}' name='ContactDonorInfo[{0}]' type='date' value='{1}' />";
+    string inputDateFieldHTML__WithValue = "<input class='form-control' disabled name='ContactDonorInfo[{0}]' value='{1}' />";
     string hiddenInputFieldContact_WithValue = "<input type='text' class='hide selectedIds' type='text' autocomplete='off' name='ContactDonorInfo[{0}]' value ='{1}' >";
 
 }
+
 <div class="col-sm-4">
     <div class="form-group">
-        <label class="" for="FiscalId">Last Donation date</label>
-        <div class="">
-            @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "LastDonationDate", Model.LastDonationDate ?? DateTime.MinValue))
+        <label class="" for="FiscalId">Last Donation date ( YYYY-MM-DD )</label>
+        <div class="divControl">
+            <div class='input-group date'>
+                @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "LastDonationDate", Model.LastDonationDate ?? DateTime.MinValue))
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
         </div>
     </div>
 </div>
-    <div class="col-sm-4">
+<div class="col-sm-4">
     <div class="form-group">
         <label class="" for="Spoken Languages">Religious Situation</label>
         <div class="">
-            <div class="divCombobox">
+            <div class="divControl">
                 @{var listofItems = new SelectList(new List<SelectListItem>()
                         {
                             new SelectListItem() {Value ="0", Text=""},
@@ -55,7 +61,7 @@
     <div class="form-group">
         <label class="" for="DonorTypeId">Donor Type</label>
         <div class="">
-            <div class="divCombobox">
+            <div class="divControl">
                 @{var listofItems2 = new SelectList(new List<SelectListItem>()
                         {
                             new SelectListItem() {Value ="0", Text=""},

@@ -12,7 +12,7 @@
 {
     <div class="form-group disabled invisible" id="divName">
 
-        <label class="" for="ContactName">Contact Name</label>
+        <label class="paddingTop10" for="ContactName">Contact Name</label>
         <div class="">
             <input class="form-control single-line Width85" style="font-weight: 700;display:inline;" data-val="true" data-val-length="The field ContactName must be a string with a maximum length of 100." data-val-length-max="100" id="ContactName" name="ContactName" type="text" value="" disabled />
             <span class="field-validation-valid text-danger" data-valmsg-for="ContactName" data-valmsg-replace="true"></span>
@@ -51,7 +51,7 @@
                     <div class="col-sm-6">
                         <div class="form-group" id="divGeneral">
                             <label class="" for="Prefix">Prefix</label>
-                            <div class="divCombobox">
+                            <div class="divControl">
                                 @Html.DropDownListFor(model => model.Prefix, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Venerable", Value = "Venerable" }, new SelectListItem() { Text = "Honorable", Value = "Honorable" }, new SelectListItem() { Text = "Sir", Value = "Sir" }, new SelectListItem() { Text = "Lady", Value = "Lady" }, new SelectListItem() { Text = "Mr", Value = "Mr" }, new SelectListItem() { Text = "Mrs", Value = "Mrs" }, new SelectListItem() { Text = "Miss", Value = "Miss" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line combobox" })
                                 @Html.ValidationMessageFor(model => model.Prefix, "", new { @class = "text-danger" })
                             </div>
@@ -84,16 +84,20 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="" for="Gender">Gender</label>
-                            <div class="divCombobox">
+                            <div class="divControl">
                                 @Html.DropDownListFor(model => model.Gender, new SelectList(new List<SelectListItem>() { new SelectListItem() { Text = "", Value = "" }, new SelectListItem() { Text = "Male", Value = "Male" }, new SelectListItem() { Text = "Female", Value = "Female" } }, "Value", "Text"), null, new { @class = "form-control text-box single-line combobox" })
                                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="" for="Birthdate">Birthdate</label>
-                            <div class="">
-                                @Html.Raw(string.Format("<input class='form-control text-box single-line' id='Birthdate' name='Birthdate' type='date' value='{0}' />", (Model.Birthdate.HasValue) ? Model.Birthdate.Value.ToString("yyyy-MM-dd") : null))
-                                @Html.ValidationMessageFor(model => model.Birthdate, "", new { @class = "text-danger" })
+                            <label class="" for="Birthdate">Birthdate ( YYYY-MM-DD ) </label>
+                            <div class="divControl">
+                                <div class='input-group date' id='datetimepicker-birthdate'>
+                                    @Html.Raw(string.Format("<input class='form-control' id='Birthdate' name='Birthdate' value='{0}' />", (Model.Birthdate.HasValue) ? Model.Birthdate.Value.ToString("yyyy-MM-dd") : null))
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

@@ -28,85 +28,107 @@ jQuery.validator.addMethod("isValidCountry", function (value) {
     }
 }, "Please select a valid country name.");
 
+function getDestinyEmail() {
+    return varDestinyEmail + '/' + varGUID;
+}
 
-$('#formContact').validate({
-    ignore: [],
-    rules: {
-        FirstName: {
-            required: true,
-            maxlength: 100
-        },
-        LastName: {
-            maxlength: 100,
-            required: true
-        },
-        //Gender: {
-        //    required: true
-        //},
-        //Birthdate: {
-        //    required: true
-        //},
-        'Addresses[][Street]': {
-            required: true
-        },
-        'Addresses[][City]': {
-            required: true
-        },
-        'Addresses[][PostalCode]': {
-            required: true
-        },
-        'Addresses[][Country]': {
-            required: true,
-            isValidCountry: true
-        },
-        'Emails[][Email]': {
-            required: true,
-            email: true,
-            remote: {
-                url: varDestinyEmail + '/' + varGUID,
-                type: 'post',
+function InitValidator()
+{
+    $('#formContact').validate({
+        ignore: [],
+        rules: {
+            FirstName: {
+                required: true,
+                maxlength: 100
+            },
+            LastName: {
+                maxlength: 100,
+                required: true
+            },
+            //Gender: {
+            //    required: true
+            //},
+            //Birthdate: {
+            //    required: true
+            //},
+            'Addresses[][Street]': {
+                required: true
+            },
+            'Addresses[][City]': {
+                required: true
+            },
+            'Addresses[][PostalCode]': {
+                required: true
+            },
+            'Addresses[][Country]': {
+                required: true,
+                isValidCountry: true
+            },
+            'Emails[][Email]': {
+                required: true,
+                email: true,
+                remote: {
+                    url: getDestinyEmail(),
+                    type: 'post',
+                }
+
+            },
+            //'Emails[][Description]': {
+            //    required: true
+            //},
+            'Phones[][Number]': {
+                required: true,
+                digits: true/*,
+        minlength: 9*/
+            },
+            //'Phones[][Description]': {
+            //    required: true
+            //},
+            'Websites[][Website]': {
+                url: true
             }
 
         },
-        //'Emails[][Description]': {
-        //    required: true
-        //},
-        'Phones[][Number]': {
-            required: true,
-            digits: true/*,
-        minlength: 9*/
+        messages: {
+            email: {
+                required: "Please Enter Email!",
+                email: "This is not a valid email!",
+                remote: "E-mail address already in use!"
+            }
         },
-        //'Phones[][Description]': {
-        //    required: true
-        //},
-        'Websites[][Website]': {
-            url: true
-        }
+        highlight: function (element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function (error, element) {
+            if (element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        invalidHandler: function(event, validator) {
+        // 'this' refers to the form
+            var errors = validator.numberOfInvalids();
+            if (errors) {
 
-    },
-    messages: {
-        email: {
-            required: "Please Enter Email!",
-            email: "This is not a valid email!",
-            remote: "E-mail address already in use!"
-        }
-    },
-    highlight: function (element) {
-        $(element).closest('.form-group').addClass('has-error');
-    },
-    unhighlight: function (element) {
-        $(element).closest('.form-group').removeClass('has-error');
-    },
-    errorElement: 'span',
-    errorClass: 'help-block',
-    errorPlacement: function (error, element) {
-        if (element.parent('.input-group').length) {
-            error.insertAfter(element.parent());
-        } else {
-            error.insertAfter(element);
-        }
-    },
-    submitHandler: function (form) {
+                var message = errors == 1
+                    ? 'You missed 1 field. It has been highlighted'
+                    : 'You missed ' + errors + ' fields. They have been highlighted, please check all the tabs';
+
+
+                $('#linkConfirm').hide();
+                $('#ModalMessage').text(message);
+                $('#ModalConfirm').modal('show');
+            }
+            else {
+            }
+        },
+        submitHandler: function (form) {
             $('#btnSave').attr("disabled", true);
             var JSONForm = JSON.stringify($('#formContact').serializeObject());
             var varDestiny;
@@ -160,16 +182,17 @@ $('#formContact').validate({
                 });
             }
             return false;
-        //}
-        //else// form is invalid
-        //{
-        //    alert("There is non-valid data in the form. Please check the different tabs.");
-        //}
-        return false;
-    }
-});
+            //}
+            //else// form is invalid
+            //{
+            //    alert("There is non-valid data in the form. Please check the different tabs.");
+            //}
+            return false;
+        }
+    });
+}
 
-
+InitValidator();
 
 
 //$('#btnSave').click(function () {

@@ -168,8 +168,19 @@ namespace DNXTest.Controllers
         {
             try
             {
-                var results = _contactUnitOfWork.RepositoryContact.Get(filter: c => c.ContactName.Contains(wildcard)).Take(500);
-                return Json(results.Select(x => new { x.Id, x.ContactName }));
+                if(wildcard != null) wildcard = wildcard.Trim();
+
+                var count = _contactUnitOfWork.RepositoryContact.CountRecords(c => c.ContactName.Contains(wildcard.ToLower()));
+
+                var results = _contactUnitOfWork.RepositoryContact.GetAsync(filter: c => c.ContactName.Contains(wildcard),rowCount:15,totalRecords: count).Result;
+
+                var resultsArray = results.Select(x => new { x.Id, x.ContactName });
+
+                return Json(new
+                {
+                    rows = resultsArray,
+                    total = count
+                });
             }
             catch (Exception ex)
             {
@@ -355,6 +366,7 @@ namespace DNXTest.Controllers
                     var count = test.Where(c => c.ContactId != contactId).Count();
                     if (count > 0)
                         return Json("E-mail address already in use!");
+                        
                 }
                   
                 return Json("true");

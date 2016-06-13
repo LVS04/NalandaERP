@@ -130,6 +130,8 @@ namespace DNXTest
             //  Seeding database if just deployed
             using (ApplicationDbContext context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
             {
+                
+
                     if (context.ContactBloodType.Count() == 0)
                     {
                         context.ContactBloodType.Add(new ContactBloodType() { Id = 1, Description = "O− " });
