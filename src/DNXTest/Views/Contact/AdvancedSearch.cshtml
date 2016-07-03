@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script>
+    var hrefContactDetail = '@Url.Action("DetailPartial", "Contact", new { })';
+    var editContactLink = '@Url.Action("Index", "Contact", new {Id = 0 })';
+</script>
+<div id="searchControl" class="container paddingTop10 fade in">
+    <h3>Advanced Search</h3>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="divScrollSearch">
+                <div id="searchTree">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div id="searchControls">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var InItSeArCh = '';
+        var advancedSearch = true;
+
+        function fillSearchDetails(href)
+        {
+            $('#search-details').fadeOut(500);
+            $.ajax({
+                type: "GET",
+                url: href,
+                data: null,
+                success: function (e) {
+                    var hrefArray = href.split('/');
+                    $('#search-details').empty();
+                    $('#search-details').append('<a href="' + editContactLink.substring(0, editContactLink.length - 1) + hrefArray[5] + '" class=\"btn btn-success margin15\">Edit Contact</a>');
+                    //console.log(e);
+                    //console.log('--------------------------------------------------------------------------------------------------------------------------');
+                    //$(e).find('textarea').each(function () {
+                    //    $(this).css("display","block");
+                    //});
+                    //console.log(e);
+                    $(e).appendTo('#search-details');
+//                        $('#search-details').;
+//                    $('#search-details.tab-pane.fade.in.active').removeClass('in active');
+//                    $('#search-details.tab-pane.fade').addClass('in active');
+                    $('#divName').hide();
+                    $('#contact-fields :input').prop('disabled', true);
+                    $('#contact-fields .btn-add-dyn').hide();
+                    $('#contact-fields :input.scroller').show();
+                    $('#contact-fields :input.scroller').prop('disabled', false);
+  //                  $('#search-details.tab-pane.fade.in.active').removeClass('in active');
+                    ////                    $('#search-details #Main.tab.fade').addClass('in active');
+ //                   console.log($('#search-details').html());
+//                    $('#search-details').show();
+                    
+                    $('#search-details').fadeIn(500);
+                    $('body, html').scrollTo('#formContact');
+                }
+            });
+        }
+    </script>
+    <div class="paddingTop10" id="search-results">
+    </div>
+
+    <div class="paddingTop10" id="search-details">
+    </div>
+</div>
+
+

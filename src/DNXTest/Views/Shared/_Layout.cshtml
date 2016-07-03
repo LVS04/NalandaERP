@@ -54,7 +54,8 @@
                         <ul class="dropdown-menu">
                             @*<li><a href="#">Contact List </a></li>*@
                             <li><a asp-controller="Contact" asp-action="ListBase">Contact List</a></li>
-                            <li><a asp-controller="Contact" asp-action="Index">Create Contact</a></li>
+                            <li><a href='@Url.Action("Index","Contact", new { Id=0 })'>Create Contact</a></li>
+                            <li><a asp-controller="Contact" asp-action="AdvancedSearch">Advanced Search</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -113,17 +114,18 @@
             </div>
         </div>
     </div>
-    @Html.Partial("_AdvancedSearch")
     <div class="container body-content">
         @RenderBody()
-        <footer>
+        <footer class="paddingTop10">
             <p>&copy; 2016 - Nalanda Monastery</p>
         </footer>
     </div>
     <script>
         var varBloodHoundRemote = '@Url.Action("BloodHoundRemote", "Contact")';
-        var varDestinyEmail = '@Url.Action("EmailExists", "Contact")';
-        var varContactList = '@Url.Action("ListBase", "Contact")';      
+                            var varDestinyEmail = '@Url.Action("EmailExists", "Contact")';
+                            var varContactList = '@Url.Action("ListBase", "Contact")';
+                            var varAdvancedSearchQuery = '@Url.Action("AdvancedSearchQuery", "Contact")';
+                            var varAdvancedSearchGetTree = '@Url.Action("AdvancedSearchGetTree", "Contact")';
     </script>
 
     <environment names="Development">
@@ -139,10 +141,10 @@
         <script src="~/lib/moment/min/moment-with-locales.min.js"></script>
         <script src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="~/lib/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
-        <script src="~/js/static.js" asp-append-version="true"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        @*<script src="~/js/static.js" asp-append-version="true"></script>*@
+        @*<script src="~/js/site.js" asp-append-version="true"></script>*@
         <script src="~/js/global.js" asp-append-version="true"></script>
-        <script src="~/js/validationForm.js" asp-append-version="true"></script>
+        @*<script src="~/js/validationForm.js" asp-append-version="true"></script>*@
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"

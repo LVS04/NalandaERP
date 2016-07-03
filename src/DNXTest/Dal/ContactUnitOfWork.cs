@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DNXTest.Models;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Query;
+using Microsoft.Data.Entity.Extensions;
+using System.Text;
 
 
 namespace DNXTest.Dal
@@ -156,7 +162,7 @@ namespace DNXTest.Dal
             {
                 if (Contact != null)
                 {
-                    //  Cascade delete still not available in EF7!!! TODO: Change this as soon as cascade delete is available
+                    //  Cascade delete still not available in EF7-RC1!!! TODO: Change this as soon as cascade delete is available
                     foreach (var item in Contact.Phones)            RepositoryContactPhone.Delete(item);
                     foreach (var item in Contact.Emails)            RepositoryContactEmail.Delete(item);
                     foreach (var item in Contact.WebSites)          RepositoryContactWebsite.Delete(item);
@@ -175,7 +181,7 @@ namespace DNXTest.Dal
                 throw ex;
             }
         }
-        
+
         public GenericRepository<Contact> RepositoryContact
         {
             get
@@ -186,7 +192,7 @@ namespace DNXTest.Dal
                     {
                         this._repoContact = new GenericRepository<Contact>(_context, _logger);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
                     }
@@ -480,7 +486,101 @@ namespace DNXTest.Dal
             }
         }
 
-        
+        public bool AreValidParams(string[] valuesArray, string columns, string tableKeys, string operators, string tables)
+        {
+            return 
+            (
+                PGUtil.SanitizeParamPostgres(valuesArray)   && 
+                PGUtil.SanitizeParamPostgres(columns)       && 
+                PGUtil.SanitizeParamPostgres(tableKeys)     && 
+                PGUtil.SanitizeParamPostgres(operators)     &&
+                PGUtil.SanitizeParamPostgres(tables)
+            );
+        }
+
+        public string BuildQuery(string[] valuesArray, string columns, string tableKeys, string operators, string tables, int top = 15, bool count = false, int skip = 0)
+        {
+
+            string[] columnsArray = columns.Replace("'","").Split(',');
+            string[] tablesKeysArray = (tableKeys == null )? new string[]{""}: tableKeys.Replace("'", "").Split(',');
+            string[] operatorsArray = operators.Replace("\"", "").Replace("\\","").Split(',');
+
+            int index = 0;
+
+            StringBuilder query = new StringBuilder();
+
+            if(count)
+            {
+                query.AppendFormat("SELECT COUNT(*) FROM \"Contact\"{0}", ((tables == null) ? string.Empty : string.Format(",{0}", tables.Substring(0, tables.Length - 1))));
+            }
+            else
+            {
+                query.Append("SELECT \"Contact\".\"Id\", \"Contact\".\"ContactName\",\"Contact\".\"Id\" details");
+                foreach (string column in columnsArray)
+                {
+                    query.AppendFormat(",{0}", column);
+                }
+                query.Append(" FROM \"Contact\"");
+                if(tables != null)
+                    query.AppendFormat(",{0}",tables.Substring(0, tables.Length - 1));
+            }
+
+            query.Append(" WHERE ");
+
+            if (tableKeys != null)
+            {
+                for (index = 0; index < tablesKeysArray.Length; index++)
+                {
+                    query.AppendFormat("\"Contact\".\"Id\" = {0} and ", tablesKeysArray[index]);
+                }
+            }
+            if (valuesArray.Length > 0)
+            {
+                for (index = 0; index < valuesArray.Length; index++)
+                {
+                    var operatorX = operatorsArray[index];
+                    if (operatorsArray[index].Substring(0, 1) == "#")
+                    {
+                        var regularExpressionStr = "#.+#";
+                        var regExp = new  Regex(regularExpressionStr, RegexOptions.Multiline | RegexOptions.IgnoreCase );
+                        operatorX = regExp.Replace( operatorsArray[index], "");
+
+                        if(operatorX.Contains("LIKE"))
+                        {
+                            var fieldAndOperator = String.Format("lower({0}) {1}{2}", columnsArray[index], operatorX, ((index + 1) < valuesArray.Length) ? " and " : string.Empty);
+                            query.AppendFormat(fieldAndOperator, valuesArray[index].ToLower());
+                        }
+                        else
+                        {
+                            query.AppendFormat("{0} {1}{2}{3}", columnsArray[index], operatorX, valuesArray[index].ToLower(), ((index + 1) < valuesArray.Length) ? " and " : string.Empty);
+                        }
+                    }
+                }
+            }
+            if(!count)
+            {
+                query.AppendFormat(" ORDER BY \"Contact\".\"ContactName\"");
+                if (top > 0)
+                {
+                    query.AppendFormat(" LIMIT {0}", top);
+                }
+                if (skip > 0)
+                {
+                    query.AppendFormat(" OFFSET {0}", skip);
+                }
+            }
+            return query.ToString();
+        }
+
+        public IEnumerable<Dictionary<string, object>> RunQuery(string query)
+        {
+            return PGUtil.QueryToEnumerable(query);
+        }
+
+        public int RunCountQuery(string query)
+        {
+            return PGUtil.RunCountQuery(query);
+        }
 
         public async Task SaveAsync()
         {

@@ -49,13 +49,46 @@
 
     function getRequest()
     {
-        var request = {
+        /*
+            data: {
+                values: valuesArray,
+                columns: columns.substr(0, columns.length - 1),
+                keys: tableKeys.substr(0, tableKeys.length - 1),
+                operators: JSON.stringify( operators.substr(0, operators.length - 1)),
+                tables: tables,
+                query: query
+            },  
+
+        */
+
+        var request; // hammer joe was here!!!
+        if (typeof advancedSearch != 'undefined') {
+            request = {
+                current: this.current,
+                rowCount: this.rowCount,
+                sort: this.sortDictionary,
+                searchPhrase: this.searchPhrase,
+                values: valuesArray,
+                data: {
+                    columns: columns.substr(0, columns.length - 1),
+                    tableKeys: tableKeys.substr(0, tableKeys.length - 1),
+                    operators: JSON.stringify(operators.substr(0, operators.length - 1)),
+                    tables: tables,
+                    query: query
+                }
+            }
+            
+        }
+        else
+        {
+            request = {
                 current: this.current,
                 rowCount: this.rowCount,
                 sort: this.sortDictionary,
                 searchPhrase: this.searchPhrase
-            },
-            post = this.options.post;
+            }
+        }
+        var post = this.options.post;
 
         post = ($.isFunction(post)) ? post() : post;
         return this.options.requestHandler($.extend(true, request, post));

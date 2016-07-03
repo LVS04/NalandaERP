@@ -7,7 +7,7 @@
 @*<p>
     @Html.ActionLink("Contact List", "List")
 </p>*@
-<div class="container">
+<div class="container" id="contact-fields">
 @using (Html.BeginForm("Contact", "Create", FormMethod.Post, new { id = "formContact" }))
 {
     <div class="form-group disabled invisible" id="divName">
@@ -17,8 +17,7 @@
             <input class="form-control single-line Width85" style="font-weight: 700;display:inline;" data-val="true" data-val-length="The field ContactName must be a string with a maximum length of 100." data-val-length-max="100" id="ContactName" name="ContactName" type="text" value="" disabled />
             <span class="field-validation-valid text-danger" data-valmsg-for="ContactName" data-valmsg-replace="true"></span>
             <input type="submit" value="@Html.Raw(ViewData["SaveOperation"])" class="btn btn-default" id="btnSave" style="vertical-align:top;" />
-            <input type="button" value="New" class="btn btn-default" id="btnNew" style="vertical-align:top;" />
-
+            <a class="btn btn-default btn-ok"  style="vertical-align:top;" href="@Url.Action("Index", "Contact",new { Id = 0 })">New</a>
         </div>
 
     </div>
@@ -37,10 +36,11 @@
         <div role="tabpanel" class="tab-pane fade in active" id="Main">
             <div class="container">
                 <div class="btn-group" role="group" aria-label="..."> 
-                    <button type="button" class="btn btn-default" id="btnGeneral">General</button>
-                    <button type="button" class="btn btn-default" id="btnNotes">Notes</button>
-                    <button type="button" class="btn btn-default" id="btnAddresses">Addresses</button>
-                    <button type="button" class="btn btn-default" id="btnEcontact">E-Contact</button>
+                    <button type="button" class="btn btn-default scroller" id="btnGeneral">General</button>
+                    <button type="button" class="btn btn-default scroller" id="btnNotes">Notes</button>
+                    <button type="button" class="btn btn-default scroller" id="btnAddresses">Addresses</button>
+                    <button type="button" class="btn btn-default scroller" id="btnEcontact">E-Contact</button>
+                    <button type="button" class="btn btn-default scroller" id="btnGroups">Groups</button>
                 </div>
             </div>
             <br />
@@ -170,9 +170,9 @@
         <div role="tabpanel" class="tab-pane fade" id="Volunteering">
             <div class="container">
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default" id="btnWorkPrefs">Work Preferences</button>
-                    <button type="button" class="btn btn-default" id="btnMotivation">Motivation</button>
-                    <button type="button" class="btn btn-default" id="btnWhen">When to come</button>
+                    <button type="button" class="btn btn-default scroller" id="btnWorkPrefs">Work Preferences</button>
+                    <button type="button" class="btn btn-default scroller" id="btnMotivation">Motivation</button>
+                    <button type="button" class="btn btn-default scroller" id="btnWhen">When to come</button>
                 </div>
             </div>
             <br />
@@ -183,8 +183,8 @@
         <div role="tabpanel" class="tab-pane fade " id="HealthInfo">
             <div class="container">
                 <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default" id="btnEmergency">Emergency</button>
-                    <button type="button" class="btn btn-default" id="btnHistory">History</button>
+                    <button type="button" class="btn btn-default scroller" id="btnEmergency">Emergency</button>
+                    <button type="button" class="btn btn-default scroller" id="btnHistory">History</button>
                 </div>
             </div>
             <br />
@@ -201,5 +201,62 @@
     var varGUID = '@Model.Id';
     var varBloodHoundPrefetch = '@Url.Action("BloodHoundContacts")';
     var varContactDetail = '@Url.Action("Index", "Contact", new { })';
+    var InItSeArCh = 'empty';
+    
+
+    if (typeof advancedSearch != 'undefined')
+    {
+        //  Scroll to buttons inside - start
+        //  ---------------------------------------------------
+        $.fn.scrollTo = function (elem, speed) {
+            $(this).animate({
+                scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
+            }, speed == undefined ? 'slow' : speed);
+            return this;
+        };
+
+        $("#btnGeneral").click(function () {
+            $("#divMain").scrollTo("#divGeneral");
+        });
+
+        $("#btnNotes").click(function () {
+            $("#divMain").scrollTo("#divNotes");
+        });
+
+        $("#btnAddresses").click(function () {
+            $("#divMain").scrollTo("#divAddresses");
+        });
+
+        $("#btnEcontact").click(function () {
+            $("#divMain").scrollTo("#divEcontact");
+        });
+        //  --------------------------------------------------
+        $("#btnWorkPrefs").click(function () {
+            $("#divVolunteering").scrollTo("#divWorkPrefs");
+        });
+
+        $("#btnMotivation").click(function () {
+            $("#divVolunteering").scrollTo("#divMotivation");
+        });
+
+        $("#btnWhen").click(function () {
+            $("#divVolunteering").scrollTo("#divWhen");
+        });
+        //  --------------------------------------------------
+        $("#btnEmergency").click(function () {
+            $("#divHealth").scrollTo("#divEmergency");
+        });
+
+        $("#btnHistory").click(function () {
+            $("#divHealth").scrollTo("#divHistory");
+        });
+
+        $('.combobox').combobox();
+        $('.selectpicker').selectpicker();
+    };
 </script>
+@section scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/validationForm.js" asp-append-version="true"></script>
+}
 

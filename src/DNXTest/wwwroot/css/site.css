@@ -95,6 +95,9 @@ label {
 .paddingBottom25{
     padding-bottom:25px;
 }
+.margin15{
+    margin:15px;
+}
 
 .marginBottomBig{
     margin-bottom:362px;
@@ -122,4 +125,9 @@ label {
 
 .label-as-badge {
     border-radius: 1em;
+}
+
+.dyn-form-group {
+    padding-bottom:15px;
+    padding-left:15px;
 }

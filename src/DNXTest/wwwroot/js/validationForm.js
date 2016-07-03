@@ -16,9 +16,19 @@ jQuery.validator.prototype.checkForm = function () {
 
 
 
-jQuery.validator.addMethod("isValidCountry", function (value) {
+jQuery.validator.addMethod("isValidCountry", function (country) {
 
-    var in_array = $.inArray(value, arrCountries);
+    //    var in_array = $.inArray(value, arrCountries);
+
+    var matchString = country.toLowerCase();
+    var in_array = null;
+
+    $.each(arrCountries, function (index, value) {
+        if (in_array == null && value.toLowerCase() === matchString) {
+            in_array = index;
+            return false;
+        }
+    });
 
     if (in_array == -1) {
         return false;

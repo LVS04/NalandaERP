@@ -29,7 +29,7 @@ $("#Suffix").keyup(function () {
 
 SetFullName();
 
-$('.combobox').combobox();
+
 
 
 
@@ -38,54 +38,9 @@ $('.combobox').combobox();
 $('#myTabs a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
-})
-
-
-
-//  Scroll to buttons inside - start
-//  ---------------------------------------------------
-$.fn.scrollTo = function (elem, speed) {
-    $(this).animate({
-        scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
-    }, speed == undefined ? 'slow' : speed);
-    return this;
-};
-
-$("#btnGeneral").click(function () {
-    $("#divMain").scrollTo("#divGeneral");
 });
 
-$("#btnNotes").click(function () {
-    $("#divMain").scrollTo("#divNotes");
-});
 
-$("#btnAddresses").click(function () {
-    $("#divMain").scrollTo("#divAddresses");
-});
-
-$("#btnEcontact").click(function () {
-    $("#divMain").scrollTo("#divEcontact");
-});
-//  --------------------------------------------------
-$("#btnWorkPrefs").click(function () {
-    $("#divVolunteering").scrollTo("#divWorkPrefs");
-});
-
-$("#btnMotivation").click(function () {
-    $("#divVolunteering").scrollTo("#divMotivation");
-});
-
-$("#btnWhen").click(function () {
-    $("#divVolunteering").scrollTo("#divWhen");
-});
-//  --------------------------------------------------
-$("#btnEmergency").click(function () {
-    $("#divHealth").scrollTo("#divEmergency");
-});
-
-$("#btnHistory").click(function () {
-    $("#divHealth").scrollTo("#divHistory");
-});
 
 
 
@@ -110,14 +65,6 @@ $("#btnHistory").click(function () {
 }(jQuery));
 
 
-
-//  Form cleaning - start
-//  ---------------------
-function fadeOutWipeContent(element) {
-    $(element).fadeOut(1000, function () {
-        ($(this)).children().remove();
-    });
-}
 
 function clearForm() {
 
@@ -176,13 +123,6 @@ $("#btnNew").click(function () {
 
 //  Dynamic one-to-many elements
 //  ----------------------------
-function pad(number, length) {
-    var str = '' + number;
-    while (str.length < length) {
-        str = '0' + str;
-    }
-    return str;
-}
 
 $(".removeDiv").click(function () {
     ($(this)).parent().parent().parent().parent().parent().fadeOut(1000, function () {
@@ -192,36 +132,6 @@ $(".removeDiv").click(function () {
 
 var oddBackground = true;
 
-var varContacts = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ContactName'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-        url: varBloodHoundRemote + '?wildcard=%QUERY',
-        wildcard: '%QUERY',
-        filter: function (response) {
-            return response.rows;
-        }
-    }
-});
-
-$('.emergencyContact .typeahead').typeahead(null, {
-    name: 'lookupcontact',
-    displayKey: 'ContactName',
-    source: varContacts
-}).bind('typeahead:select', function (event, data) {
-    $('.emergencyContact .contactId').val(data.Id);
-});
-
-
-
-
-$('.selectpicker').selectpicker({
-    size: 5
-}).on('changed.bs.select', function (e) {
-    var teste = $(this).parent().parent().find('.selectedIds');
-    var valor = $(this).parent().children('.selectpicker').selectpicker('val');
-    teste.val(valor);
-});
 
 
 
@@ -265,6 +175,18 @@ function BindScrollFocus(hostingDiv) {
 
 function OtherEventBindings() {
 
+    var varContacts = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('ContactName'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: varBloodHoundRemote + '?wildcard=%QUERY',
+            wildcard: '%QUERY',
+            filter: function (response) {
+                return response.rows;
+            }
+        }
+    });
+
     $('.country .typeahead').typeahead({
         hint: false,
         highlight: true,
@@ -273,6 +195,14 @@ function OtherEventBindings() {
     {
         name: 'arrCountries',
         source: substringMatcher(arrCountries)
+    });
+
+    $('.emergencyContact .typeahead').typeahead(null, {
+        name: 'lookupcontact',
+        displayKey: 'ContactName',
+        source: varContacts
+    }).bind('typeahead:select', function (event, data) {
+        $('.emergencyContact .contactId').val(data.Id);
     });
 
     $(".removeDiv").click(function () {
@@ -287,7 +217,67 @@ function ControlsEventBindings() {
     BindScrollFocus("#divMain");
     BindScrollFocus("#divVolunteering");
     BindScrollFocus("#divHealth");
-    OtherEventBindings();
+ 
+    if (typeof advancedSearch == 'undefined')
+    {
+
+        OtherEventBindings();
+
+        //  Scroll to buttons inside - start
+        //  ---------------------------------------------------
+        $.fn.scrollTo = function (elem, speed) {
+            $(this).animate({
+                scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
+            }, speed == undefined ? 'slow' : speed);
+            return this;
+        };
+
+        $("#btnGeneral").click(function () {
+            $("#divMain").scrollTo("#divGeneral");
+        });
+
+        $("#btnNotes").click(function () {
+            $("#divMain").scrollTo("#divNotes");
+        });
+
+        $("#btnAddresses").click(function () {
+            $("#divMain").scrollTo("#divAddresses");
+        });
+
+        $("#btnEcontact").click(function () {
+            $("#divMain").scrollTo("#divEcontact");
+        });
+        //  --------------------------------------------------
+        $("#btnWorkPrefs").click(function () {
+            $("#divVolunteering").scrollTo("#divWorkPrefs");
+        });
+
+        $("#btnMotivation").click(function () {
+            $("#divVolunteering").scrollTo("#divMotivation");
+        });
+
+        $("#btnWhen").click(function () {
+            $("#divVolunteering").scrollTo("#divWhen");
+        });
+        //  --------------------------------------------------
+        $("#btnEmergency").click(function () {
+            $("#divHealth").scrollTo("#divEmergency");
+        });
+
+        $("#btnHistory").click(function () {
+            $("#divHealth").scrollTo("#divHistory");
+        });
+
+        $('.combobox').combobox();
+
+        $('.selectpicker').selectpicker({
+            size: 5
+        }).on('changed.bs.select', function (e) {
+            var teste = $(this).parent().parent().find('.selectedIds');
+            var valor = $(this).parent().children('.selectpicker').selectpicker('val');
+            teste.val(valor);
+        });
+    }
 }
 
 ControlsEventBindings();

@@ -2,7 +2,6 @@
 /// <reference path="../gulpfile.js" />
 /// <reference path="js/global.js" />
 /// <reference path="js/site.js" />
-/// <reference path="js/static.js" />
 /// <reference path="js/validationform.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/bootstrap-combobox/js/bootstrap-combobox.js" />

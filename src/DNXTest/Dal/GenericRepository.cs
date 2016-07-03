@@ -173,18 +173,23 @@ namespace DNXTest.Dal
             }
         }
 
-        //public virtual async Task<TEntity> GetByID(object id)
+        //public virtual IEnumerable<TEntity> FromSql(string query)
         //{
-        //    try
-        //    {
-        //        return await _dbSet.FindAsync(id);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
-        //        return null;
-        //    }
+        //    return _dbSet.FromSql(query).ToList();
         //}
+
+        public virtual TEntity GetByID(object id)
+        {
+            try
+            {
+                return  _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(string.Format("Exception caught on [{0}] - {1}", "System.Reflection.MethodBase.GetCurrentMethod().Name", ex.Message), ex);
+                throw ex;
+            }
+        }
 
         public virtual async Task<TEntity> GetByIDAsync(object id)
         {

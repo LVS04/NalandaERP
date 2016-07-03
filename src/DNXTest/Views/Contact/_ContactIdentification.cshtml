@@ -68,7 +68,7 @@
                     string[] selectedLanguages = Model.SpokenLanguages.Split(',');
                     }
 
-                @Html.Raw(string.Format("<select class='form-control selectpicker'  multiple data-selected-text-format='count > 4' name=''>"))
+                @Html.Raw(string.Format("<select class='form-control selectpicker'  multiple data-selected-text-format='count > 4' name='' >"))
                 @foreach (SelectListItem i in listofItems.Items)
                 {
                     string val = i.Value;

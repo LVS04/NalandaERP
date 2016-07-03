@@ -33,7 +33,10 @@
           "Newtonsoft.Json": "8.0.3",
           "runtime.linux.System.Net.NetworkInformation": "4.1.0-beta-23516",
           "runtime.unix.System.Net.Security": "4.0.0-beta-23516"
-        }
+        },
+        "frameworkAssemblies": [
+          "System.Data"
+        ]
       },
       "EntityFramework.Commands/7.0.0-rc1-final": {
         "type": "package",
@@ -4993,7 +4996,10 @@
           "Newtonsoft.Json": "8.0.3",
           "runtime.linux.System.Net.NetworkInformation": "4.1.0-beta-23516",
           "runtime.unix.System.Net.Security": "4.0.0-beta-23516"
-        }
+        },
+        "frameworkAssemblies": [
+          "System.Data"
+        ]
       },
       "EntityFramework.Commands/7.0.0-rc1-final": {
         "type": "package",
@@ -7120,7 +7126,10 @@
           "Newtonsoft.Json": "8.0.3",
           "runtime.linux.System.Net.NetworkInformation": "4.1.0-beta-23516",
           "runtime.unix.System.Net.Security": "4.0.0-beta-23516"
-        }
+        },
+        "frameworkAssemblies": [
+          "System.Data"
+        ]
       },
       "EntityFramework.Commands/7.0.0-rc1-final": {
         "type": "package",
