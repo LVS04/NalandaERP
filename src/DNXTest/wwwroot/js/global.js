@@ -31,6 +31,12 @@ function fadeOutWipeContent(element) {
     });
 }
 
+function fadeOutWipeChildren(element) {
+    $(element).fadeOut(500, function () {
+        ($(this)).children().remove();
+    });
+}
+
 
 function pad(number, length) {
     var str = '' + number;
@@ -117,6 +123,43 @@ var delay = (function () {
 })();
 
 var tables = '', tableKeys = '', tablesKeysArray = '', fields = '', valuesArray = '', columns = '', columsArray = '', operators = '', operatorsArray = '', query = '';
+
+function fillSearchDetails(href) {
+    $('#search-details').fadeOut(500);
+    $.ajax({
+        type: "GET",
+        url: href,
+        data: null,
+        success: function (e) {
+            var hrefArray = href.split('/');
+            $('#search-details').empty();
+            $('#search-details').append('<a href="' + editContactLink.substring(0, editContactLink.length - 1) + hrefArray[5] + '" class=\"btn btn-success margin15\">Edit Contact</a>');
+            //console.log(e);
+            //console.log('--------------------------------------------------------------------------------------------------------------------------');
+            //$(e).find('textarea').each(function () {
+            //    $(this).css("display","block");
+            //});
+            //console.log(e);
+            $(e).appendTo('#search-details');
+            //                        $('#search-details').;
+            //                    $('#search-details.tab-pane.fade.in.active').removeClass('in active');
+            //                    $('#search-details.tab-pane.fade').addClass('in active');
+            $('#divName').hide();
+            $('#contact-fields :input').prop('disabled', true);
+            $('#contact-fields .btn-add-dyn').hide();
+            $('#contact-fields :input.scroller').show();
+            $('#contact-fields :input.scroller').prop('disabled', false);
+            //                  $('#search-details.tab-pane.fade.in.active').removeClass('in active');
+            ////                    $('#search-details #Main.tab.fade').addClass('in active');
+            //                   console.log($('#search-details').html());
+            //                    $('#search-details').show();
+
+            $('#search-details').fadeIn(500);
+            $('body, html').scrollTo('#formContact');
+        }
+    });
+}
+
 function getTree() {
     var oddBackground = true;
     $.ajax({
@@ -413,7 +456,7 @@ function buildQuery(e) {
                 
                 $('#search-results').hide();
                 $('#search-results').html(e.results);
-                fadeOutWipeContent('#search-details');
+                fadeOutWipeChildren('#search-details');
 
                 $("[data-toggle=\"bootgrid\"]").bootgrid({
                     rowCount: [5, 10, 15, -1],
