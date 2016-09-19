@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DNXTest</name>
+    </assembly>
+    <members>
+        <member name="M:DNXTest.Dal.GenericRepository`1.SetSortOrder(`0[])">
+            <summary>
+            Using reflection to allow ordered Contact dependant collections
+            </summary>
+            <param name="entities"></param>
+        </member>
+    </members>
+</doc>

@@ -27,7 +27,7 @@ var substringMatcher = function (strs) {
 //  ---------------------
 function fadeOutWipeContent(element) {
     $(element).fadeOut(500, function () {
-        ($(this)).children().remove();
+        ($(this)).remove();
     });
 }
 
@@ -162,7 +162,8 @@ function getTree() {
                             fields = fields + " $('" + node.sourceInput + "').val(),";
                             columns = columns + ' \'' + node.targetObject + '\',';
                             operators = operators + '\"' + node.sourceInput + '# LIKE \'%{0}%\' \",';
-                            oddBackground = !oddBackground;
+                            //console.debug(colums.length);
+                            //oddBackground = !oddBackground;
 
                         }
                         else if (node.dataType === 'date') {
@@ -211,7 +212,7 @@ function getTree() {
                             });
 
                             datesChange(node);
-                            oddBackground = !oddBackground;
+                           // oddBackground = !oddBackground;
                         }
                         else if (node.dataType === 'comboCountry') {
                             $('#searchControls').append(String.format('<div id="div{0}" {2}><label class="" for="">{1} is equal to</label><div class="dyn-form-group"><div class="country"><input type="text" class="typeahead tt-input form-control text-box single-line isCountry" autocomplete="off" id="{0}"></div></div></div>', node.sourceInput.replace("#", ""), node.text, (oddBackground) ? "class='oddBackground'" : "")).hide().fadeIn(1000);
@@ -233,7 +234,7 @@ function getTree() {
                             fields = fields + " $('" + node.sourceInput + "').val(),";
                             columns = columns + ' \'' + node.targetObject + '\',';
                             operators = operators + '\"' + node.sourceInput + '# LIKE \'%{0}%\' \",';
-                            oddBackground = !oddBackground;
+                           // oddBackground = !oddBackground;
                         }
                         else if (node.dataType === 'comboSpokenLanguages') {
                             $('#searchControls').append(String.format('<div id="div{0}" {2}><label>{1}</label><div class="dyn-form-group"><div class=""><div class="divControl"><select class="form-control selectpicker" id="selectpicker{0}"><option value="1" >French</option><option value="2" >English</option><option value="3" >Spanish</option><option value="4" >Tibetan</option></select><input type="text" class="hide selectedIds" autocomplete="off" id="hidden{0}" value=""></div></div></div></div></div></div>', node.sourceInput.replace("#", ""), node.text, (oddBackground) ? "class='oddBackground'" : "")).hide().fadeIn(1000);
@@ -254,7 +255,7 @@ function getTree() {
                             //$(node.sourceInput).parent().children('.selectpicker').selectpicker('val');
                             columns = columns + ' \'' + node.targetObject + '\',';
                             operators = operators + '\"' + node.sourceInput + '# LIKE \'%{0}%\' \",';
-                            oddBackground = !oddBackground;
+                            //oddBackground = !oddBackground;
 
                         }
                         else if (node.dataType === 'ComboReligiousSituation') {
@@ -275,7 +276,8 @@ function getTree() {
 
                         $(node.sourceInput).focus();
                     }
-
+                    columnsCount = eval('[' + columns.substr(0, columns.length - 1) + '];');
+                    oddBackground = (columnsCount.length % 2) == 0;
                 },
                 onNodeUnchecked: function (event, node) {
                     if (node.dataType === 'table') {
@@ -331,6 +333,8 @@ function getTree() {
                         fadeOutWipeContent(String.format("#div{0}", node.sourceInput.replace("#", "")));
                         resetOperator(node);
                     }
+                    columnsCount = eval('[' + columns.substr(0, columns.length - 1) + '];');
+                    oddBackground = (columnsCount.length % 2) == 0;
                     buildQuery();
                 },
                 onNodeExpanded: function (event, data) {

@@ -548,7 +548,7 @@ namespace DNXTest.Dal
                         if(operatorX.Contains("LIKE"))
                         {
                             var fieldAndOperator = String.Format("lower({0}) {1}{2}", columnsArray[index], operatorX, ((index + 1) < valuesArray.Length) ? " and " : string.Empty);
-                            query.AppendFormat(fieldAndOperator, valuesArray[index].ToLower());
+                            query.AppendFormat(fieldAndOperator, (valuesArray[index] ?? string.Empty).ToLower());
                         }
                         else
                         {

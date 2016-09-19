@@ -10,7 +10,5 @@
 /// <reference path="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" />
 /// <reference path="lib/jquery.bootgrid/dist/jquery.bootgrid.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
-/// <reference path="lib/jquery-validation/dist/jquery.validate.js" />
-/// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
 /// <reference path="lib/moment/moment.js" />
 /// <reference path="lib/moment-timezone/builds/moment-timezone-with-data-2010-2020.js" />

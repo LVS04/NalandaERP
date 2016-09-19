@@ -7,26 +7,26 @@
     string hiddenInputFieldContact_WithValue = "<input type='text' class='hide selectedIds' type='text' autocomplete='off' name='ContactDonorInfo[{0}]' value ='{1}' >";
 
 }
-
-<div class="col-sm-4">
-    <div class="form-group">
-        <label class="" for="FiscalId">Last Donation date ( YYYY-MM-DD )</label>
-        <div class="divControl">
-            <div class='input-group date'>
-                @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "LastDonationDate", Model.LastDonationDate ?? DateTime.MinValue))
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
+<div class="container">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label class="" for="FiscalId">Last Donation( YYYY-MM-DD )</label>
+            <div class="divControl">
+                <div class='input-group date'>
+                    @Html.Raw(string.Format(inputDateFieldHTML__WithValue, "LastDonationDate", Model.LastDonationDate ?? DateTime.MinValue))
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-4">
-    <div class="form-group">
-        <label class="" for="Spoken Languages">Religious Situation</label>
-        <div class="">
-            <div class="divControl">
-                @{var listofItems = new SelectList(new List<SelectListItem>()
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label class="" for="Spoken Languages">Religious Situation</label>
+            <div class="">
+                <div class="divControl">
+                    @{var listofItems = new SelectList(new List<SelectListItem>()
                         {
                             new SelectListItem() {Value ="0", Text=""},
                             new SelectListItem() {Value ="1", Text="Laymen"},
@@ -34,35 +34,35 @@
                             new SelectListItem() {Value ="3", Text="Full Ordination"},
                             new SelectListItem() {Value ="4", Text="Disrobed"},
                         });
-                    string[] DonorReligiousSituation = Model.DonorReligiousSituationId.Split(',');
-                }
-
-                @Html.Raw(string.Format("<select class='form-control selectpicker' name=''>"))
-                @foreach (SelectListItem i in listofItems.Items)
-                {
-                    string val = i.Value;
-                    if (DonorReligiousSituation.Contains(val))
-                    {
-                        @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                        string[] DonorReligiousSituation = Model.DonorReligiousSituationId.Split(',');
                     }
-                    else
-                    {
-                        @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
-                    }
-                }
-                @Html.Raw(string.Format("</select>"))
 
-                @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "DonorReligiousSituationId", Model.DonorReligiousSituationId))
+                    @Html.Raw(string.Format("<select class='form-control selectpicker' name=''>"))
+                    @foreach (SelectListItem i in listofItems.Items)
+                    {
+                        string val = i.Value;
+                        if (DonorReligiousSituation.Contains(val))
+                        {
+                            @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                        }
+                        else
+                        {
+                            @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
+                        }
+                    }
+                    @Html.Raw(string.Format("</select>"))
+
+                    @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "DonorReligiousSituationId", Model.DonorReligiousSituationId))
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-4">
-    <div class="form-group">
-        <label class="" for="DonorTypeId">Donor Type</label>
-        <div class="">
-            <div class="divControl">
-                @{var listofItems2 = new SelectList(new List<SelectListItem>()
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label class="" for="DonorTypeId">Donor Type</label>
+            <div class="">
+                <div class="divControl">
+                    @{var listofItems2 = new SelectList(new List<SelectListItem>()
                         {
                             new SelectListItem() {Value ="0", Text=""},
                             new SelectListItem() {Value ="1", Text="Small"},
@@ -70,31 +70,31 @@
                             new SelectListItem() {Value ="3", Text="Grand Sponsor"},
                             new SelectListItem() {Value ="4", Text="Friends of Nalanda"},
                         });
-                    string[] DonorTypeId = Model.DonorTypeId.Split(',');
-                }
-
-                @Html.Raw(string.Format("<select class='form-control selectpicker'  name=''>"))
-                @foreach (SelectListItem i in listofItems2.Items)
-                {
-                    string val = i.Value;
-                    if (DonorTypeId.Contains(val))
-                    {
-                        @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                        string[] DonorTypeId = Model.DonorTypeId.Split(',');
                     }
-                    else
-                    {
-                        @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
-                    }
-                }
-                @Html.Raw(string.Format("</select>"))
 
-                @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "DonorTypeId", Model.DonorTypeId))
+                    @Html.Raw(string.Format("<select class='form-control selectpicker'  name=''>"))
+                    @foreach (SelectListItem i in listofItems2.Items)
+                    {
+                        string val = i.Value;
+                        if (DonorTypeId.Contains(val))
+                        {
+                            @Html.Raw(string.Format("<option value={0} selected>{1}</option>", i.Value, i.Text));
+                        }
+                        else
+                        {
+                            @Html.Raw(string.Format("<option value={0} >{1}</option>", i.Value, i.Text));
+                        }
+                    }
+                    @Html.Raw(string.Format("</select>"))
+
+                    @Html.Raw(string.Format(hiddenInputFieldContact_WithValue, "DonorTypeId", Model.DonorTypeId))
+                </div>
             </div>
         </div>
+
     </div>
-
 </div>
-
  <div class="col-sm-12">
     <div class="form-group">
         <label class="" for="Spoken Languages">Donor Contexts</label>

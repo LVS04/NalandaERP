@@ -1,5 +1,6 @@
 {
   "userSecretsId": "AspNet5-DNXTest-7773f097-f72d-4ee4-bcbf-ef291e19d8b4",
+  "webroot": "wwwroot",
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -31,11 +32,12 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "Newtonsoft.Json": "8.0.3"
+    "Newtonsoft.Json": "8.0.3",
+    "dnx-clr-win-x64": "1.0.0-rc1-update2"
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel --server.urls=http://192.168.56.101:80;",
+    "web": "Microsoft.AspNet.Server.Kestrel",
     "ef": "EntityFramework.Commands"
   },
 

@@ -44,6 +44,7 @@ $('#myTabs a').click(function (e) {
 
 
 
+
 //  Fields focus scroll - start
 //  ---------------------------
 (function ($) {
@@ -134,6 +135,11 @@ var oddBackground = true;
 
 
 
+//  One time only combos startup
+//  ----------------------------
+$('.combobox').combobox();
+
+
 
 //  Date controls and validations
 //  -----------------------------
@@ -154,6 +160,8 @@ $("#datetimepicker-when-startdate").on("dp.change", function (e) {
 $("#datetimepicker-passport-expiry").on("dp.change", function (e) {
     $('#datetimepicker-when-enddate').data("DateTimePicker").maxDate(e.date);
 });
+
+
 
 
 
@@ -268,7 +276,7 @@ function ControlsEventBindings() {
             $("#divHealth").scrollTo("#divHistory");
         });
 
-        $('.combobox').combobox();
+        //
 
         $('.selectpicker').selectpicker({
             size: 5
