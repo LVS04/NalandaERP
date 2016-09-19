@@ -31,17 +31,12 @@ SetFullName();
 
 
 
-
-
 //  Contacts tabs activation - start
 //  --------------------------------
 $('#myTabs a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
 });
-
-
-
 
 
 
@@ -68,15 +63,14 @@ $('#myTabs a').click(function (e) {
 
 
 function clearForm() {
-
     
     //  Remove all dynamically added content to reset form
-    fadeOutWipeContent("#divNewAddress");
-    fadeOutWipeContent("#divNewPhone");
-    fadeOutWipeContent("#divNewEmail");
-    fadeOutWipeContent("#divNewWebsite");
-    fadeOutWipeContent("#divNewIM");
-    fadeOutWipeContent("#divNewInternetCallId");
+    fadeOutWipeChildren("#divNewAddress");
+    fadeOutWipeChildren("#divNewPhone");
+    fadeOutWipeChildren("#divNewEmail");
+    fadeOutWipeChildren("#divNewWebsite");
+    fadeOutWipeChildren("#divNewIM");
+    fadeOutWipeChildren("#divNewInternetCallId");
 
     
 
@@ -219,12 +213,16 @@ function OtherEventBindings() {
         });
     })
 
-}
-
-function ControlsEventBindings() {
     BindScrollFocus("#divMain");
     BindScrollFocus("#divVolunteering");
     BindScrollFocus("#divHealth");
+
+}
+
+function ControlsEventBindings() {
+    //BindScrollFocus("#divMain");
+    //BindScrollFocus("#divVolunteering");
+    //BindScrollFocus("#divHealth");
  
     if (typeof advancedSearch == 'undefined')
     {
@@ -304,7 +302,8 @@ $("#btnAddAddress").click(function () {
     }
 
     oddBackground = !oddBackground;
-    ControlsEventBindings();
+    //ControlsEventBindings();
+    OtherEventBindings();
 });
 
 $("#btnAddPhone").click(function () {
@@ -313,7 +312,8 @@ $("#btnAddPhone").click(function () {
 
     $("#divNewPhone").append('<div class="divPhone"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Phone Nr</label><div class=""><input class="form-control text-box single-line" name="Phones[][Number]" type="text" value="" ></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" name="Phones[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove phone" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
-    ControlsEventBindings();
+    //ControlsEventBindings();
+    OtherEventBindings();
 });
 
 $("#btnAddEmail").click(function () {
@@ -322,7 +322,8 @@ $("#btnAddEmail").click(function () {
 
     $("#divNewEmail").append('<div class="divEmail"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">E-Mail</label><div class=""><input class="form-control text-box single-line zemail" autocomplete="off" name="Emails[][Email]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" id="" autocomplete="off" name="Emails[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove e-mail" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
-    ControlsEventBindings();
+    //ControlsEventBindings();
+    OtherEventBindings();
 });
 
 $("#btnAddWebsite").click(function () {
@@ -331,7 +332,8 @@ $("#btnAddWebsite").click(function () {
 
     $("#divNewWebsite").append('<div class="divWebsite"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Website</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Website must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Websites[][Website]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="Websites[][Description]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove website" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
 
-    ControlsEventBindings();
+    //ControlsEventBindings();
+    OtherEventBindings();
 });
 
 $("#btnAddIM").click(function () {
@@ -340,7 +342,8 @@ $("#btnAddIM").click(function () {
 
     $("#divNewIM").append('<div class="divIM"><div class="row container oddBackground paddingTop10"><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Number">Instant Messaging</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field InstantMessaging must be a string with a maximum length of 50." data-val-length-max="50" id="" name="IMs[][InstantMessaging]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Description">Instant Messaging Contact</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field IMContact must be a string with a maximum length of 50." data-val-length-max="50" id="" name="IMs[][IMContact]" type="text" value=""></div></div></div><div class="col-sm-4 oddBackground"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove IM" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     
-    ControlsEventBindings();
+    //ControlsEventBindings();
+    OtherEventBindings();
 });
 
 $("#btnAddInternetCallId").click(function () {
@@ -349,7 +352,8 @@ $("#btnAddInternetCallId").click(function () {
 
     $("#divNewInternetCallId").append('<div class="divInternetCalls"><div class="row container oddBackground paddingTop10"><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Number">Internet Call Id</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field InternetCallId must be a string with a maximum length of 50." data-val-length-max="50" id="" name="InternetCallIds[][InternetCallId]" type="text" value=""></div></div></div><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Description">Description</label><div class=""><input class="form-control text-box single-line" data-val="true" data-val-length="The field Description must be a string with a maximum length of 50." data-val-length-max="50" id="" name="InternetCallIds[][Description]" type="text" value=""></div></div></div><div class=" col-sm-4 oddBackground paddingBottom25"><div class="form-group"><label class="" for="Contry">&nbsp;</label><div class=""><input type="button" value="Remove Internet call id" class="btn btn-default removeDiv"></div></div></div></div></div>').hide().fadeIn(1000);
     
-    ControlsEventBindings();
+    //ControlsEventBindings();
+    OtherEventBindings();
 });
 
 // Contact page end
