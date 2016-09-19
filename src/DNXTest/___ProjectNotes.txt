@@ -3,79 +3,42 @@
 TODO: check first name visible if filled!!!
 -- complete asyncs for non-availables!!!
 -- update log reflection getcurrentmethod().name when available
--- donorinfo totally wrong
 -- lookup country table and include in addresses
 -- correct the error while zooming of the buttons
 -- related contact 
--- after saving successfully - event - return message good or bad in a modal and after 
--- if field set do not save
 -- verify if there is a contact with the same name characteristikzz
 	this week;
 	 check site user table and database
 	- check different events forms to make the question pool 
 
 
-Interface prototype demo:
-- show menus with functionality goals
-
-- talk about events 
-
-- show name, save, delete etc...
-- show scroll
-- show add phone
-- show other tabs
-
-ideas for the interface:
-- search ( will search all fields from contacts available with contains( string len greater than 3 ) and tags, build list and show immediate results upon inserting. Allways updating the nr of records found and alfa sorting the list ) 
-  - the number of records will be shown at the right of search like 
-
 - add contact custom tags, also searchable
 	- show example
-
-- search with onmouseover with a timer of one second on item shows it with fade, when click holds the selection and possibly dismisses the list of found elements
-- respect the save button on bottom
-
 
 // country list http://www.nationsonline.org/oneworld/countries_of_the_world.htm
 
 
 
-
-
-
-
-
-To install from scratch:
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- Role: ERPWeb in Postgres server
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- DROP ROLE "ERPWeb";
-
-
-CREATE ROLE "ERPWeb" LOGIN
-  ENCRYPTED PASSWORD 'md5d671ac436dfccbf45645406ab68e570e'
-  NOSUPERUSER INHERIT CREATEDB NOCREATEROLE NOREPLICATION;
-
-
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- ASP.NET identity tables 
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------
 http://kerryritter.com/getting-started-with-postgresql/
 
--- upgrading the vm
-dnvm upgrade -r clr  
-?dnvm upgrade -r coreclr
+
+
+-- dnx setup on windows/linux
+-----------------------------
+C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm alias default 1.0.0-rc1-update2 -r coreclr -arch x64
+C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm install default
+C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm use 1.0.0-rc1-update2 -r coreclr -arch x64 -p 
+
 dnvm list
 
-Active Version              Runtime Architecture OperatingSystem Alias
------- -------              ------- ------------ --------------- -----
-       1.0.0-rc1-update1    coreclr x64          linux            
-       1.0.0-rc1-update2    coreclr x64          linux           
-  *    1.0.0-rc2-20221      coreclr x64          linux           default
+Active Version           Runtime Architecture Location                   Alias
+------ -------           ------- ------------ --------                   -----
+       1.0.0-rc1-final   clr     x86          C:\Users\DEV\.dnx\runtimes
+       1.0.0-rc1-update2 clr     x64          C:\Users\DEV\.dnx\runtimes
+       1.0.0-rc1-update2 clr     x86          C:\Users\DEV\.dnx\runtimes
+  *    1.0.0-rc1-update2 coreclr x64          C:\Users\DEV\.dnx\runtimes def...
 
 
 -- upgrading the packages 
@@ -89,26 +52,14 @@ dnx web
 dnx ef migrations add init
 dnx ef database update
 
-
-
-C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm alias default 1.0.0-rc1-update2 -r coreclr -arch x64
-C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm install default
-C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm use default -p ;to persist changes in path - reboot to test
-C:\Program Files (x86)\Microsoft Visual Studio 14.0>dnvm use 1.0.0-rc1-update2 -r coreclr -arch x64
-
-
-
-
-dnx ef migrations add NewApplicationDatabase -c DomainModelPostgreSqlContext
-
 -- to undo previous step do 
 dnx ef migrations remove
 
--- update database
+-- update database with context
 dnx ef database update -c DomainModelPostgreSqlContext
 
 
-Running the console application on git shell:
+Running the console application project on git shell:
 - dnvm use 1.0.0-rc1-update2 -r coreclr -arch x64
 - in the project folder
 	- dnu restore 
@@ -116,8 +67,16 @@ Running the console application on git shell:
 	- dnx run .\JSON-ObjectDeserializatioPOC.xproj
 
 
+
+-- Setting kestrel local server address and port on project.json
+----------------------------------------------------------------
 "commands": {
     "web": "Microsoft.AspNet.Server.Kestrel --server.urls=http://192.168.101.19:80;",
     "ef": "EntityFramework.Commands"
   },
 
+
+
+-- Running scritp to add test contacts on linux from the console
+----------------------------------------------------------------
+sudo -upostgres psql -d NalandaERP -A -f ContactFakes.sql
